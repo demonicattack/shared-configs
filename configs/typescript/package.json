@@ -1,0 +1,26 @@
+{
+  "name": "@demonicattack/typescript",
+  "version": "0.0.0",
+  "type": "module",
+  "files": [
+    "base.json"
+  ],
+  "scripts": {
+    "clean": "rimraf .yarn",
+    "format": "prettier --check . --cache --cache-location .yarn/cache/.prettiercache",
+    "format:fix": "prettier --write . --cache --cache-location .yarn/cache/.prettiercache --log-level=warn"
+  },
+  "prettier": "./prettier.config.js",
+  "dependencies": {
+    "typescript": "^5.6.3"
+  },
+  "devDependencies": {
+    "@demonicattack/prettier": "workspace:^",
+    "prettier": "^3.3.3",
+    "rimraf": "^6.0.1"
+  },
+  "peerDependencies": {
+    "typescript": "5.6.3"
+  },
+  "packageManager": "yarn@4.5.1"
+}

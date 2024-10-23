@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "tsBuildInfoFile": ".yarn/cache/tsbuildinfo.json"
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
+  "extends": "@demonicattack/typescript/base.json",
+  "include": [
+    "**/*.ts"
+  ]
+}

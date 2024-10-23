@@ -1,4 +1,38 @@
 {
-  "name": "shared",
+  "name": "@demonicattack/shared-configs",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "configs/*"
+  ],
+  "scripts": {
+    "build": "yarn workspaces foreach -Apt run build",
+    "cache:clean": "yarn cache clean --all && rm -rf .yarn/cache .yarn/__virtual__ .yarn/berry",
+    "check-types": "yarn workspaces foreach -Apt run check-types",
+    "clean": "yarn workspaces foreach -Apt run clean",
+    "clean:all": "yarn run clean && yarn run cache:clean",
+    "doctor": "yarn dlx @yarnpkg/doctor@latest",
+    "format": "prettier --check . --cache --cache-location .yarn/cache/.prettiercache",
+    "format:all": "yarn workspaces foreach -Apt run format && yarn format",
+    "format:fix": "prettier --write . --cache --cache-location .yarn/cache/.prettiercache --log-level=warn",
+    "format:fix:all": "yarn workspaces foreach -Apt run format:fix && yarn format:fix",
+    "lint": "eslint",
+    "sdk": "yarn dlx @yarnpkg/sdks@latest",
+    "sherif": "yarn dlx sherif@latest",
+    "yarn:focus:all": "yarn workspaces focus -A",
+    "yarn:workspace:list": "yarn workspaces list -R -v --json --no-private"
+  },
+  "prettier": "./prettier.config.js",
+  "devDependencies": {
+    "@demonicattack/prettier": "workspace:^",
+    "@demonicattack/typescript": "workspace:^",
+    "@eslint/js": "^9.13.0",
+    "eslint": "^9.13.0",
+    "globals": "^15.11.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.11.0"
+  },
   "packageManager": "yarn@4.5.1"
 }

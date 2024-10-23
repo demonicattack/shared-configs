@@ -1,0 +1,34 @@
+{
+  "name": "@demonicattack/utils",
+  "version": "0.0.0",
+  "type": "module",
+  "exports": "./dist/index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "typings": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "yarn run build:clean && yarn run check-types && tsup",
+    "build:clean": "rimraf dist",
+    "check-types": "tsc --noEmit",
+    "clean": "rimraf .yarn",
+    "format": "prettier --check . --cache --cache-location .yarn/cache/.prettiercache",
+    "format:fix": "prettier --write . --cache --cache-location .yarn/cache/.prettiercache --log-level=warn"
+  },
+  "prettier": "./prettier.config.js",
+  "devDependencies": {
+    "@demonicattack/prettier": "workspace:^",
+    "@demonicattack/typescript": "workspace:^",
+    "@types/node": "^22.7.7",
+    "prettier": "^3.3.3",
+    "rimraf": "^6.0.1",
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.3"
+  },
+  "peerDependencies": {
+    "typescript": "^5.6.3"
+  },
+  "packageManager": "yarn@4.5.1"
+}

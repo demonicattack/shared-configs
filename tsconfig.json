@@ -1,0 +1,5 @@
+{
+  "extends": [
+    "@demonicattack/typescript/base.json"
+  ]
+}

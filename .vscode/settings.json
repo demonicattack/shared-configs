@@ -1,0 +1,16 @@
+{
+  "eslint.workingDirectories": [
+    {
+      "mode": "auto"
+    }
+  ],
+  "search.exclude": {
+    "**/.yarn": true,
+    "**/.pnp.*": true
+  },
+  "npm.packageManager": "yarn",
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
+  "eslint.nodePath": ".yarn/sdks",
+  "prettier.prettierPath": ".yarn/sdks/prettier/index.cjs",
+  "typescript.enablePromptUseWorkspaceTsdk": true
+}
