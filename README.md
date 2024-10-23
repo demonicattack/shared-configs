@@ -1,1 +1,2 @@
-# @demonicattack/shared
+# @demonicattack/shared-configs
+
