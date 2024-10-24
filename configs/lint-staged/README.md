@@ -1,0 +1,1 @@
+# @demonicattack/lint-staged

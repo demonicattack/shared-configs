@@ -1,0 +1,14 @@
+{
+  "files": [],
+  "references": [
+    {
+      "path": "./prettier"
+    },
+    {
+      "path": "./utils"
+    },
+    {
+      "path": "./lint-staged"
+    }
+  ]
+}
