@@ -9,12 +9,14 @@
     "dist"
   ],
   "scripts": {
-    "build": "pnpm build:clean && tsup",
+    "build": "yarn run build:clean && yarn run check-types && tsup",
     "build:clean": "rimraf dist",
     "check-types": "tsc --noEmit",
     "clean": "rm -rf .yarn",
     "format": "prettier --check . --cache --cache-location .yarn/cache/.prettiercache",
-    "format:fix": "prettier --write . --cache --cache-location .yarn/cache/.prettiercache --log-level=warn"
+    "format:fix": "prettier --write . --cache --cache-location .yarn/cache/.prettiercache --log-level=warn",
+    "lint": "eslint --cache --cache-location .yarn/cache/.eslintcache",
+    "lint:fix": "eslint --fix --cache --cache-location .yarn/cache/.eslintcache"
   },
   "prettier": "./prettier.config.js",
   "dependencies": {
@@ -22,8 +24,11 @@
     "micromatch": "^4.0.8"
   },
   "devDependencies": {
+    "@demonicattack/eslint": "workspace:^",
     "@demonicattack/prettier": "workspace:^",
+    "@demonicattack/typescript": "workspace:^",
     "@types/micromatch": "^4.0.9",
+    "eslint": "^9.13.0",
     "prettier": "^3.3.3",
     "rimraf": "^6.0.1",
     "tsup": "^8.3.0",

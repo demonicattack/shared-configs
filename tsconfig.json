@@ -1,9 +1,3 @@
 {
-  "compilerOptions": {
-    "tsBuildInfoFile": ".yarn/cache/tsbuildinfo.json"
-  },
-  "exclude": [
-    "node_modules"
-  ],
   "extends": "@demonicattack/typescript/base.json"
 }

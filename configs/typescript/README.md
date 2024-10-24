@@ -1,1 +1,1 @@
-# typescript
+# @demonicattack/typescript

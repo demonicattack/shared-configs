@@ -1,11 +1,12 @@
 {
-  "name": "@demonicattack/utils",
-  "version": "0.0.0",
+  "name": "@demonicattack/typegen",
+  "license": "MIT",
   "type": "module",
   "exports": "./dist/index.js",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "typings": "./dist/index.d.ts",
+  "bin": "./dist/index.js",
   "files": [
     "dist"
   ],
@@ -15,19 +16,25 @@
     "check-types": "tsc --noEmit",
     "clean": "rimraf .yarn",
     "format": "prettier --check . --cache --cache-location .yarn/cache/.prettiercache",
-    "format:fix": "prettier --write . --cache --cache-location .yarn/cache/.prettiercache --log-level=warn"
+    "format:fix": "prettier --write . --cache --cache-location .yarn/cache/.prettiercache --log-level=warn",
+    "lint": "eslint --cache --cache-location .yarn/cache/.eslintcache",
+    "lint:fix": "eslint --fix --cache --cache-location .yarn/cache/.eslintcache"
   },
-  "prettier": "./prettier.config.js",
+  "dependencies": {
+    "tsx": "^4.19.1"
+  },
   "devDependencies": {
+    "@demonicattack/eslint": "workspace:^",
     "@demonicattack/prettier": "workspace:^",
-    "@types/node": "^22.7.7",
+    "@demonicattack/typescript": "workspace:^",
+    "eslint": "^9.13.0",
     "prettier": "^3.3.3",
     "rimraf": "^6.0.1",
     "tsup": "^8.3.0",
     "typescript": "^5.6.3"
   },
   "peerDependencies": {
-    "typescript": "^5.6.3"
+    "tsx": "^4.19.1"
   },
   "packageManager": "yarn@4.5.1"
 }
