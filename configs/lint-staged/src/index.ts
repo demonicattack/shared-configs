@@ -56,9 +56,7 @@ const config = (options: IConfigOptions = {}) => {
         commands.push(`${PRETTIER} ${prettierFiles.join(' ')}`);
     }
 
-    if (commands.length === 0) {
-        return ['echo "No matching files for linting"'];
-    }
+    if (commands.length === 0) return ['echo "No matching files for linting"'];
 
     return commands;
 };
