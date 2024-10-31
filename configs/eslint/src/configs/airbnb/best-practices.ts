@@ -1,6 +1,4 @@
-import type { TFlatConfigItem } from '../../types';
-
-const bestPractices = async (): Promise<TFlatConfigItem['rules']> => ({
+const bestPractices = {
     'array-callback-return': [
         'error',
         { allowImplicit: true },
@@ -70,6 +68,6 @@ const bestPractices = async (): Promise<TFlatConfigItem['rules']> => ({
     'prefer-regex-literals': 'error',
     'vars-on-top': 'off',
     yoda: 'warn',
-});
+};
 
 export { bestPractices };

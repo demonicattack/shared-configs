@@ -1,9 +1,11 @@
-import { isPackageExists } from 'local-pkg';
-import { fileURLToPath } from 'node:url';
+import { isPackageExists }                 from 'local-pkg';
+import { createRequire }                   from 'node:module';
+import { fileURLToPath }                   from 'node:url';
 
 import type { Awaitable, TFlatConfigItem } from './types';
 
 const scopeUrl = fileURLToPath(new URL('.', import.meta.url));
+const requireEslintTool = createRequire(new URL(import.meta.url));
 
 const isPackageInScope = (name: string): boolean => isPackageExists(name, { paths: [scopeUrl] });
 
@@ -49,4 +51,6 @@ const renameRules = (rules: Record<string, any>, map: Record<string, string>): R
         ),
     );
 
-export { combine, interopDefault, isBoolean, isPackageInScope, renameRules, toArray };
+
+
+export { combine, interopDefault, isBoolean, isPackageInScope, renameRules, requireEslintTool, toArray };

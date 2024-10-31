@@ -1,8 +1,8 @@
 import { eslintPrettierConfig } from './config';
-import { reformattedRules } from './utils';
+import { reformattedRules }     from './utils';
 
-const prettierReformattedRules = async (): Promise<Record<string, any>> => ({
+const prettierReformattedRules = {
     ...reformattedRules(eslintPrettierConfig.rules),
-});
+};
 
 export { prettierReformattedRules };

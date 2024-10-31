@@ -1,6 +1,6 @@
-import { eslintBetterMutationPlugin } from '../plugins';
+import { eslintBetterMutationPlugin }              from '../plugins';
 import type { IOptionsOverrides, TFlatConfigItem } from '../types';
-import { renameRules } from '../utils';
+import { renameRules }                             from '../utils';
 
 const mutation = async (options: IOptionsOverrides = {}): Promise<TFlatConfigItem[]> => {
     const { overrides = {} } = options;

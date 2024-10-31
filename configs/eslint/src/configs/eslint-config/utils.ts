@@ -1,12 +1,12 @@
 import type { TFlatConfigItem } from '../../types';
 
-const getRulesByConfigName = (configName: string, configs: TFlatConfigItem[]) =>
-    configs
-        .filter((config: TFlatConfigItem) => config.name === configName && config.rules)
-        .map((config: TFlatConfigItem) => config.rules)
-        .reduce(
-            (accumulator: TFlatConfigItem['rules'], rules: TFlatConfigItem['rules']) => ({ ...accumulator, ...rules }),
-            {},
-        );
-
+const getRulesByConfigName = (configName: string, configs: TFlatConfigItem[]) => {
+  let rules = {};
+  for (const config of configs) {
+    if (config.name === configName && config.rules) {
+      rules = { ...rules, ...config.rules };
+    }
+  }
+  return rules;
+};
 export { getRulesByConfigName };

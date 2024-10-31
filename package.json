@@ -11,7 +11,7 @@
   "scripts": {
     "build": "yarn workspaces foreach -Apt run build",
     "build:workspaces:clean": "yarn workspaces foreach -Apt run build:clean",
-    "cache:clean": "yarn cache clean --all && rm -rf .yarn/cache .yarn/__virtual__ .yarn/berry",
+    "cache:clean": "yarn cache clean --all && rm -rf .yarn/cache .yarn/__virtual__ .yarn/berry ./.pnp.cjs ./.pnp.loader.mjs .yarn node_modules",
     "check-types": "yarn workspaces foreach -Apt run tsc --noEmit",
     "clean:all": "yarn run build:workspaces:clean && yarn run clean:workspaces:cache && yarn run cache:clean",
     "clean:workspaces:cache": "yarn workspaces foreach -Apt run clean",
@@ -23,7 +23,7 @@
     "lint:fix": "yarn workspaces foreach -Apt run eslint --fix --cache --cache-location .yarn/cache/.eslintcache",
     "lint:ws": "yarn dlx sherif@latest -r packages-without-package-json",
     "prepare": "husky",
-    "sdk": "yarn dlx @yarnpkg/sdks@latest",
+    "sdk": "yarn dlx @yarnpkg/sdks@latest vscode",
     "yarn:focus:all": "yarn workspaces focus -A",
     "yarn:workspace:list": "yarn workspaces list -R -v --json --no-private"
   },
@@ -41,10 +41,8 @@
     "@demonicattack/lint-staged": "workspace:^",
     "@demonicattack/prettier": "workspace:^",
     "@demonicattack/typescript": "workspace:^",
-    "commitizen": "^4.3.1",
     "eslint": "^9.13.0",
     "husky": "^9.1.6",
-    "inquirer": "^12.0.0",
     "lint-staged": "^15.2.10",
     "prettier": "^3.3.3",
     "typescript": "^5.6.3"

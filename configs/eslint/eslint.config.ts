@@ -18,11 +18,18 @@ export default config({
         'typegen.d.ts',
         '.eslint-config-inspector',
     ],
-    import: true,
+    import: {
+      overrides: {},
+      react: true,
+      typescript: true
+    },
     js: {
         configurations: {
-            onEslintAirBnbBaseConfigRules: true,
-            // onEslintBaseEslintFormattingConfigRules: false,
+          airbnb: true,
+          all: true,
+          base: true,
+          formatter: true,
+          recommended: true,
         },
         overrides: {},
     },
@@ -37,7 +44,7 @@ export default config({
     'no-commented-code': true,
     perfectionist: true,
     prettier: {
-        onPrettierRecommendedConfigRules: true,
+        recommended: true,
     },
     promise: true,
     react: true,
@@ -48,8 +55,8 @@ export default config({
     ts: true,
     tw: true,
     unicorn: {
-        onEslintBaseUnicornConfigRules: true,
-        onUnicornRecommendedConfigRules: true,
+        base: true,
         overrides: {},
+        recommended: true,
     },
 });

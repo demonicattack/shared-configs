@@ -1,6 +1,4 @@
-import type { TFlatConfigItem } from '../../types';
-
-const es6 = async (): Promise<TFlatConfigItem['rules']> => ({
+const es6 = {
     'arrow-body-style': [
         'error',
         'as-needed',
@@ -56,6 +54,6 @@ const es6 = async (): Promise<TFlatConfigItem['rules']> => ({
     'prefer-spread': 'error',
     'prefer-template': 'warn',
     'symbol-description': 'error',
-});
+};
 
 export { es6 };

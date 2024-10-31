@@ -1,6 +1,6 @@
-import { eslintTailwindcssPlugin } from '../plugins';
+import { eslintTailwindcssPlugin }                 from '../plugins';
 import type { IOptionsOverrides, TFlatConfigItem } from '../types';
-import { renameRules } from '../utils';
+import { renameRules }                             from '../utils';
 
 const tailwindcss = async (options: IOptionsOverrides = {}): Promise<TFlatConfigItem[]> => {
     const { overrides = {} } = options;

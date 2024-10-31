@@ -1,4 +1,4 @@
-import { eslintSortClassMembersPlugin } from '../plugins';
+import { eslintSortClassMembersPlugin }            from '../plugins';
 import type { IOptionsOverrides, TFlatConfigItem } from '../types';
 
 const sortClassMembers = async (options: IOptionsOverrides = {}): Promise<TFlatConfigItem[]> => {

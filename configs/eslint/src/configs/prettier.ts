@@ -1,12 +1,10 @@
-import { eslintPrettierPlugin } from '../plugins';
+import { eslintPrettierPlugin }                   from '../plugins';
 import type { IOptionsPrettier, TFlatConfigItem } from '../types';
 
-import { prettierReformattedRules } from './prettier-config';
+import { prettierReformattedRules }               from './prettier-config';
 
 const prettier = async (options: IOptionsPrettier = {}): Promise<TFlatConfigItem[]> => {
-    const { onPrettierRecommendedConfigRules = false } = options;
-
-    const reformattedRules = await prettierReformattedRules();
+    const { recommended = true } = options;
 
     return [
         {
@@ -16,7 +14,7 @@ const prettier = async (options: IOptionsPrettier = {}): Promise<TFlatConfigItem
             },
             rules: {
                 'prettier/prettier': 'error',
-                ...(onPrettierRecommendedConfigRules ? reformattedRules : {}),
+                ...(recommended ? prettierReformattedRules : {}),
             },
         },
     ];

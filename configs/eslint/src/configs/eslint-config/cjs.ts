@@ -1,14 +1,13 @@
 import { eslintConfigCjsESLint } from './config';
-import type { IEslintConfigCjs } from './types';
-import { getRulesByConfigName } from './utils';
+import { getRulesByConfigName }  from './utils';
 
-const eslintConfigCjs = async (): Promise<IEslintConfigCjs> => ({
+const eslintConfigCjs = {
     cjs: {
         rules: getRulesByConfigName('eslint-config-eslint/cjs', eslintConfigCjsESLint),
     },
     esm: {
         rules: getRulesByConfigName('eslint-config-eslint/esm', eslintConfigCjsESLint),
     },
-});
+};
 
 export { eslintConfigCjs };

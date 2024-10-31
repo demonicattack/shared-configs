@@ -1,9 +1,9 @@
-import { eslintUnicornPlugin } from '../plugins';
+import { eslintUnicornPlugin }                                      from '../plugins';
 import type { IOptionsOverrides, IOptionsUnicorn, TFlatConfigItem } from '../types';
 
-import { eslintConfigBase } from './eslint-config';
+import { eslintConfigBase }                                         from './eslint-config';
 
-const getSharedRules = async (): Promise<TFlatConfigItem['rules']> => ({
+const sharedRules = () => ({
     'unicorn/consistent-destructuring': 'off',
     'unicorn/consistent-empty-array-spread': 'error',
     'unicorn/consistent-function-scoping': 'warn',
@@ -82,11 +82,7 @@ const getSharedRules = async (): Promise<TFlatConfigItem['rules']> => ({
 });
 
 const unicorn = async (options: IOptionsOverrides & IOptionsUnicorn = {}): Promise<TFlatConfigItem[]> => {
-    const { onEslintBaseUnicornConfigRules = false, onUnicornRecommendedConfigRules = true, overrides = {} } = options;
-
-    const { unicorn: eslintBaseUnicornConfigRules } = await eslintConfigBase();
-
-    const sharedRules = await getSharedRules();
+    const { base = true, overrides = {}, recommended = true } = options;
 
     return [
         {
@@ -95,8 +91,8 @@ const unicorn = async (options: IOptionsOverrides & IOptionsUnicorn = {}): Promi
                 ['unicorn']: eslintUnicornPlugin,
             },
             rules: {
-                ...(onUnicornRecommendedConfigRules ? eslintUnicornPlugin.configs['flat/recommended'].rules : {}),
-                ...(onEslintBaseUnicornConfigRules ? eslintBaseUnicornConfigRules.rules : {}),
+                ...(recommended ? eslintUnicornPlugin.configs['flat/recommended'].rules : {}),
+                ...(base ? eslintConfigBase.unicorn.rules : {}),
                 ...sharedRules,
                 ...overrides,
             },

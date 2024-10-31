@@ -1,23 +1,36 @@
-import { JAVASCRIPT_FILES, TYPESCRIPT_FILES } from '../constants';
-import { eslintImportPlugin, eslintSimpleImportSortPlugin } from '../plugins';
+import { JAVASCRIPT_FILES, TYPESCRIPT_FILES }                      from '../constants';
+import { eslintImportPlugin, eslintSimpleImportSortPlugin }        from '../plugins';
 import type { IOptionsImport, IOptionsOverrides, TFlatConfigItem } from '../types';
+import { requireEslintTool }                                       from '../utils';
 
-import { airbnbBaseImports } from './airbnb';
+import { airbnbBaseImports }                                       from './airbnb';
 
 const imrt = async (options: IOptionsImport & IOptionsOverrides = {}): Promise<TFlatConfigItem[]> => {
     const { overrides = {}, react = false, typescript = false } = options;
 
-    const airbnbBaseImportsResult = await airbnbBaseImports();
-
     const baseSettings = {
+      'import/parsers': {
+    [requireEslintTool('@typescript-eslint/parser')]: [
+      ...TYPESCRIPT_FILES,
+      '.d.ts',
+    ],
+  },
         'import/resolver': {
-            node: { extensions: JAVASCRIPT_FILES },
+            [requireEslintTool('eslint-import-resolver-node')]: {
+              extensions: [
+                ...JAVASCRIPT_FILES,
+                ...TYPESCRIPT_FILES,
+              ],
+            },
+            [requireEslintTool('eslint-import-resolver-typescript')]: {
+                alwaysTryTypes: true,
+            },
         },
     };
 
     const settings = {
         ...baseSettings,
-        ...airbnbBaseImportsResult.settings,
+        ...airbnbBaseImports.settings,
         ...(typescript && {
             ...eslintImportPlugin.flatConfigs.typescript.settings,
             'import/resolver': {
@@ -29,10 +42,7 @@ const imrt = async (options: IOptionsImport & IOptionsOverrides = {}): Promise<T
             ...eslintImportPlugin.flatConfigs.react.settings,
             'import/resolver': {
                 node: {
-                    extensions: [
-                        ...JAVASCRIPT_FILES,
-                        ...TYPESCRIPT_FILES,
-                    ],
+                    extensions: [...JAVASCRIPT_FILES, ...TYPESCRIPT_FILES],
                 },
             },
         }),
@@ -49,7 +59,7 @@ const imrt = async (options: IOptionsImport & IOptionsOverrides = {}): Promise<T
                 ...eslintImportPlugin.flatConfigs.recommended.rules,
                 ...(react && eslintImportPlugin.flatConfigs.react.rules),
                 ...(typescript && eslintImportPlugin.flatConfigs.typescript.rules),
-                ...airbnbBaseImportsResult.rules,
+                ...airbnbBaseImports.rules,
                 'import/consistent-type-specifier-style': 'error',
                 'import/extensions': [
                     'error',
@@ -69,10 +79,7 @@ const imrt = async (options: IOptionsImport & IOptionsOverrides = {}): Promise<T
                 'import/no-default-export': 'error',
                 'import/no-duplicates': 'error',
                 'import/no-dynamic-require': 'warn',
-                'import/no-extraneous-dependencies': [
-                    'error',
-                    { includeTypes: true },
-                ],
+                'import/no-extraneous-dependencies': ['error', { includeTypes: true }],
                 'import/no-mutable-exports': 'error',
                 'import/no-named-default': 'error',
                 'import/no-nodejs-modules': 'warn',
@@ -87,11 +94,7 @@ const imrt = async (options: IOptionsImport & IOptionsOverrides = {}): Promise<T
                     'error',
                     {
                         groups: [
-                            [
-                                '^react',
-                                '^next',
-                                '^\\w',
-                            ],
+                            ['^react', '^next', '^\\w'],
                             ['^@app(/.*|$)'],
                             ['^@store(/.*|$)'],
                             ['^@components(/.*|$)'],
@@ -111,15 +114,8 @@ const imrt = async (options: IOptionsImport & IOptionsOverrides = {}): Promise<T
                             ['^@services(/.*|$)'],
                             ['^@shared(/.*|$)'],
                             ['^\\u0000'],
-                            [
-                                '^\\.\\.(?!/?$)',
-                                '^\\.\\./?$',
-                            ],
-                            [
-                                '^\\./(?=.*/)(?!/?$)',
-                                '^\\.(?!/?$)',
-                                '^\\./?$',
-                            ],
+                            ['^\\.\\.(?!/?$)', '^\\.\\./?$'],
+                            ['^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$'],
                             ['^.+\\.?(css)$'],
                         ],
                     },

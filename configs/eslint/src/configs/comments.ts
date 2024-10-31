@@ -1,6 +1,6 @@
-import { eslintCommentsPlugin } from '../plugins';
+import { eslintCommentsPlugin }                    from '../plugins';
 import type { IOptionsOverrides, TFlatConfigItem } from '../types';
-import { renameRules } from '../utils';
+import { renameRules }                             from '../utils';
 
 const comments = async (options: IOptionsOverrides = {}): Promise<TFlatConfigItem[]> => {
     const { overrides = {} } = options;

@@ -1,8 +1,7 @@
 import { eslintConfigBaseESLint } from './config';
-import type { IEslintConfigBase } from './types';
-import { getRulesByConfigName } from './utils';
+import { getRulesByConfigName }   from './utils';
 
-const eslintConfigBase = async (): Promise<IEslintConfigBase> => ({
+const eslintConfigBase = {
     eslintComments: {
         rules: getRulesByConfigName('eslint-config-eslint/eslint-comments', eslintConfigBaseESLint),
     },
@@ -15,6 +14,6 @@ const eslintConfigBase = async (): Promise<IEslintConfigBase> => ({
     unicorn: {
         rules: getRulesByConfigName('eslint-config-eslint/unicorn', eslintConfigBaseESLint),
     },
-});
+};
 
 export { eslintConfigBase };

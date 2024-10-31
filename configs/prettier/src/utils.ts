@@ -1,5 +1,5 @@
-import { createRequire } from 'node:module';
+// import { createRequire } from 'node:module';
 
-const require: NodeRequire = createRequire(new URL(import.meta.url));
+// const r: NodeRequire = createRequire(new URL(import.meta.url));
 
-export { require };
+// export { r };

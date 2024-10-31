@@ -1,11 +1,11 @@
-import { builtinRules } from 'eslint/use-at-your-own-risk';
+import { builtinRules }          from 'eslint/use-at-your-own-risk';
 import { flatConfigsToRulesDTS } from 'eslint-typegen/core';
-import { writeFile } from 'node:fs/promises';
+import { writeFile }             from 'node:fs/promises';
 
 import {
     arca,
     comments,
-    demonicattack,
+    // demonicattack,
     eslint,
     esx,
     imrt,
@@ -49,7 +49,7 @@ const configs = await combine(
     esx(),
     eslint(),
     imrt(),
-    demonicattack(),
+    // demonicattack(),
     typescript(),
     prettier(),
     arca(),

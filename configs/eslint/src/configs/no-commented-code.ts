@@ -1,5 +1,5 @@
 import { eslintNoCommentedCodePlugin } from '../plugins';
-import type { TFlatConfigItem } from '../types';
+import type { TFlatConfigItem }        from '../types';
 
 const noCommentedCode = async (): Promise<TFlatConfigItem[]> => [
     {

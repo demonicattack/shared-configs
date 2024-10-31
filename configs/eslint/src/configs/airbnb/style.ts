@@ -1,7 +1,5 @@
-import type { TFlatConfigItem } from '../../types';
-
 const MAX_PARAMS = 5;
-const style = async (): Promise<TFlatConfigItem['rules']> => ({
+const style = {
     camelcase: [
         'error',
         { allow: ['^UNSAFE_'], ignoreDestructuring: false, properties: 'never' },
@@ -82,6 +80,6 @@ const style = async (): Promise<TFlatConfigItem['rules']> => ({
     ],
     'prefer-exponentiation-operator': 'error',
     'prefer-object-spread': 'warn',
-});
+};
 
 export { style };

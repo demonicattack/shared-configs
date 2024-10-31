@@ -1,4 +1,4 @@
-import { eslintNodePlugin } from '../plugins';
+import { eslintNodePlugin }                        from '../plugins';
 import type { IOptionsOverrides, TFlatConfigItem } from '../types';
 
 const node = async (options: IOptionsOverrides = {}): Promise<TFlatConfigItem[]> => {

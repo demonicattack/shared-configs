@@ -1,33 +1,62 @@
-import type { Config as IPrettierConfig, Options as IPartialOptions } from 'prettier';
-import {
-    type MultilineArrayOptions as TMultilineArrayPluginConfigOptions,
-    defaultMultilineArrayOptions,
-} from 'prettier-plugin-multiline-arrays';
-import type { PluginOptions as ITailwindcssPluginConfigOptions } from 'prettier-plugin-tailwindcss';
 import { isPackageExists } from 'local-pkg';
-import { require } from './utils';
+import type { Config as IPrettierConfig, Options as IPrettierSettings } from 'prettier';
+import type { MultilineArrayOptions as TMultilineArrayPluginConfigOptions } from 'prettier-plugin-multiline-arrays';
+import { defaultMultilineArrayOptions } from 'prettier-plugin-multiline-arrays';
+import type { PluginOptions as ITailwindcssPluginConfigOptions } from 'prettier-plugin-tailwindcss';
 
-type TPrettierConfig = IPrettierConfig &
-    Partial<TMultilineArrayPluginConfigOptions> &
-    Partial<ITailwindcssPluginConfigOptions>;
+import { JAVASCRIPT_FILES, TYPESCRIPT_FILES } from './constants';
 
-interface IPrettierOptions extends Omit<IPrettierConfig, 'plugins' | 'overrides'> {
-    plugins?: Partial<{
-        onPrettierTailwindcssPlugin?: boolean;
-        onPrettierPrismaPlugin?: boolean;
-        onPrettierSortJsonPlugin?: boolean;
-        onPrettierPackageJsonPlugin?: boolean;
-        onPrettierMultilineArraysPlugin?: boolean;
-    }>;
-    settings?: TPrettierConfig;
-    overrides?: Array<{
-        files: string | string[];
-        excludeFiles?: string | string[];
-        options?: TPrettierConfig;
-    }>;
+type TPartialTailwindcssPluginConfigOptions = Partial<ITailwindcssPluginConfigOptions> & {
+    tailwindPreserveDuplicates?: boolean;
+};
+type TPartialMultilineArrayPluginConfigOptions = Partial<TMultilineArrayPluginConfigOptions>;
+
+type PluginSpecificOptions<T> = T extends TPartialTailwindcssPluginConfigOptions
+    ? TPartialTailwindcssPluginConfigOptions
+    : T extends TPartialMultilineArrayPluginConfigOptions
+    ? TPartialMultilineArrayPluginConfigOptions
+    : never;
+
+interface IOverridesOptionsForPlugins<
+    T extends IPrettierSettings | TPartialMultilineArrayPluginConfigOptions | TPartialTailwindcssPluginConfigOptions = IPrettierSettings,
+> extends Omit<IPrettierConfig['overrides'], 'options'> {
+    excludeFiles?: string | string[] | undefined;
+    files?: string | string[];
+    options?: T | undefined;
 }
 
-const sharedOptions: IPartialOptions = {
+interface IPrettierOptions extends Omit<IPrettierConfig, 'plugins'> {
+    overrides?: IOverridesOptionsForPlugins<IPrettierSettings>[];
+    plugins?: {
+        multilineArrays?: IOverridesOptionsForPlugins<TPartialMultilineArrayPluginConfigOptions> | boolean;
+        tailwindcss?: IOverridesOptionsForPlugins<TPartialTailwindcssPluginConfigOptions> | boolean;
+    }[];
+    settings?: IPrettierSettings & PluginSpecificOptions<TPartialMultilineArrayPluginConfigOptions | TPartialTailwindcssPluginConfigOptions>;
+}
+// interface IPrettierOptions extends Omit<IPrettierConfig, 'plugins'> {
+//   overrides?: IOverridesOptionsForPlugins<IPrettierSettings>[];
+//   plugins?: Array<IOverridesOptionsForPlugins<any> | boolean>;
+//   settings?: IPrettierSettings & PluginSpecificOptions<TPartialMultilineArrayPluginConfigOptions | TPartialTailwindcssPluginConfigOptions>;
+// }
+
+type IPrettierResolvedOptions = Partial<IPrettierOptions>;
+
+const tailwindOptionsDefault: IOverridesOptionsForPlugins<TPartialTailwindcssPluginConfigOptions> = {
+    options: {
+        tailwindFunctions: ['classNames', 'clsx', 'cva', 'cn'],
+        tailwindPreserveDuplicates: true,
+    },
+};
+
+const multilineOptionsDefault: IOverridesOptionsForPlugins<TPartialMultilineArrayPluginConfigOptions> = {
+    files: [...JAVASCRIPT_FILES, ...TYPESCRIPT_FILES],
+    options: {
+        ...defaultMultilineArrayOptions,
+        multilineArraysWrapThreshold: 1,
+    },
+};
+
+const sharedSettingsOptionsDefault: Partial<IPrettierOptions['settings']> = {
     arrowParens: 'avoid',
     bracketSameLine: false,
     bracketSpacing: true,
@@ -44,87 +73,61 @@ const sharedOptions: IPartialOptions = {
     useTabs: false,
 };
 
-const sharedMultilineArrayOptions: Partial<TMultilineArrayPluginConfigOptions> = {
-    multilineArraysWrapThreshold: 1,
-};
+function getMultilineArrayOverrides(
+    plugin: IOverridesOptionsForPlugins<TPartialMultilineArrayPluginConfigOptions>
+): IOverridesOptionsForPlugins<any>[] {
+    return typeof plugin === 'object'
+        ? [
+              {
+                  excludeFiles: plugin.excludeFiles,
+                  files: [...JAVASCRIPT_FILES, ...TYPESCRIPT_FILES, ...(plugin.files || [])],
+                  options: {
+                      plugins: ['prettier-plugin-multiline-arrays'],
+                      ...multilineOptionsDefault.options,
+                      ...plugin.options,
+                  },
+              },
+          ]
+        : [];
+}
 
-const sharedTailwindcssOptions: Partial<ITailwindcssPluginConfigOptions> & {
-    tailwindPreserveDuplicates?: boolean;
-} = {
-    tailwindFunctions: [
-        'classNames',
-        'clsx',
-        'cva',
-        'cn',
-    ],
-    tailwindPreserveDuplicates: true,
-};
+function getTailwindOverrides(
+    tailwindConfig: IOverridesOptionsForPlugins<TPartialTailwindcssPluginConfigOptions>
+): IOverridesOptionsForPlugins<any>[] {
+    return typeof tailwindConfig === 'object'
+        ? [
+              {
+                  excludeFiles: tailwindConfig.excludeFiles,
+                    files: [...JAVASCRIPT_FILES, ...TYPESCRIPT_FILES],
+                  options: {
+                      plugins: ['prettier-plugin-tailwindcss'],
+                      ...tailwindOptionsDefault.options,
+                      ...tailwindConfig.options,
+                  },
+              },
+          ]
+        : [];
+}
 
-const config = (options: IPrettierOptions = {}): TPrettierConfig => {
-    const { plugins = {}, overrides = [], settings = {} } = options;
+const config = (options: IPrettierOptions = {}): IPrettierResolvedOptions => {
+    const { overrides = [], plugins = [], settings = {} } = options;
 
-    const defaultPlugins: IPrettierOptions['plugins'] = {
-        onPrettierMultilineArraysPlugin: true,
-        onPrettierPackageJsonPlugin: true,
-        onPrettierPrismaPlugin: isPackageExists('prisma'),
-        onPrettierSortJsonPlugin: true,
-        onPrettierTailwindcssPlugin: isPackageExists('tailwindcss'),
+    const defaultPlugins = {
+        multilineArrays: multilineOptionsDefault,
+        ...(isPackageExists('tailwindcss') && { tailwindcss: tailwindOptionsDefault }),
     };
 
-    const {
-        onPrettierMultilineArraysPlugin,
-        onPrettierPackageJsonPlugin,
-        onPrettierPrismaPlugin,
-        onPrettierSortJsonPlugin,
-        onPrettierTailwindcssPlugin,
-    } = { ...defaultPlugins, ...plugins };
+    const { multilineArrays, tailwindcss } = { ...defaultPlugins, ...plugins };
 
-    const defaultOverrides: IPrettierOptions['overrides'] = [
-        ...(onPrettierPrismaPlugin ?
-            [
-                {
-                    files: '*.prisma',
-                    options: {
-                        parser: 'prisma-parse',
-                    },
-                },
-            ]
-        :   []),
-        ...(onPrettierPackageJsonPlugin ?
-            [
-                {
-                    files: '*.json',
-                    options: {
-                        parser: 'json-stringify',
-                        tabWidth: 2,
-                    },
-                },
-            ]
-        :   []),
-    ];
+    if (typeof multilineArrays === 'object') overrides.push(...getMultilineArrayOverrides(multilineArrays));
+    if (typeof tailwindcss === 'object') overrides.push(...getTailwindOverrides(tailwindcss));
 
     return {
-        plugins: [
-            ...(onPrettierMultilineArraysPlugin ? [require('prettier-plugin-multiline-arrays')] : []),
-            ...(onPrettierPackageJsonPlugin ? [require('prettier-plugin-packagejson')] : []),
-            ...(onPrettierPrismaPlugin ? [require('prettier-plugin-prisma')] : []),
-            ...(onPrettierSortJsonPlugin ? [require('prettier-plugin-sort-json')] : []),
-            ...(onPrettierTailwindcssPlugin ? [require('prettier-plugin-tailwindcss')] : []),
-        ],
-        ...sharedOptions,
-        ...(onPrettierTailwindcssPlugin ? sharedTailwindcssOptions : {}),
-        ...(onPrettierMultilineArraysPlugin ?
-            {
-                ...defaultMultilineArrayOptions,
-                ...sharedMultilineArrayOptions,
-            }
-        :   {}),
-        ...settings,
-        overrides: [
-            ...defaultOverrides,
-            ...overrides,
-        ],
-    } satisfies TPrettierConfig;
+      ...sharedSettingsOptionsDefault,
+      ...settings,
+        plugins, 
+        overrides,
+    };
 };
 
 export { config };

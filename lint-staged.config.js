@@ -5,7 +5,7 @@ export default {
         config({
             allStagedFiles,
             configuration: {
-                onPrettier: true,
+                onPrettier: false,
                 onEslint: false,
                 onTypescriptTypesCheck: false,
             },

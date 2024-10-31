@@ -1,11 +1,9 @@
-import type { TFlatConfigItem } from '../../types';
-
-const node = async (): Promise<TFlatConfigItem['rules']> => ({
+const node = {
     'global-require': 'off',
     'handle-callback-err': [
         'error',
         'error',
     ],
-});
+};
 
 export { node };

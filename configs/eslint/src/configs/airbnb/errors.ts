@@ -1,6 +1,4 @@
-import type { TFlatConfigItem } from '../../types';
-
-const errors = async (): Promise<TFlatConfigItem['rules']> => ({
+const errors = {
     'no-cond-assign': [
         'error',
         'except-parens',
@@ -24,6 +22,6 @@ const errors = async (): Promise<TFlatConfigItem['rules']> => ({
         { enforceForOrderingRelations: true },
     ],
     'no-unused-private-class-members': 'error',
-});
+};
 
 export { errors };

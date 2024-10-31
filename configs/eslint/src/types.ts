@@ -1,9 +1,9 @@
-import type { Linter } from 'eslint';
-import type { FlatGitignoreOptions } from 'eslint-config-flat-gitignore';
+import type { Linter }                                   from 'eslint';
+import type { FlatGitignoreOptions }                     from 'eslint-config-flat-gitignore';
 
-import type { ConfigNames as TConfigNames, RuleOptions } from '../typegen';
+import type {  RuleOptions }                             from '../typegen';
 
-import type { ParserOptions } from '@typescript-eslint/parser';
+import type { ParserOptions }                            from '@typescript-eslint/parser';
 
 type TRules = RuleOptions;
 type Awaitable<T> = Promise<T> | T;
@@ -63,7 +63,7 @@ interface IOptionsTypeScriptWithTypes {
 }
 
 interface IOptionsPrettier {
-    onPrettierRecommendedConfigRules?: boolean;
+    recommended?: boolean;
 }
 
 interface IOptionsImport {
@@ -80,17 +80,17 @@ export interface IOptionsDemonicAttack {
 }
 
 interface IOptionsUnicorn {
-    onEslintBaseUnicornConfigRules?: TFlatConfigItem['rules'] | boolean;
-    onUnicornRecommendedConfigRules?: TFlatConfigItem['rules'] | boolean;
+    base?: TFlatConfigItem['rules'] | boolean;
+    recommended?: TFlatConfigItem['rules'] | boolean;
 }
 
 interface IOptionsJs {
     configurations?: Partial<{
-        onEslintAirBnbBaseConfigRules?: TFlatConfigItem['rules'] | boolean;
-        onEslintAllConfigRules?: TFlatConfigItem['rules'] | boolean;
-        onEslintBaseEslintConfigRules?: TFlatConfigItem['rules'] | boolean;
-        onEslintBaseEslintFormattingConfigRules?: TFlatConfigItem['rules'] | boolean;
-        onEslintRecommendedConfigRules?: TFlatConfigItem['rules'] | boolean;
+        airbnb?: TFlatConfigItem['rules'] | boolean;
+        all?: TFlatConfigItem['rules'] | boolean;
+        base?: TFlatConfigItem['rules'] | boolean;
+        formatter?: TFlatConfigItem['rules'] | boolean;
+        recommended?: TFlatConfigItem['rules'] | boolean;
     }>;
 }
 
@@ -108,12 +108,12 @@ interface IOptionsConfig extends IOptionsComponentExtensions, IOptionsProjectTyp
     node?: IOptionsOverrides | boolean;
     comments?: IOptionsOverrides | boolean;
     esx?: IOptionsOverrides | boolean;
-    import?: IOptionsImport | IOptionsOverrides | boolean;
+    import?: (IOptionsImport & IOptionsOverrides) | boolean;
     mutation?: IOptionsOverrides | boolean;
     perfectionist?: IOptionsOverrides | boolean;
     promise?: IOptionsOverrides | boolean;
     regexp?: (IOptionsOverrides & IOptionsRegExp) | boolean;
-    unicorn?: IOptionsOverrides | IOptionsUnicorn | boolean;
+    unicorn?: (IOptionsOverrides & IOptionsUnicorn) | boolean;
 
     /**
      * By default, the plugins is enabled if the current package is in your project
@@ -182,8 +182,9 @@ export type {
     IOptionsTypeScriptWithTypes,
     IOptionsUnicorn,
     TConfig,
-    TConfigNames,
     TFlatConfigItem,
     TOptionsTypescript,
     TRules,
 };
+
+export {type ConfigNames as TConfigNames} from '../typegen';

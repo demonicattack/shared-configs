@@ -1,10 +1,9 @@
 import { eslintConfigESLintFormatting } from './config';
-import type { IEslintConfigFormatting } from './types';
 
-const eslintConfigformatting = async (): Promise<IEslintConfigFormatting> => ({
+const eslintConfigformatting = {
     formatting: {
         rules: eslintConfigESLintFormatting.rules,
     },
-});
+};
 
 export { eslintConfigformatting };

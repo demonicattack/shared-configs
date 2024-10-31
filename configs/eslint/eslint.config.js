@@ -3,11 +3,11 @@ import { config } from '@demonicattack/eslint';
 export default config(
     {
         js: {
-            configurations: {
-                onEslintAirBnbBaseConfigRules: true,
-            },
             overrides: {
+                'curly': 'off',
+                'no-undefined': 'off',
                 'no-useless-computed-key': 'off',
+                'func-style': ['error', 'expression', { allowArrowFunctions: true }],
             },
         },
         ts: {
@@ -35,9 +35,8 @@ export default config(
                 'unicorn/prefer-string-raw': 'off',
             },
         },
-        prettier: {
-            onPrettierRecommendedConfigRules: true,
-        },
+        prettier: false,
+        tw: false,
         sonarjs: true,
         arca: true,
         'no-commented-code': true,

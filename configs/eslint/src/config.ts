@@ -1,11 +1,13 @@
-import type { Linter } from 'eslint';
+import type { Linter }        from 'eslint';
 import { FlatConfigComposer } from 'eslint-flat-config-utils';
-import { isPackageExists } from 'local-pkg';
+import { isPackageExists }    from 'local-pkg';
+
+import type { RuleOptions }   from '../typegen';
 
 import {
     arca,
     comments,
-    demonicattack,
+    // demonicattack,
     disables,
     eslint,
     esx,
@@ -29,9 +31,8 @@ import {
     typescript,
     unicorn,
 } from './configs';
-import type { RuleOptions } from '../typegen';
 import type { Awaitable, IOptionsConfig, TConfigNames, TFlatConfigItem } from './types';
-import { interopDefault, isBoolean } from './utils';
+import { interopDefault, isBoolean }                                     from './utils';
 
 const defaultPluginRenaming = {
     '@typescript-eslint': 'ts',
@@ -152,9 +153,9 @@ const config = async (
             ...jsOptions,
             overrides: getOverrides(options, 'js'),
         }),
-        demonicattack({
-            overrides: getOverrides(options, 'demonicattack'),
-        }),
+        // demonicattack({
+        //     overrides: getOverrides(options, 'demonicattack'),
+        // }),
     );
 
     /**
@@ -315,12 +316,15 @@ const config = async (
 
     configs.push(disables());
 
-    const fusedConfig = flatConfigProperties.reduce((accumulator, key) => {
-        if (key in options) accumulator[key] = options[key] as never;
-        return accumulator;
-    }, {} as TFlatConfigItem);
+    const fusedConfig: TFlatConfigItem = {};
 
-    if (Object.keys(fusedConfig).length !== 0) configs.push([fusedConfig]);
+    for (const key of flatConfigProperties) {
+        if (key in options) {
+            fusedConfig[key] = options[key] as never;
+        }
+    }
+
+    if (Object.keys(fusedConfig).length > 0) configs.push([fusedConfig]);
 
     let composer = new FlatConfigComposer<TFlatConfigItem, TConfigNames>();
     const resolvedConfig = await Promise.all(userConfigs);

@@ -1,4 +1,4 @@
-import { JAVASCRIPT_FILES } from '../constants';
+import { JAVASCRIPT_FILES }     from '../constants';
 import type { TFlatConfigItem } from '../types';
 
 const disables = async (): Promise<TFlatConfigItem[]> => [
