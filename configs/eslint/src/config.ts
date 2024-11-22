@@ -14,11 +14,9 @@ import {
     ignores,
     imrt,
     javascript,
-    // json,
     jsx,
     mutation,
     next,
-    noCommentedCode,
     node,
     perfectionist,
     prettier,
@@ -26,7 +24,6 @@ import {
     react,
     regexp,
     sonarjs,
-    sortClassMembers,
     tailwindcss,
     typescript,
     unicorn,
@@ -62,7 +59,7 @@ const isSubOptions = <K extends TOptionConfigKey>(options: IOptionsConfig, key: 
 
     return isBoolean(option) ? ({} as TResolvedOptionsConfig<K>) : ((option ?? {}) as TResolvedOptionsConfig<K>);
 };
-const getOverrides = <K extends TOverridesKey>(options: IOptionsConfig, key: K): TOverridesType => {
+const getOverrides = (options: IOptionsConfig, key: TOverridesKey): TOverridesType => {
     const sub = isSubOptions(options, key);
 
     return {
@@ -71,10 +68,10 @@ const getOverrides = <K extends TOverridesKey>(options: IOptionsConfig, key: K):
     };
 };
 
-const config = async (
+const config = (
     options: IOptionsConfig & Omit<TFlatConfigItem, 'files'> = {},
     ...userConfigs: Awaitable<FlatConfigComposer<any, any> | Linter.Config[] | TFlatConfigItem | TFlatConfigItem[]>[]
-): Promise<FlatConfigComposer<TFlatConfigItem, TConfigNames>> => {
+): FlatConfigComposer<TFlatConfigItem, TConfigNames> => {
     const {
         autoRenamePlugins = true,
         componentExtensions = [],
@@ -111,11 +108,8 @@ const config = async (
         // eslint-disable-next-line perfectionist/sort-objects
         arca: enableArca = false,
         eslint: enableEslint = false,
-        // json: enableJson = false,
         jsx: enableJsx = false,
-        'no-commented-code': enableNoCommentsCode = false,
         sonarjs: enableSonarjs = false,
-        'sort-class-members': enableSortClassMembers = false,
     } = options;
 
     const configs: Awaitable<TFlatConfigItem[]>[] = [];
@@ -235,15 +229,7 @@ const config = async (
      * By default, the plugins is disabled
      */
     if (enableJsx) configs.push(jsx());
-    if (enableNoCommentsCode) configs.push(noCommentedCode());
     if (enableEslint) configs.push(eslint());
-    if (enableSortClassMembers) {
-        configs.push(
-            sortClassMembers({
-                overrides: getOverrides(options, 'sort-class-members'),
-            }),
-        );
-    }
     if (enableSonarjs) {
         configs.push(
             sonarjs({
@@ -251,14 +237,6 @@ const config = async (
             }),
         );
     }
-
-    // if (enableJson) {
-    //     configs.push(
-    //         json({
-    //             overrides: getOverrides(options, 'json'),
-    //         }),
-    //     );
-    // }
     /**
      * By default, the plugins is enabled if the current package is in your project
      * @example typescript, react, tailwindcss, prettier etc
@@ -300,7 +278,6 @@ const config = async (
             }),
         );
     }
-
     /**
      *
      * LAST POSITIONS enablePrettier
@@ -327,14 +304,13 @@ const config = async (
     if (Object.keys(fusedConfig).length > 0) configs.push([fusedConfig]);
 
     let composer = new FlatConfigComposer<TFlatConfigItem, TConfigNames>();
-    const resolvedConfig = await Promise.all(userConfigs);
 
-    const configArray = resolvedConfig.map(item => {
+    const configArray = userConfigs.map(item => {
         if (Array.isArray(item)) return item;
         return [item];
     });
 
-    composer = composer.append(...configs, ...configArray);
+    composer = composer.append(...configs, ...configArray as any);
 
     if (autoRenamePlugins) composer = composer.renamePlugins(defaultPluginRenaming);
 

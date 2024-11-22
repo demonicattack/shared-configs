@@ -6,7 +6,6 @@ export default config({
      */
     node: true,
     arca: true,
-
     comments: true,
     /**
      * By default, the plugins is enabled if the current package is in your project
@@ -33,15 +32,14 @@ export default config({
         },
         overrides: {},
     },
+
     /**
      * By default, the plugins is disabled
      */
-    json: true,
     jsx: true,
     mutation: true,
     next: true,
 
-    'no-commented-code': true,
     perfectionist: true,
     prettier: {
         recommended: true,
@@ -51,7 +49,6 @@ export default config({
     regexp: true,
     sonarjs: true,
 
-    'sort-class-members': true,
     ts: true,
     tw: true,
     unicorn: {

@@ -11,7 +11,7 @@ const isPackageInScope = (name: string): boolean => isPackageExists(name, { path
 
 const toArray = <T>(value: T | T[]): T[] => (Array.isArray(value) ? value : [value]);
 
-const isBoolean = <T>(value: T): boolean => typeof value === 'boolean';
+const isBoolean = (value: unknown): boolean => typeof value === 'boolean';
 
 const combine = async (...configs: Awaitable<TFlatConfigItem | TFlatConfigItem[]>[]): Promise<TFlatConfigItem[]> => {
     const result = await Promise.all(configs);

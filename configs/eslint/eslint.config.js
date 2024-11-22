@@ -13,6 +13,8 @@ export default config(
         ts: {
             tsconfigPath: 'tsconfig.json',
             overridesTypeAware: {
+                'ts/require-await': 'off',
+                'ts/promise-function-async': 'off',
                 'ts/no-unsafe-assignment': 'off',
                 'ts/no-unsafe-member-access': 'off',
                 'ts/strict-boolean-expressions': 'off',
@@ -39,7 +41,6 @@ export default config(
         tw: false,
         sonarjs: true,
         arca: true,
-        'no-commented-code': true,
     },
     {
         ignores: [

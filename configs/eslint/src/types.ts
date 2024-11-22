@@ -130,11 +130,9 @@ interface IOptionsConfig extends IOptionsComponentExtensions, IOptionsProjectTyp
      */
     arca?: IOptionsOverrides | boolean;
     eslint?: IOptionsOverrides | boolean;
-    json?: IOptionsOverrides | boolean;
+    // json?: IOptionsOverrides | boolean;
     jsx?: boolean;
-    ['no-commented-code']?: boolean;
     sonarjs?: IOptionsOverrides | boolean;
-    ['sort-class-members']?: IOptionsOverrides | boolean;
 
     /**
      * Rename plugins
@@ -152,14 +150,13 @@ interface IOptionsConfig extends IOptionsComponentExtensions, IOptionsProjectTyp
         esx?: TFlatConfigItem['rules'];
         import?: TFlatConfigItem['rules'];
         js?: TFlatConfigItem['rules'];
-        json?: TFlatConfigItem['rules'];
+        // json?: TFlatConfigItem['rules'];
         mutation?: TFlatConfigItem['rules'];
         next?: TFlatConfigItem['rules'];
         perfectionist?: TFlatConfigItem['rules'];
         promise?: TFlatConfigItem['rules'];
         react?: TFlatConfigItem['rules'];
         sonarjs?: TFlatConfigItem['rules'];
-        ['sort-class-members']?: TFlatConfigItem['rules'];
         ts?: TFlatConfigItem['rules'];
         tw?: TFlatConfigItem['rules'];
         unicorn?: TFlatConfigItem['rules'];
@@ -187,4 +184,4 @@ export type {
     TRules,
 };
 
-export {type ConfigNames as TConfigNames} from '../typegen';
+export { type ConfigNames as TConfigNames } from '../typegen';

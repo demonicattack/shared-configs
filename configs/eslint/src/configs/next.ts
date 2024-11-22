@@ -1,8 +1,6 @@
 import { eslintNextPlugin }                        from '../plugins';
 import type { IOptionsOverrides, TFlatConfigItem } from '../types';
 
-// import { fixupPluginRules }                        from '@eslint/compat';
-
 const next = async (options: IOptionsOverrides = {}): Promise<TFlatConfigItem[]> => {
     const { overrides = {} } = options;
 

@@ -14,7 +14,6 @@ import {
     jsx,
     mutation,
     next,
-    noCommentedCode,
     node,
     perfectionist,
     prettier,
@@ -22,7 +21,6 @@ import {
     react,
     regexp,
     sonarjs,
-    sortClassMembers,
     tailwindcss,
     typescript,
     unicorn,
@@ -33,6 +31,7 @@ const configs = await combine(
     {
         plugins: {
             '': {
+                // eslint-disable-next-line ts/no-deprecated
                 rules: Object.fromEntries(builtinRules.entries()),
             },
         },
@@ -45,7 +44,6 @@ const configs = await combine(
     unicorn(),
     react(),
     next(),
-    noCommentedCode(),
     esx(),
     eslint(),
     imrt(),
@@ -53,12 +51,10 @@ const configs = await combine(
     typescript(),
     prettier(),
     arca(),
-    // json(),
     comments(),
     mutation(),
     promise(),
     regexp(),
-    sortClassMembers(),
     sonarjs(),
 );
 

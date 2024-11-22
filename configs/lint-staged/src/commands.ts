@@ -1,5 +1,4 @@
-export const { CHECK, ESLINT, PRETTIER } = {
-    CHECK: 'tsc --noEmit',
+export const { ESLINT, PRETTIER } = {
     ESLINT: 'eslint --fix',
     PRETTIER: 'prettier --write',
 } as const;

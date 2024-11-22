@@ -8,10 +8,14 @@ import { requireEslintTool }                                   from '../utils';
 import { airbnbBaseRules }                                     from './airbnb';
 import { eslintConfigBase, eslintConfigformatting }            from './eslint-config';
 
-const sharedRules = () => ({
+const sharedRules: TFlatConfigItem['rules']  = {
     'accessor-pairs': [
         'error',
         { enforceForClassMembers: true, setWithoutGet: true },
+    ],
+    'func-style': [
+        'error',
+        'expression',
     ],
     'no-console': [
         'error',
@@ -64,7 +68,7 @@ const sharedRules = () => ({
             allowUnboundThis: true,
         },
     ],
-});
+  }
 
 const javascript = async (options: IOptionsJs & IOptionsOverrides = {}): Promise<TFlatConfigItem[]> => {
     const { configurations = {}, overrides = {} } = options;

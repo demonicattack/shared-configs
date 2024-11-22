@@ -12,7 +12,6 @@ const arca = async (options: IOptionsOverrides = {}): Promise<TFlatConfigItem[]>
             },
             rules: {
                 'arca/curly': 'error',
-                'arca/import-align': 'error',
                 'arca/import-quotes': 'error',
                 'arca/jsx-import-react': 'error',
                 'arca/jsx-longhand-props': 'error',
