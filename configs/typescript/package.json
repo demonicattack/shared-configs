@@ -14,7 +14,7 @@
   },
   "prettier": "./prettier.config.js",
   "dependencies": {
-    "typescript": "^5.6.3"
+    "typescript": "^5.7.2"
   },
   "devDependencies": {
     "@demonicattack/prettier": "workspace:^",
@@ -22,7 +22,7 @@
     "rimraf": "^6.0.1"
   },
   "peerDependencies": {
-    "typescript": "5.6.3"
+    "typescript": "5.7.2"
   },
-  "packageManager": "yarn@4.5.1"
+  "packageManager": "yarn@4.5.3"
 }

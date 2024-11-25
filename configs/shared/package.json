@@ -22,22 +22,22 @@
   },
   "prettier": "./prettier.config.js",
   "dependencies": {
-    "@typescript-eslint/utils": "^8.11.0",
+    "@typescript-eslint/utils": "^8.16.0",
     "fast-equals": "^5.0.1",
     "micro-memoize": "^4.1.2",
     "picomatch": "^4.0.2",
-    "type-fest": "^4.26.1"
+    "type-fest": "^4.28.0"
   },
   "devDependencies": {
     "@demonicattack/eslint": "workspace:^",
     "@demonicattack/prettier": "workspace:^",
     "@demonicattack/typescript": "workspace:^",
-    "@types/node": "^22.7.9",
-    "eslint": "^9.13.0",
+    "@types/node": "^22.9.3",
+    "eslint": "^9.15.0",
     "prettier": "^3.3.3",
     "rimraf": "^6.0.1",
-    "tsup": "^8.3.0",
-    "typescript": "^5.6.3"
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2"
   },
-  "packageManager": "yarn@4.5.1"
+  "packageManager": "yarn@4.5.3"
 }

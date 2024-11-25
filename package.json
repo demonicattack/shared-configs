@@ -32,7 +32,6 @@
       "path": "@commitlint/cz-commitlint"
     }
   },
-  "prettier": "./prettier.config.js",
   "devDependencies": {
     "@commitlint/cli": "^19.6.0",
     "@commitlint/config-conventional": "^19.6.0",
@@ -47,9 +46,9 @@
     "prettier": "^3.3.3",
     "typescript": "^5.7.2"
   },
-  "packageManager": "yarn@4.5.1",
+  "packageManager": "yarn@4.5.3",
   "engines": {
     "node": ">=18.20.4",
-    "yarn": ">=4.5.1"
+    "yarn": ">=4.5.3"
   }
 }
