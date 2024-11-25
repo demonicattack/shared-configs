@@ -89,6 +89,7 @@ const imrt = async (options: IOptionsImport & IOptionsOverrides = {}): Promise<T
                 'import/no-useless-path-segments': ['error'],
                 'import/no-webpack-loader-syntax': 'error',
                 'import/order': 'off',
+                'import/prefer-default-export': 'off',
                 'simple-import-sort/exports': 'error',
                 'simple-import-sort/imports': [
                     'error',

@@ -36,6 +36,7 @@ const react = async (
         ],
         overrides = {},
     } = options;
+    
     const tsconfigPath = options.tsconfigPath ? toArray(options.tsconfigPath) : undefined;
     const isTypeAware = Boolean(tsconfigPath);
 

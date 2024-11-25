@@ -50,11 +50,6 @@ const airbnbBaseReactRules = {
     ...eslintConfigAirbnbRulesReact.rules,
     ...eslintConfigAirbnbRulesReactA11y.rules,
     ...eslintConfigAirbnbRulesReactHooks.rules,
-
-    /**
-     * deprecated rules
-     */
-    'jsx-quotes': 'off',
 };
 
 const airbnbBaseImports = {
