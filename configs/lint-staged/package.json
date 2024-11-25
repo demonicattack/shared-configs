@@ -34,7 +34,7 @@
         "typescript": "^5.7.2"
     },
     "peerDependencies": {
-      "lint-staged": "^15.2.10"
+        "lint-staged": "^15.2.10"
     },
     "packageManager": "yarn@4.5.3"
 }
