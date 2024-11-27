@@ -1,13 +1,11 @@
 import { config } from '@demonicattack/lint-staged';
 
 export default {
-    '*': allStagedFiles =>
-        config({
-            allStagedFiles,
-            configuration: {
-                onPrettier: false,
-                onEslint: false,
-                onTypescriptTypesCheck: false,
-            },
-        }),
+  '**/*': (allStagedFiles) => {
+    const commands = config({ allStagedFiles, configuration: {
+      eslint: true,
+      prettier: true,
+    } });
+    return commands;
+  },
 };

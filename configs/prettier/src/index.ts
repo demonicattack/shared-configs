@@ -115,6 +115,8 @@
 // }
 
 const config = {
+    printWidth: 120,
+    tabWidth: 4,
     arrowParens: 'avoid',
     bracketSameLine: false,
     bracketSpacing: true,
@@ -123,12 +125,10 @@ const config = {
     jsxSingleQuote: true,
     multilineArraysWrapThreshold: 1,
     plugins: ['prettier-plugin-multiline-arrays'],
-    printWidth: 120,
     proseWrap: 'always',
     quoteProps: 'as-needed',
     semi: true,
     singleQuote: true,
-    tabWidth: 4,
     trailingComma: 'all',
     useTabs: false,
 };

@@ -11,7 +11,7 @@ interface IConfigOptions {
     };
 }
 
-const config = (options: IConfigOptions = {}) => {
+const config = (options: IConfigOptions = {}): string[] => {
     const { allStagedFiles = [], configuration = {} } = options;
 
     const defaultConfiguration: IConfigOptions['configuration'] = {
@@ -23,7 +23,7 @@ const config = (options: IConfigOptions = {}) => {
 
     const shFiles = micromatch(allStagedFiles, ['**/src/**/*.sh']);
 
-    if (shFiles.length > 0) return ["printf '%s\n' \"Script files aren't allowed in src directory\" >&2"];
+    if (shFiles.length !== 0) return ["printf '%s\n' \"Script files aren't allowed in src directory\" >&2"];
 
     const eslintFiles = micromatch(allStagedFiles, [
         ...JAVASCRIPT_FILES,
@@ -40,9 +40,9 @@ const config = (options: IConfigOptions = {}) => {
 
     const commands: string[] = [];
 
-    if (eslintFiles.length > 0 && eslint) commands.push(`${ESLINT} ${eslintFiles.join(' ')}`);
+    if (eslintFiles.length !== 0 && eslint) commands.push(`${ESLINT} ${eslintFiles.join(' ')}`);
 
-    if (prettierFiles.length > 0 && prettier) commands.push(`${PRETTIER} ${prettierFiles.join(' ')}`);
+    if (prettierFiles.length !== 0 && prettier) commands.push(`${PRETTIER} ${prettierFiles.join(' ')}`);
 
     if (commands.length === 0) return ['echo "No matching files for linting"'];
 
