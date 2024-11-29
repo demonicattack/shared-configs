@@ -1,4 +1,4 @@
-import { eslintPerfectionistPlugin }               from '../plugins';
+import { eslintPerfectionistPlugin } from '../plugins';
 import type { IOptionsOverrides, TFlatConfigItem } from '../types';
 
 const p11tOptions = {

@@ -1,26 +1,26 @@
-import { JAVASCRIPT_FILES, TYPESCRIPT_FILES }                      from '../constants';
-import { eslintImportPlugin, eslintSimpleImportSortPlugin }        from '../plugins';
+import { JAVASCRIPT_FILES, TYPESCRIPT_FILES } from '../constants';
+import { eslintImportPlugin, eslintSimpleImportSortPlugin } from '../plugins';
 import type { IOptionsImport, IOptionsOverrides, TFlatConfigItem } from '../types';
-import { requireEslintTool }                                       from '../utils';
+import { requireEslintTool } from '../utils';
 
-import { airbnbBaseImports }                                       from './airbnb';
+import { airbnbBaseImports } from './airbnb';
 
 const imrt = async (options: IOptionsImport & IOptionsOverrides = {}): Promise<TFlatConfigItem[]> => {
     const { overrides = {}, react = false, typescript = false } = options;
 
     const baseSettings = {
-      'import/parsers': {
-    [requireEslintTool('@typescript-eslint/parser')]: [
-      ...TYPESCRIPT_FILES,
-      '.d.ts',
-    ],
-  },
+        'import/parsers': {
+            [requireEslintTool('@typescript-eslint/parser')]: [
+                ...TYPESCRIPT_FILES,
+                '.d.ts',
+            ],
+        },
         'import/resolver': {
             [requireEslintTool('eslint-import-resolver-node')]: {
-              extensions: [
-                ...JAVASCRIPT_FILES,
-                ...TYPESCRIPT_FILES,
-              ],
+                extensions: [
+                    ...JAVASCRIPT_FILES,
+                    ...TYPESCRIPT_FILES,
+                ],
             },
             [requireEslintTool('eslint-import-resolver-typescript')]: {
                 alwaysTryTypes: true,
@@ -42,7 +42,10 @@ const imrt = async (options: IOptionsImport & IOptionsOverrides = {}): Promise<T
             ...eslintImportPlugin.flatConfigs.react.settings,
             'import/resolver': {
                 node: {
-                    extensions: [...JAVASCRIPT_FILES, ...TYPESCRIPT_FILES],
+                    extensions: [
+                        ...JAVASCRIPT_FILES,
+                        ...TYPESCRIPT_FILES,
+                    ],
                 },
             },
         }),
@@ -79,7 +82,10 @@ const imrt = async (options: IOptionsImport & IOptionsOverrides = {}): Promise<T
                 'import/no-default-export': 'error',
                 'import/no-duplicates': 'error',
                 'import/no-dynamic-require': 'warn',
-                'import/no-extraneous-dependencies': ['error', { includeTypes: true }],
+                'import/no-extraneous-dependencies': [
+                    'error',
+                    { includeTypes: true },
+                ],
                 'import/no-mutable-exports': 'error',
                 'import/no-named-default': 'error',
                 'import/no-nodejs-modules': 'warn',
@@ -95,7 +101,11 @@ const imrt = async (options: IOptionsImport & IOptionsOverrides = {}): Promise<T
                     'error',
                     {
                         groups: [
-                            ['^react', '^next', '^\\w'],
+                            [
+                                '^react',
+                                '^next',
+                                '^\\w',
+                            ],
                             ['^@app(/.*|$)'],
                             ['^@store(/.*|$)'],
                             ['^@components(/.*|$)'],
@@ -115,8 +125,15 @@ const imrt = async (options: IOptionsImport & IOptionsOverrides = {}): Promise<T
                             ['^@services(/.*|$)'],
                             ['^@shared(/.*|$)'],
                             ['^\\u0000'],
-                            ['^\\.\\.(?!/?$)', '^\\.\\./?$'],
-                            ['^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$'],
+                            [
+                                '^\\.\\.(?!/?$)',
+                                '^\\.\\./?$',
+                            ],
+                            [
+                                '^\\./(?=.*/)(?!/?$)',
+                                '^\\.(?!/?$)',
+                                '^\\./?$',
+                            ],
                             ['^.+\\.?(css)$'],
                         ],
                     },

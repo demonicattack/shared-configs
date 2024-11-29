@@ -1,6 +1,6 @@
 import type { IOptionsOverrides, TFlatConfigItem } from '../types';
 
-import eslintPlugin                                from '@demonicattack/eslint-plugin';
+import eslintPlugin from '@demonicattack/eslint-plugin';
 
 const demonicattack = async (options: IOptionsOverrides = {}): Promise<TFlatConfigItem[]> => {
     const { overrides = {} } = options;

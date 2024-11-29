@@ -1,9 +1,9 @@
-import type { Linter }                                   from 'eslint';
-import type { FlatGitignoreOptions }                     from 'eslint-config-flat-gitignore';
+import type { Linter } from 'eslint';
+import type { FlatGitignoreOptions } from 'eslint-config-flat-gitignore';
 
-import type {  RuleOptions }                             from '../typegen';
+import type { RuleOptions } from '../typegen';
 
-import type { ParserOptions }                            from '@typescript-eslint/parser';
+import type { ParserOptions } from '@typescript-eslint/parser';
 
 type TRules = RuleOptions;
 type Awaitable<T> = Promise<T> | T;

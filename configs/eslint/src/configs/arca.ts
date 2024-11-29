@@ -1,4 +1,4 @@
-import { eslintArcaPlugin }                        from '../plugins';
+import { eslintArcaPlugin } from '../plugins';
 import type { IOptionsOverrides, TFlatConfigItem } from '../types';
 
 const arca = async (options: IOptionsOverrides = {}): Promise<TFlatConfigItem[]> => {

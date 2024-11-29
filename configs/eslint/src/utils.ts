@@ -1,6 +1,6 @@
-import { isPackageExists }                 from 'local-pkg';
-import { createRequire }                   from 'node:module';
-import { fileURLToPath }                   from 'node:url';
+import { isPackageExists } from 'local-pkg';
+import { createRequire } from 'node:module';
+import { fileURLToPath } from 'node:url';
 
 import type { Awaitable, TFlatConfigItem } from './types';
 
@@ -50,7 +50,5 @@ const renameRules = (rules: Record<string, any>, map: Record<string, string>): R
             },
         ),
     );
-
-
 
 export { combine, interopDefault, isBoolean, isPackageInScope, renameRules, requireEslintTool, toArray };

@@ -1,6 +1,6 @@
-import { builtinRules }          from 'eslint/use-at-your-own-risk';
+import { builtinRules } from 'eslint/use-at-your-own-risk';
 import { flatConfigsToRulesDTS } from 'eslint-typegen/core';
-import { writeFile }             from 'node:fs/promises';
+import { writeFile } from 'node:fs/promises';
 
 import {
     arca,

@@ -1,4 +1,4 @@
-import { eslintSonarjsPlugin }                     from '../plugins';
+import { eslintSonarjsPlugin } from '../plugins';
 import type { IOptionsOverrides, TFlatConfigItem } from '../types';
 
 const sonarjs = async (options: IOptionsOverrides = {}): Promise<TFlatConfigItem[]> => {

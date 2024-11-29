@@ -1,5 +1,5 @@
 import { eslintConfigBaseESLint } from './config';
-import { getRulesByConfigName }   from './utils';
+import { getRulesByConfigName } from './utils';
 
 const eslintConfigBase = {
     eslintComments: {

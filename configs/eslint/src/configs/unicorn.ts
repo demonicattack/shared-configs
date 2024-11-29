@@ -1,7 +1,7 @@
-import { eslintUnicornPlugin }                                      from '../plugins';
+import { eslintUnicornPlugin } from '../plugins';
 import type { IOptionsOverrides, IOptionsUnicorn, TFlatConfigItem } from '../types';
 
-import { eslintConfigBase }                                         from './eslint-config';
+import { eslintConfigBase } from './eslint-config';
 
 const unicorn = async (options: IOptionsOverrides & IOptionsUnicorn = {}): Promise<TFlatConfigItem[]> => {
     const { base = true, overrides = {}, recommended = true } = options;

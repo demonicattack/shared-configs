@@ -1,4 +1,4 @@
-import { configs }                                                 from 'eslint-plugin-regexp';
+import { configs } from 'eslint-plugin-regexp';
 
 import type { IOptionsOverrides, IOptionsRegExp, TFlatConfigItem } from '../types';
 

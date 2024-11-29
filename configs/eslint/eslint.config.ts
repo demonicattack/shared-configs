@@ -18,17 +18,17 @@ export default config({
         '.eslint-config-inspector',
     ],
     import: {
-      overrides: {},
-      react: true,
-      typescript: true
+        overrides: {},
+        react: true,
+        typescript: true,
     },
     js: {
         configurations: {
-          airbnb: true,
-          all: true,
-          base: true,
-          formatter: true,
-          recommended: true,
+            airbnb: true,
+            all: true,
+            base: true,
+            formatter: true,
+            recommended: true,
         },
         overrides: {},
     },

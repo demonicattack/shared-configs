@@ -1,4 +1,4 @@
-import { isPackageExists }                    from 'local-pkg';
+import { isPackageExists } from 'local-pkg';
 
 import { JAVASCRIPT_FILES, TYPESCRIPT_FILES } from '../constants';
 import {
@@ -14,9 +14,9 @@ import {
     eslintReactXPlugin,
 } from '../plugins';
 import type { IOptionsFiles, IOptionsOverrides, IOptionsTypeScriptWithTypes, TFlatConfigItem } from '../types';
-import { toArray }                                                                             from '../utils';
+import { toArray } from '../utils';
 
-import { airbnbBaseReactRules }                                                                from './airbnb';
+import { airbnbBaseReactRules } from './airbnb';
 
 const ReactRefreshAllowConstantExportPackages = [
     'vite',
@@ -36,7 +36,7 @@ const react = async (
         ],
         overrides = {},
     } = options;
-    
+
     const tsconfigPath = options.tsconfigPath ? toArray(options.tsconfigPath) : undefined;
     const isTypeAware = Boolean(tsconfigPath);
 

@@ -1,5 +1,5 @@
 import { eslintConfigCjsESLint } from './config';
-import { getRulesByConfigName }  from './utils';
+import { getRulesByConfigName } from './utils';
 
 const eslintConfigCjs = {
     cjs: {

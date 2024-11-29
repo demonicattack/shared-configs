@@ -1,8 +1,8 @@
-import type { Linter }        from 'eslint';
+import type { Linter } from 'eslint';
 import { FlatConfigComposer } from 'eslint-flat-config-utils';
-import { isPackageExists }    from 'local-pkg';
+import { isPackageExists } from 'local-pkg';
 
-import type { RuleOptions }   from '../typegen';
+import type { RuleOptions } from '../typegen';
 
 import {
     arca,
@@ -29,7 +29,7 @@ import {
     unicorn,
 } from './configs';
 import type { Awaitable, IOptionsConfig, TConfigNames, TFlatConfigItem } from './types';
-import { interopDefault, isBoolean }                                     from './utils';
+import { interopDefault, isBoolean } from './utils';
 
 const defaultPluginRenaming = {
     '@typescript-eslint': 'ts',
@@ -70,7 +70,9 @@ const getOverrides = (options: IOptionsConfig, key: TOverridesKey): TOverridesTy
 
 const config = (
     options: IOptionsConfig & Omit<TFlatConfigItem, 'files'> = {},
-    ...userConfigs: Awaitable<FlatConfigComposer<any, any> | Linter.Config[] | TFlatConfigItem | TFlatConfigItem[]>[]
+    ...userConfigs: Awaitable<
+        FlatConfigComposer<Linter.Config, unknown> | Linter.Config[] | TFlatConfigItem | TFlatConfigItem[]
+    >[]
 ): FlatConfigComposer<TFlatConfigItem, TConfigNames> => {
     const {
         autoRenamePlugins = true,
@@ -310,7 +312,7 @@ const config = (
         return [item];
     });
 
-    composer = composer.append(...configs, ...configArray as any);
+    composer = composer.append(...configs, ...(configArray as any));
 
     if (autoRenamePlugins) composer = composer.renamePlugins(defaultPluginRenaming);
 

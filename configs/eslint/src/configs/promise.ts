@@ -1,4 +1,4 @@
-import { eslintPromisePlugin }                     from '../plugins';
+import { eslintPromisePlugin } from '../plugins';
 import type { IOptionsOverrides, TFlatConfigItem } from '../types';
 
 const promise = async (options: IOptionsOverrides = {}): Promise<TFlatConfigItem[]> => {

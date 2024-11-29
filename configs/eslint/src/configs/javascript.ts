@@ -1,14 +1,14 @@
-import globals                                                 from 'globals';
+import globals from 'globals';
 
-import { ECMA_VERSION }                                        from '../constants';
-import { eslintJsPlugin }                                      from '../plugins';
+import { ECMA_VERSION } from '../constants';
+import { eslintJsPlugin } from '../plugins';
 import type { IOptionsJs, IOptionsOverrides, TFlatConfigItem } from '../types';
-import { requireEslintTool }                                   from '../utils';
+import { requireEslintTool } from '../utils';
 
-import { airbnbBaseRules }                                     from './airbnb';
-import { eslintConfigBase, eslintConfigformatting }            from './eslint-config';
+import { airbnbBaseRules } from './airbnb';
+import { eslintConfigBase, eslintConfigformatting } from './eslint-config';
 
-const sharedRules: TFlatConfigItem['rules']  = {
+const sharedRules: TFlatConfigItem['rules'] = {
     'accessor-pairs': [
         'error',
         { enforceForClassMembers: true, setWithoutGet: true },
@@ -27,10 +27,10 @@ const sharedRules: TFlatConfigItem['rules']  = {
         },
     ],
     'no-restricted-globals': [
-      'error',
-      ...requireEslintTool('eslint-restricted-globals'),
-      { name: 'global', message: 'Use `globalThis` instead.' },
-      { name: 'self', message: 'Use `globalThis` instead.' },
+        'error',
+        ...requireEslintTool('eslint-restricted-globals'),
+        { name: 'global', message: 'Use `globalThis` instead.' },
+        { name: 'self', message: 'Use `globalThis` instead.' },
     ],
     'no-restricted-properties': [
         'error',
@@ -68,7 +68,7 @@ const sharedRules: TFlatConfigItem['rules']  = {
             allowUnboundThis: true,
         },
     ],
-  }
+};
 
 const javascript = async (options: IOptionsJs & IOptionsOverrides = {}): Promise<TFlatConfigItem[]> => {
     const { configurations = {}, overrides = {} } = options;
@@ -82,11 +82,11 @@ const javascript = async (options: IOptionsJs & IOptionsOverrides = {}): Promise
     };
 
     const {
-      airbnb,
-      all: onEslintAllConfigRules,
-      base,
-      formatter,
-      recommended: onEslintRecommendedConfigRules,
+        airbnb,
+        all: onEslintAllConfigRules,
+        base,
+        formatter,
+        recommended: onEslintRecommendedConfigRules,
     } = { ...defaultConfigurations, ...configurations };
 
     const { all, recommended } = eslintJsPlugin.configs;
