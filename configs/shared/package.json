@@ -25,15 +25,15 @@
     "fast-equals": "^5.0.1",
     "micro-memoize": "^4.1.2",
     "picomatch": "^4.0.2",
-    "type-fest": "^4.28.0"
+    "type-fest": "^4.29.0"
   },
   "devDependencies": {
     "@demonicattack/eslint": "workspace:^",
     "@demonicattack/lint-staged": "workspace:^",
     "@demonicattack/prettier": "workspace:^",
     "@demonicattack/typescript": "workspace:^",
-    "@types/node": "^22.9.3",
-    "eslint": "^9.15.0",
+    "@types/node": "^22.10.1",
+    "eslint": "^9.16.0",
     "lint-staged": "^15.2.10",
     "prettier": "^3.4.1",
     "rimraf": "^6.0.1",

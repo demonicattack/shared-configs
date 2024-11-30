@@ -27,7 +27,7 @@
     "@demonicattack/prettier": "workspace:^",
     "@demonicattack/typescript": "workspace:^",
     "@types/micromatch": "^4.0.9",
-    "eslint": "^9.15.0",
+    "eslint": "^9.16.0",
     "prettier": "^3.4.1",
     "rimraf": "^6.0.1",
     "tsup": "^8.3.5",

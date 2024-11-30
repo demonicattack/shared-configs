@@ -44,9 +44,13 @@ const lintStaged = (options: IConfigOptions = {}): string[] => {
     const commands: string[] = [];
 
     if (prettierFiles.length !== 0 && prettier) commands.push(`${PRETTIER} ${prettierFiles.join(' ')}`);
+
     if (typeCheck && matchFiles(allStagedFiles, [...TYPESCRIPT_FILES]).length !== 0) commands.push(TYPE_CHECK());
+
     if (eslintFiles.length !== 0 && eslint) commands.push(`${ESLINT} ${eslintFiles.join(' ')}`);
+
     if (commands.length === 0) return ['echo "No matching files for linting"'];
+
     return commands;
 };
 

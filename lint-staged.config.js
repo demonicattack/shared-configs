@@ -1,4 +1,9 @@
 import { lintStaged } from '@demonicattack/lint-staged';
 export default {
-    '*': allStagedFiles => lintStaged({ allStagedFiles }),
+    '*': allStagedFiles => [
+        ...lintStaged({
+            allStagedFiles,
+        }),
+        'yarn run lint:ws',
+    ],
 };
