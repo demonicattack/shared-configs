@@ -14,27 +14,26 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 
+          fetch-depth: 0  
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 'latest'
 
-      - name: Install latest Yarn
-        run: corepack prepare yarn@latest --activate
-     
-      - name: Activate latest Yarn
-        run: yarn set version latest
+      - name: Enable Corepack and install Yarn latest
+        run: |
+          corepack enable
+          corepack prepare yarn@latest --activate
 
       - name: Install packages
         run: |
           yarn install --immutable --immutable-cache --check-cache
-      
+
       - name: Building
         run: |
-          yarn run build          
+          yarn run build
 
       - name: Run linters (lint-staged)
         run: |
-          yarn lint-staged --diff=origin/main
+          yarn lint-staged --diff=origin/main...HEAD
