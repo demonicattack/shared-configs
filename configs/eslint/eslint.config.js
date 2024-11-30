@@ -1,79 +1,35 @@
 import { config } from '@demonicattack/eslint';
-
-// export default config(
-//     {
-//         js: {
-//             overrides: {
-//                 'curly': 'off',
-//                 'no-undefined': 'off',
-//                 'no-useless-computed-key': 'off',
-//                 'func-style': ['error', 'expression', { allowArrowFunctions: true }],
-//             },
-//         },
-//         ts: {
-//             tsconfigPath: 'tsconfig.json',
-//             overridesTypeAware: {
-//                 'ts/require-await': 'off',
-//                 'ts/promise-function-async': 'off',
-//                 'ts/no-unsafe-assignment': 'off',
-//                 'ts/no-unsafe-member-access': 'off',
-//                 'ts/strict-boolean-expressions': 'off',
-//                 'ts/no-unsafe-return': 'off',
-//                 'ts/no-explicit-any': 'off',
-//                 'ts/no-unsafe-argument': 'off',
-//             },
-//         },
-//         import: {
-//             react: false,
-//             typescript: true,
-//             overrides: {
-//                 'import/extensions': 'off',
-//                 'import/no-nodejs-modules': 'off',
-//                 'import/prefer-default-export': 'off',
-//             },
-//         },
-//         unicorn: {
-//             overrides: {
-//                 'unicorn/prefer-string-raw': 'off',
-//             },
-//         },
-//         prettier: false,
-//         tw: false,
-//         sonarjs: true,
-//         arca: true,
-//     },
-//     {
-//         ignores: [
-//             'typegen.d.ts',
-//             '.eslint-config-inspector',
-//         ],
-//     },
-//     {
-//         rules: {
-//             'sonarjs/deprecation': 'off',
-//             'sonarjs/todo-tag': 'off',
-//         },
-//     },
-// );
-export default config(
-    {
-        type: 'lib',
-        js: {
-            configurations: {
-                airbnb: true,
-            },
+export default config({
+    ignores: [
+        'typegen.d.ts',
+        '.eslint-config-inspector',
+    ],
+    type: 'lib',
+    js: {
+        configurations: {
+            airbnb: true,
         },
-        ts: {
-            tsconfigPath: 'tsconfig.json',
+        overrides: {
+            'no-useless-computed-key': 'off',
         },
-        arca: true,
-        perfectionist: false,
-        // sonarjs: true,
     },
-    {
-        ignores: [
-            '.eslint-config-inspector',
-            'typegen.d.ts',
-        ],
+    node: {
+      overrides: {
+        'node/callback-return': 'off',
+      }
     },
-);
+    ts: {
+        tsconfigPath: 'tsconfig.json',
+        overridesTypeAware: {
+            'ts/no-deprecated': 'off',
+            'ts/require-await': 'off',
+            'ts/no-explicit-any': 'off',
+            'ts/no-unsafe-return': 'off',
+            'ts/no-unsafe-argument': 'off',
+            'ts/no-unsafe-assignment': 'off',
+            'ts/promise-function-async': 'off',
+            'ts/no-unsafe-member-access': 'off',
+            'ts/strict-boolean-expressions': 'off',
+        },
+    },
+});

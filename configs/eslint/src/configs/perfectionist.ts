@@ -4,34 +4,33 @@ import type { IOptionsOverrides, TFlatConfigItem } from '../types';
 const p11tOptions = {
     type: 'natural',
     ignoreCase: false,
-    order: 'asc',
 } as const;
 
 const p11tGroups = {
     customGroups: {
         id: [
-            '_',
-            'id',
-            'key',
-            'self',
+            '^_$',
+            '^id$',
+            '^key$',
+            '^self$',
         ],
         type: [
-            'type',
-            'kind',
+            '^type$',
+            '^kind$',
         ],
         meta: [
-            'name',
-            'meta',
-            'title',
-            'description',
+            '^name$',
+            '^meta$',
+            '^title$',
+            '^description$',
         ],
         alias: [
-            'alias',
-            'as',
+            '^alias$',
+            '^as$',
         ],
         rules: [
-            'node',
-            'messageId',
+            '^node$',
+            '^messageId$',
         ],
     },
     groups: [
@@ -72,26 +71,27 @@ const perfectionist = async (options: IOptionsOverrides = {}): Promise<TFlatConf
                 'perfectionist/sort-intersection-types': 'error',
                 'perfectionist/sort-jsx-props': 'error',
                 'perfectionist/sort-maps': 'error',
+                'perfectionist/sort-modules': 'off',
                 'perfectionist/sort-named-exports': 'off',
                 'perfectionist/sort-named-imports': 'off',
                 'perfectionist/sort-object-types': [
                     'error',
-                    p11t as any,
+                    {
+                        ...(p11t as any),
+                        partitionByComment: '^Part:.*',
+                    },
                 ],
                 'perfectionist/sort-objects': [
                     'error',
                     {
                         ...p11t,
-                        partitionByComment: 'Part:**',
+                        partitionByComment: '^Part:.*',
                     } as any,
                 ],
                 'perfectionist/sort-sets': 'error',
                 'perfectionist/sort-svelte-attributes': 'off',
                 'perfectionist/sort-switch-case': 'error',
-                'perfectionist/sort-union-types': [
-                    'error',
-                    p11tOptions,
-                ],
+                'perfectionist/sort-union-types': 'error',
                 'perfectionist/sort-variable-declarations': 'error',
                 'perfectionist/sort-vue-attributes': 'off',
                 ...overrides,

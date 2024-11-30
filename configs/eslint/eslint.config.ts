@@ -1,16 +1,9 @@
 import { config } from './src/config';
 
 export default config({
-    /**
-     * By default, the plugins is enabled
-     */
     node: true,
     arca: true,
     comments: true,
-    /**
-     * By default, the plugins is enabled if the current package is in your project
-     * @example typescript, react, tailwindcss, etc
-     */
     eslint: true,
     esx: true,
     ignores: [
@@ -32,14 +25,9 @@ export default config({
         },
         overrides: {},
     },
-
-    /**
-     * By default, the plugins is disabled
-     */
     jsx: true,
     mutation: true,
     next: true,
-
     perfectionist: true,
     prettier: {
         recommended: true,
@@ -48,8 +36,9 @@ export default config({
     react: true,
     regexp: true,
     sonarjs: true,
-
-    ts: true,
+    ts: {
+        tsconfigPath: 'tsconfig.json',
+    },
     tw: true,
     unicorn: {
         base: true,

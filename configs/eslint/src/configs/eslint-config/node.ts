@@ -1,7 +1,7 @@
 import { eslintConfigCjsESLint } from './config';
 import { getRulesByConfigName } from './utils';
 
-const eslintConfigCjs = {
+const eslintConfigNode = {
     cjs: {
         rules: getRulesByConfigName('eslint-config-eslint/cjs', eslintConfigCjsESLint),
     },
@@ -10,4 +10,4 @@ const eslintConfigCjs = {
     },
 };
 
-export { eslintConfigCjs };
+export { eslintConfigNode };

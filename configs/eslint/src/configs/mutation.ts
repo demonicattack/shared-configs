@@ -15,6 +15,9 @@ const mutation = async (options: IOptionsOverrides = {}): Promise<TFlatConfigIte
                 ...renameRules(eslintBetterMutationPlugin.configs.recommended.rules, {
                     'better-mutation': 'mutation',
                 }),
+                'mutation/no-mutating-functions': 'error',
+                'mutation/no-mutating-methods': 'error',
+                'mutation/no-mutation': 'error',
                 ...overrides,
             },
         },

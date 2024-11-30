@@ -1,5 +1,4 @@
 import { config } from '@demonicattack/eslint';
-
 export default config({
     type: 'lib',
     js: {
@@ -10,7 +9,6 @@ export default config({
     ts: {
         tsconfigPath: 'tsconfig.json',
     },
-    arca: true,
     /**
      * @detect "prettier-plugin-tailwindcss"
      */

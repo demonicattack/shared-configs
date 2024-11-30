@@ -34,14 +34,13 @@
     "@demonicattack/eslint": "workspace:^",
     "@demonicattack/typescript": "workspace:^",
     "@types/node": "^22.10.1",
-    "eslint": "^9.15.0",
+    "eslint": "^9.16.0",
     "rimraf": "^6.0.1",
     "tsup": "^8.3.5",
     "typescript": "^5.7.2"
   },
   "peerDependencies": {
-    "prettier": "^3.4.1",
-    "prettier-plugin-multiline-arrays": "^3.0.6"
+    "prettier": "^3.4.1"
   },
   "packageManager": "yarn@4.5.3"
 }

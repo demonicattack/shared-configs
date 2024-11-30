@@ -33,8 +33,8 @@ const disables = async (): Promise<TFlatConfigItem[]> => [
         rules: {
             'arca/no-default-export': 'off',
             'import/no-default-export': 'off',
-            'ts/explicit-function-return-type': 'off',
             'no-console': 'off',
+            'ts/explicit-function-return-type': 'off',
         },
     },
     {

@@ -14,7 +14,7 @@ import {
     eslintReactXPlugin,
 } from '../plugins';
 import type { IOptionsFiles, IOptionsOverrides, IOptionsTypeScriptWithTypes, TFlatConfigItem } from '../types';
-import { toArray } from '../utils';
+import { interopDefault, toArray } from '../utils';
 
 import { airbnbBaseReactRules } from './airbnb';
 
@@ -31,8 +31,8 @@ const react = async (
 ): Promise<TFlatConfigItem[]> => {
     const {
         files = [
-            JAVASCRIPT_FILES,
-            TYPESCRIPT_FILES,
+            ...JAVASCRIPT_FILES,
+            ...TYPESCRIPT_FILES,
         ],
         overrides = {},
     } = options;
@@ -43,8 +43,7 @@ const react = async (
     const isAllowConstantExport = ReactRefreshAllowConstantExportPackages.some(index => isPackageExists(index));
     const isUsingNext = NextJsPackages.some(index => isPackageExists(index));
 
-    const parserModule = await import('@typescript-eslint/parser');
-    const tsParser = parserModule.default;
+    const tsParser = await interopDefault(import('@typescript-eslint/parser'));
 
     return [
         {
@@ -77,7 +76,6 @@ const react = async (
             },
             rules: {
                 ...eslintJsxA11yPlugin.flatConfigs.recommended.rules,
-
                 /**
                  *  TODO: airbnb rules
                  */
@@ -88,44 +86,8 @@ const react = async (
                  */
                 '@eslint-react/no-useless-fragment': 'warn',
                 '@eslint-react/prefer-destructuring-assignment': 'warn',
-
                 '@eslint-react/prefer-shorthand-boolean': 'warn',
                 '@eslint-react/prefer-shorthand-fragment': 'warn',
-                /**
-                 * TODO: Default React Rules
-                 */
-                'react/button-has-type': 'error',
-                'react/display-name': 'error',
-
-                'react/function-component-definition': [
-                    'error',
-                    {
-                        namedComponents: 'arrow-function',
-                        unnamedComponents: 'arrow-function',
-                    },
-                ],
-                'react/jsx-key': 'error',
-                'react/jsx-no-comment-textnodes': 'error',
-                'react/jsx-no-duplicate-props': 'error',
-
-                'react/jsx-no-target-blank': 'error',
-                'react/jsx-no-undef': 'error',
-                'react/jsx-uses-react': 'error',
-                'react/jsx-uses-vars': 'error',
-                'react/no-children-prop': 'error',
-                'react/no-danger-with-children': 'error',
-                'react/no-deprecated': 'error',
-                'react/no-find-dom-node': 'error',
-                'react/no-is-mounted': 'error',
-                'react/no-render-return-value': 'error',
-                'react/no-unescaped-entities': 'error',
-
-                'react/no-unknown-property': 'error',
-
-                'react/no-unsafe': 'off',
-                'react/prop-types': 'error',
-                'react/react-in-jsx-scope': 'error',
-                'react/require-render-return': 'error',
                 /**
                  *  TODO: react-dom rules
                  */
@@ -183,7 +145,6 @@ const react = async (
                         ],
                     },
                 ],
-
                 /**
                  *  TODO: react-web-api rules
                  */
@@ -191,7 +152,6 @@ const react = async (
                 'react-web-api/no-leaked-interval': 'error',
                 'react-web-api/no-leaked-resize-observer': 'error',
                 'react-web-api/no-leaked-timeout': 'error',
-
                 /**
                  * TODO: React-X rules
                  */
@@ -213,10 +173,12 @@ const react = async (
                 'react-x/no-direct-mutation-state': 'error',
                 'react-x/no-duplicate-key': 'error',
                 'react-x/no-implicit-key': 'warn',
+
                 'react-x/no-missing-key': 'error',
                 'react-x/no-nested-components': 'warn',
                 'react-x/no-prop-types': 'error',
                 'react-x/no-redundant-should-component-update': 'error',
+
                 'react-x/no-set-state-in-component-did-mount': 'warn',
                 'react-x/no-set-state-in-component-did-update': 'warn',
                 'react-x/no-set-state-in-component-will-update': 'warn',
@@ -228,6 +190,37 @@ const react = async (
                 'react-x/no-unstable-default-props': 'error',
                 'react-x/no-unused-class-component-members': 'warn',
                 'react-x/no-unused-state': 'warn',
+                /**
+                 * TODO: Default React Rules
+                 */
+                'react/button-has-type': 'error',
+                'react/display-name': 'error',
+                'react/function-component-definition': [
+                    'error',
+                    {
+                        namedComponents: 'arrow-function',
+                        unnamedComponents: 'arrow-function',
+                    },
+                ],
+                'react/jsx-key': 'error',
+                'react/jsx-no-comment-textnodes': 'error',
+                'react/jsx-no-duplicate-props': 'error',
+                'react/jsx-no-target-blank': 'error',
+                'react/jsx-no-undef': 'error',
+                'react/jsx-uses-react': 'error',
+                'react/jsx-uses-vars': 'error',
+                'react/no-children-prop': 'error',
+                'react/no-danger-with-children': 'error',
+                'react/no-deprecated': 'error',
+                'react/no-find-dom-node': 'error',
+                'react/no-is-mounted': 'error',
+                'react/no-render-return-value': 'error',
+                'react/no-unescaped-entities': 'error',
+                'react/no-unknown-property': 'error',
+                'react/no-unsafe': 'off',
+                'react/prop-types': 'error',
+                'react/react-in-jsx-scope': 'error',
+                'react/require-render-return': 'error',
                 ...(isTypeAware ?
                     {
                         '@eslint-react/no-leaked-conditional-rendering': 'warn',
@@ -237,6 +230,32 @@ const react = async (
             },
             settings: {
                 react: { version: 'detect' },
+                'react-x': {
+                    additionalComponents: [
+                        {
+                            name: 'Link',
+                            as: 'a',
+                            attributes: [
+                                {
+                                    name: 'to',
+                                    as: 'href',
+                                },
+                                {
+                                    name: 'rel',
+                                    defaultValue: 'noopener noreferrer',
+                                },
+                            ],
+                        },
+                    ],
+                    additionalHooks: {
+                        useLayoutEffect: ['useIsomorphicLayoutEffect'],
+                    },
+                    importSource: 'react',
+                    jsxPragma: 'createElement',
+
+                    jsxPragmaFrag: 'Fragment',
+                    version: 'detect',
+                },
             },
         },
     ];

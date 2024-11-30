@@ -70,6 +70,7 @@ const unicorn = async (options: IOptionsOverrides & IOptionsUnicorn = {}): Promi
                 'unicorn/prefer-node-protocol': 'error',
                 'unicorn/prefer-number-properties': 'error',
                 'unicorn/prefer-query-selector': 'off',
+                'unicorn/prefer-string-raw': 'off',
                 'unicorn/prefer-string-starts-ends-with': 'error',
                 'unicorn/prefer-ternary': 'off',
                 'unicorn/prefer-type-error': 'error',

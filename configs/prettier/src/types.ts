@@ -1,6 +1,7 @@
 import type { Config as PrettierConfig, Options as PrettierOptions } from 'prettier';
 
 type TPrettierOptions = PrettierOptions;
+type Awaitable<T> = Promise<T> | T;
 
 interface IOverrideBase {
     excludeFiles?: string | string[];
@@ -22,4 +23,4 @@ type TUserPrettierOptions<T = Record<string, unknown>> = {
 } & Partial<T> &
     PrettierOptions;
 
-export type { IOverrideBase, TOverride, TPrettierOptions, TResolvedPrettierConfig, TUserPrettierOptions };
+export type { Awaitable, IOverrideBase, TOverride, TPrettierOptions, TResolvedPrettierConfig, TUserPrettierOptions };

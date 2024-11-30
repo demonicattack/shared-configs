@@ -5,12 +5,10 @@ import { writeFile } from 'node:fs/promises';
 import {
     arca,
     comments,
-    // demonicattack,
     eslint,
     esx,
     imrt,
     javascript,
-    // json,
     jsx,
     mutation,
     next,
@@ -31,7 +29,6 @@ const configs = await combine(
     {
         plugins: {
             '': {
-                // eslint-disable-next-line ts/no-deprecated
                 rules: Object.fromEntries(builtinRules.entries()),
             },
         },
@@ -47,7 +44,6 @@ const configs = await combine(
     esx(),
     eslint(),
     imrt(),
-    // demonicattack(),
     typescript(),
     prettier(),
     arca(),

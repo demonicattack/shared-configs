@@ -7,7 +7,6 @@ import type { RuleOptions } from '../typegen';
 import {
     arca,
     comments,
-    // demonicattack,
     disables,
     eslint,
     esx,
@@ -70,48 +69,30 @@ const getOverrides = (options: IOptionsConfig, key: TOverridesKey): TOverridesTy
 
 const config = (
     options: IOptionsConfig & Omit<TFlatConfigItem, 'files'> = {},
-    ...userConfigs: Awaitable<
-        FlatConfigComposer<Linter.Config, unknown> | Linter.Config[] | TFlatConfigItem | TFlatConfigItem[]
-    >[]
+    ...userConfigs: Awaitable<FlatConfigComposer<any, any> | Linter.Config[] | TFlatConfigItem | TFlatConfigItem[]>[]
 ): FlatConfigComposer<TFlatConfigItem, TConfigNames> => {
     const {
-        autoRenamePlugins = true,
-        componentExtensions = [],
-
-        /**
-         * By default, the plugins is enabled
-         */
-        // eslint-disable-next-line perfectionist/sort-objects
         node: enableNode = true,
+        arca: enableArca = true,
+        autoRenamePlugins = true,
         comments: enableComments = true,
+        componentExtensions = [],
+        eslint: enableEslint = false,
         esx: enableEsx = true,
         gitignore: enableGitignore = true,
         import: enableImport = true,
+        jsx: enableJsx = false,
         mutation: enableMutation = true,
-        perfectionist: enablePerfectionist = true,
-        promise: enablePromise = true,
-        regexp: enableRegexp = true,
-        unicorn: enableUnicorn = true,
-
-        /**
-         * By default, the plugins is enabled if the current package is in your project
-         * @example typescript, react, tailwindcss, etc
-         */
-        // eslint-disable-next-line perfectionist/sort-objects
         next: enableNext = isPackageExists('next'),
+        perfectionist: enablePerfectionist = true,
         prettier: enablePrettier = isPackageExists('prettier'),
+        promise: enablePromise = true,
         react: enableReact = isPackageExists('react'),
+        regexp: enableRegexp = true,
+        sonarjs: enableSonarjs = false,
         ts: enableTypeScript = isPackageExists('typescript'),
         tw: enableTailwindcss = isPackageExists('tailwindcss'),
-
-        /**
-         * By default, the plugins is disabled
-         */
-        // eslint-disable-next-line perfectionist/sort-objects
-        arca: enableArca = false,
-        eslint: enableEslint = false,
-        jsx: enableJsx = false,
-        sonarjs: enableSonarjs = false,
+        unicorn: enableUnicorn = true,
     } = options;
 
     const configs: Awaitable<TFlatConfigItem[]>[] = [];
@@ -138,9 +119,6 @@ const config = (
         }
     }
 
-    /**
-     * By default config
-     */
     const jsOptions = isSubOptions(options, 'js');
 
     configs.push(
@@ -149,14 +127,7 @@ const config = (
             ...jsOptions,
             overrides: getOverrides(options, 'js'),
         }),
-        // demonicattack({
-        //     overrides: getOverrides(options, 'demonicattack'),
-        // }),
     );
-
-    /**
-     * By default, the plugins is enabled
-     */
     if (enableNode) {
         configs.push(
             node({
@@ -226,10 +197,6 @@ const config = (
             }),
         );
     }
-
-    /**
-     * By default, the plugins is disabled
-     */
     if (enableJsx) configs.push(jsx());
     if (enableEslint) configs.push(eslint());
     if (enableSonarjs) {
@@ -239,10 +206,6 @@ const config = (
             }),
         );
     }
-    /**
-     * By default, the plugins is enabled if the current package is in your project
-     * @example typescript, react, tailwindcss, prettier etc
-     */
     if (enableTailwindcss) {
         configs.push(
             tailwindcss({
@@ -280,10 +243,6 @@ const config = (
             }),
         );
     }
-    /**
-     *
-     * LAST POSITIONS enablePrettier
-     */
     const prettierOption = isSubOptions(options, 'prettier');
     if (enablePrettier) {
         configs.push(
@@ -303,7 +262,7 @@ const config = (
         }
     }
 
-    if (Object.keys(fusedConfig).length > 0) configs.push([fusedConfig]);
+    if (Object.keys(fusedConfig).length !== 0) configs.push([fusedConfig]);
 
     let composer = new FlatConfigComposer<TFlatConfigItem, TConfigNames>();
 

@@ -80,17 +80,17 @@ export interface IOptionsDemonicAttack {
 }
 
 interface IOptionsUnicorn {
-    base?: TFlatConfigItem['rules'] | boolean;
-    recommended?: TFlatConfigItem['rules'] | boolean;
+    base?: boolean | TFlatConfigItem['rules'];
+    recommended?: boolean | TFlatConfigItem['rules'];
 }
 
 interface IOptionsJs {
     configurations?: Partial<{
-        airbnb?: TFlatConfigItem['rules'] | boolean;
-        all?: TFlatConfigItem['rules'] | boolean;
-        base?: TFlatConfigItem['rules'] | boolean;
-        formatter?: TFlatConfigItem['rules'] | boolean;
-        recommended?: TFlatConfigItem['rules'] | boolean;
+        airbnb?: boolean | TFlatConfigItem['rules'];
+        all?: boolean | TFlatConfigItem['rules'];
+        base?: boolean | TFlatConfigItem['rules'];
+        formatter?: boolean | TFlatConfigItem['rules'];
+        recommended?: boolean | TFlatConfigItem['rules'];
     }>;
 }
 
@@ -100,39 +100,39 @@ type TOptionsTypescript =
 
 interface IOptionsConfig extends IOptionsComponentExtensions, IOptionsProjectType {
     demonicattack?: IOptionsOverrides;
-    gitignore?: FlatGitignoreOptions | boolean;
+    gitignore?: boolean | FlatGitignoreOptions;
     js?: IOptionsJs | IOptionsOverrides;
     /**
      * By default, the plugins is enabled
      */
-    node?: IOptionsOverrides | boolean;
-    comments?: IOptionsOverrides | boolean;
-    esx?: IOptionsOverrides | boolean;
-    import?: (IOptionsImport & IOptionsOverrides) | boolean;
-    mutation?: IOptionsOverrides | boolean;
-    perfectionist?: IOptionsOverrides | boolean;
-    promise?: IOptionsOverrides | boolean;
-    regexp?: (IOptionsOverrides & IOptionsRegExp) | boolean;
-    unicorn?: (IOptionsOverrides & IOptionsUnicorn) | boolean;
+    node?: boolean | IOptionsOverrides;
+    comments?: boolean | IOptionsOverrides;
+    esx?: boolean | IOptionsOverrides;
+    import?: boolean | (IOptionsImport & IOptionsOverrides);
+    mutation?: boolean | IOptionsOverrides;
+    perfectionist?: boolean | IOptionsOverrides;
+    promise?: boolean | IOptionsOverrides;
+    regexp?: boolean | (IOptionsOverrides & IOptionsRegExp);
+    unicorn?: boolean | (IOptionsOverrides & IOptionsUnicorn);
 
     /**
      * By default, the plugins is enabled if the current package is in your project
      * @example typescript, react, tailwindcss, etc
      */
-    next?: IOptionsOverrides | boolean;
-    prettier?: IOptionsPrettier | boolean;
-    react?: IOptionsOverrides | boolean;
-    ts?: TOptionsTypescript | boolean;
-    tw?: IOptionsOverrides | boolean;
+    next?: boolean | IOptionsOverrides;
+    prettier?: boolean | IOptionsPrettier;
+    react?: boolean | IOptionsOverrides;
+    ts?: boolean | TOptionsTypescript;
+    tw?: boolean | IOptionsOverrides;
 
     /**
      * By default, the plugins is disabled
      */
-    arca?: IOptionsOverrides | boolean;
-    eslint?: IOptionsOverrides | boolean;
+    arca?: boolean | IOptionsOverrides;
+    eslint?: boolean | IOptionsOverrides;
     // json?: IOptionsOverrides | boolean;
     jsx?: boolean;
-    sonarjs?: IOptionsOverrides | boolean;
+    sonarjs?: boolean | IOptionsOverrides;
 
     /**
      * Rename plugins

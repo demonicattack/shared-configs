@@ -1,6 +1,5 @@
 export * from './arca';
 export * from './comments';
-export * from './demonicattack';
 export * from './disables';
 export * from './eslint';
 export * from './esx';

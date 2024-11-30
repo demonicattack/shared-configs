@@ -1,4 +1,4 @@
-const reformattedRules = (rules: Record<string, any>) => {
+const reformattedRules = (rules: Record<string, any>): Record<string, any> => {
     const accumulator: Record<string, any> = {};
 
     for (const rule in rules) {

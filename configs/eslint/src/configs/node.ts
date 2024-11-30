@@ -1,5 +1,8 @@
 import { eslintNodePlugin } from '../plugins';
 import type { IOptionsOverrides, TFlatConfigItem } from '../types';
+import { renameRules } from '../utils';
+
+import { eslintConfigNode } from './eslint-config';
 
 const node = async (options: IOptionsOverrides = {}): Promise<TFlatConfigItem[]> => {
     const { overrides = {} } = options;
@@ -11,6 +14,12 @@ const node = async (options: IOptionsOverrides = {}): Promise<TFlatConfigItem[]>
                 ['node']: eslintNodePlugin,
             },
             rules: {
+                ...renameRules(eslintConfigNode.cjs.rules ?? {}, {
+                    n: 'node',
+                }),
+                ...renameRules(eslintConfigNode.esm.rules ?? {}, {
+                    n: 'node',
+                }),
                 'node/handle-callback-err': [
                     'error',
                     '^(err|error)$',

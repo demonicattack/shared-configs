@@ -1,6 +1,6 @@
 import type { TFlatConfigItem } from '../../types';
 
-const getRulesByConfigName = (configName: string, configs: TFlatConfigItem[]) => {
+const getRulesByConfigName = (configName: string, configs: TFlatConfigItem[]): TFlatConfigItem['rules'] => {
     let rules = {};
     for (const config of configs) {
         if (config.name === configName && config.rules) {

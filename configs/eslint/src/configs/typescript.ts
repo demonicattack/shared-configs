@@ -10,7 +10,7 @@ import type {
     IOptionsTypeScriptWithTypes,
     TFlatConfigItem,
 } from '../types';
-import { renameRules } from '../utils';
+import { interopDefault, renameRules } from '../utils';
 
 import type { ParserOptions } from '@typescript-eslint/parser';
 
@@ -143,10 +143,13 @@ const typescript = async (
         'ts/use-unknown-in-catch-callback-variable': 'error',
     };
 
-    const parserModule = await import('@typescript-eslint/parser');
-    const eslintModule = await import('@typescript-eslint/eslint-plugin');
-    const tsParser = parserModule.default;
-    const tsPlugin = eslintModule.default;
+    const [
+        tsParser,
+        tsPlugin,
+    ] = await Promise.all([
+        interopDefault(import('@typescript-eslint/parser')),
+        interopDefault(import('@typescript-eslint/eslint-plugin')),
+    ] as const);
 
     const parser = (typeAware: boolean, f: string[], ignores?: string[]): TFlatConfigItem => ({
         files: f,
@@ -181,7 +184,14 @@ const typescript = async (
                 ['ts']: tsPlugin,
             },
         },
-        ...(isTypeAware ? [parser(true, filesTypeAware, ignoresTypeAware)] : []),
+        ...(isTypeAware ?
+            [
+                parser(false, files),
+                parser(true, filesTypeAware, ignoresTypeAware),
+            ]
+        :   [
+                parser(false, files),
+            ]),
         {
             name: 'ts/rules',
             files,

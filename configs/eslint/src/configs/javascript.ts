@@ -101,7 +101,6 @@ const javascript = async (options: IOptionsJs & IOptionsOverrides = {}): Promise
                     ...globals.es2022,
                     ...globals.node,
                     ...globals.serviceworker,
-                    ...globals.builtin,
                     document: 'readonly',
                     navigator: 'readonly',
                     window: 'readonly',
