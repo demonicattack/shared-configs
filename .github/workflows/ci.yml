@@ -28,7 +28,7 @@ jobs:
 
       - name: Install packages
         run: |
-          yarn install --immutable --immutable-cache
+          yarn install
 
       - name: Building
         run: |
