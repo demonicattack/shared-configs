@@ -1,9 +1,12 @@
 import { config } from '@demonicattack/eslint';
-
 export default config({
-    ts: {
-        tsconfigPath: 'tsconfig.json',
-    },
     type: 'lib',
-    arca: true,
+    js: {
+        configurations: {
+            airbnb: true,
+        },
+        ts: {
+            tsconfigPath: 'tsconfig.json',
+        },
+    },
 });

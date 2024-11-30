@@ -2,7 +2,7 @@ import { typeOf } from './type-of';
 
 const transformKeys = <T extends Record<string, unknown>>(object: T, transform: (s: string) => string): T => {
     if (typeOf(object) !== 'object') return object;
-    return Object.keys(object).reduce((accumulator, key) => {
+    return Object.keys(object).reduce<T>((accumulator, key) => {
         if (Object.hasOwn(object, key)) {
             const value = object[key];
             if (value !== undefined && value !== null) {
@@ -10,6 +10,7 @@ const transformKeys = <T extends Record<string, unknown>>(object: T, transform: 
             }
         }
         return accumulator;
+        // eslint-disable-next-line ts/prefer-reduce-type-parameter
     }, {} as T);
 };
 

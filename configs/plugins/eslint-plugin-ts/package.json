@@ -1,5 +1,5 @@
 {
-  "name": "@demonicattack/typescript-plugin",
+  "name": "@demonicattack/eslint-plugin-ts",
   "version": "0.0.0",
   "description": "",
   "keywords": [],
@@ -25,7 +25,6 @@
     "lint:fix": "eslint --fix --cache --cache-location node_modules/.cache/.eslintcache",
     "watch": "tsup --watch"
   },
-  "prettier": "./prettier.config.js",
   "dependencies": {
     "@demonicattack/shared": "workspace:^",
     "@typescript-eslint/utils": "^8.16.0",
@@ -33,11 +32,14 @@
   },
   "devDependencies": {
     "@demonicattack/eslint": "workspace:^",
+    "@demonicattack/lint-staged": "workspace:^",
     "@demonicattack/prettier": "workspace:^",
     "@demonicattack/typescript": "workspace:^",
     "@types/eslint": "^9.6.1",
     "@types/node": "^22.9.3",
-    "prettier": "^3.3.3",
+    "eslint": "^9.16.0",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.4.1",
     "rimraf": "^6.0.1",
     "string-ts": "^2.2.0",
     "tsup": "^8.3.5",

@@ -68,6 +68,7 @@
     "local-pkg": "^0.5.1"
   },
   "devDependencies": {
+    "@demonicattack/lint-staged": "workspace:^",
     "@demonicattack/prettier": "workspace:^",
     "@demonicattack/typegen": "workspace:^",
     "@demonicattack/typescript": "workspace:^",
@@ -75,8 +76,10 @@
     "@types/eslint-plugin-jsx-a11y": "^6.10.0",
     "@types/eslint__js": "^8.42.3",
     "@types/node": "^22.10.1",
+    "lint-staged": "^15.2.10",
     "prettier": "^3.4.1",
     "rimraf": "^6.0.1",
+    "tailwindcss": "^3.4.15",
     "tsup": "^8.3.5",
     "typescript": "^5.7.2"
   },

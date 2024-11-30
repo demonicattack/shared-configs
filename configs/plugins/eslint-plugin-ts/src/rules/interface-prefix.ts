@@ -5,7 +5,7 @@ import { applyDefault, createRule } from '../utils';
 const RULE_NAME = 'interface-prefix';
 const defaultOptions = ['never'];
 
-const isPrefixedWithI = (name: string) => typeof name === 'string' && /^I[A-Z]/u.test(name);
+const isPrefixedWithI = (name: string): boolean => typeof name === 'string' && /^I[A-Z]/u.test(name);
 
 export default createRule<[], CamelCase<typeof RULE_NAME>>({
     meta: {

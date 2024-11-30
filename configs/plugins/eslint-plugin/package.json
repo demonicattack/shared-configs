@@ -25,23 +25,24 @@
     "lint:fix": "eslint --fix --cache --cache-location node_modules/.cache/.eslintcache",
     "watch": "tsup --watch"
   },
-  "prettier": "./prettier.config.js",
   "dependencies": {
-    "@demonicattack/shared": "workspace:^",
-    "@demonicattack/typescript-plugin": "workspace:^"
+    "@demonicattack/eslint-plugin-ts": "workspace:^",
+    "@demonicattack/shared": "workspace:^"
   },
   "devDependencies": {
     "@demonicattack/eslint": "workspace:^",
+    "@demonicattack/lint-staged": "workspace:^",
     "@demonicattack/prettier": "workspace:^",
     "@demonicattack/typescript": "workspace:^",
-    "eslint": "^9.15.0",
-    "prettier": "^3.3.3",
+    "eslint": "^9.16.0",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.4.1",
     "rimraf": "^6.0.1",
     "tsup": "^8.3.5",
     "typescript": "^5.7.2"
   },
   "peerDependencies": {
-    "eslint": "^9.15.0",
+    "eslint": "^9.16.0",
     "typescript": "^5.7.2"
   },
   "packageManager": "yarn@4.5.3"

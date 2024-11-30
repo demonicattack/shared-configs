@@ -54,7 +54,11 @@ const prettier = async (
             ...overrides,
         ],
         plugins: [
-            isPackageExists('tailwindcss') && [tailwindcssPlugin],
+            (
+                isPackageExists('tailwindcss')
+            ) ?
+                [tailwindcssPlugin]
+            :   [],
             ...plugins,
         ],
         printWidth: 120,

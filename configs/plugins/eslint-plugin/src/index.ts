@@ -1,7 +1,7 @@
 import { name, version } from '../package.json';
 
+import eslintPluginTs from '@demonicattack/eslint-plugin-ts';
 import { padKeysLeft } from '@demonicattack/shared';
-import typescriptPlugin from '@demonicattack/typescript-plugin';
 
 type Severity = 'error' | 'off' | 'warn';
 type RuleDeclaration = [Severity, Record<string, unknown>?] | Severity;
@@ -20,7 +20,7 @@ const recommendedPreset = {
 } as const satisfies RulePreset;
 
 const flatConfigPlugins = {
-    '@demonicattack/typescript-plugin': typescriptPlugin,
+    '@demonicattack/typescript-plugin': eslintPluginTs,
 } as const;
 
 const createFlatConfig = <T extends RulePreset>(rules: T) =>
@@ -37,10 +37,10 @@ export default {
         version,
     },
     configs: {
-        ['recommended']: createFlatConfig(recommendedPreset),
+        recommended: createFlatConfig(recommendedPreset),
     },
     rules: {
-        ...typescriptPlugin.rules,
+        ...eslintPluginTs.rules,
         // ...padKeysLeft(typescriptPlugin.rules, 'ts/'),
     },
 } as const;

@@ -12,13 +12,14 @@
     "lint": "eslint --cache --cache-location node_modules/.cache/.eslintcache",
     "lint:fix": "eslint --fix --cache --cache-location node_modules/.cache/.eslintcache"
   },
-  "prettier": "./prettier.config.js",
   "dependencies": {
     "typescript": "^5.7.2"
   },
   "devDependencies": {
+    "@demonicattack/lint-staged": "workspace:^",
     "@demonicattack/prettier": "workspace:^",
-    "prettier": "^3.3.3",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.4.1",
     "rimraf": "^6.0.1"
   },
   "peerDependencies": {

@@ -1,2 +1,2 @@
-import { config } from '@demonicattack/prettier';
-export default config();
+import { prettier } from '@demonicattack/prettier';
+export default prettier();

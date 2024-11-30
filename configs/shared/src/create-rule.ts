@@ -9,7 +9,7 @@ interface IPluginDocuments {
 const getMetaDocumentsUrl = (pluginName: string) => (ruleName: string) =>
     `https://github.com/Demonic-Codeworks-Collective/development-tools/blob/${version}/docs/rules/${pluginName}-${ruleName}.md`;
 
-const createRuleForPlugin = (pluginName: string) =>
+const createRuleForPlugin = (pluginName: string): unknown =>
     ESLintUtils.RuleCreator<IPluginDocuments>(getMetaDocumentsUrl(pluginName));
 
 export { createRuleForPlugin };

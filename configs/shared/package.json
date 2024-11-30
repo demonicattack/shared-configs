@@ -20,7 +20,6 @@
     "lint": "eslint --cache --cache-location node_modules/.cache/.eslintcache",
     "lint:fix": "eslint --fix --cache --cache-location node_modules/.cache/.eslintcache"
   },
-  "prettier": "./prettier.config.js",
   "dependencies": {
     "@typescript-eslint/utils": "^8.16.0",
     "fast-equals": "^5.0.1",
@@ -30,11 +29,13 @@
   },
   "devDependencies": {
     "@demonicattack/eslint": "workspace:^",
+    "@demonicattack/lint-staged": "workspace:^",
     "@demonicattack/prettier": "workspace:^",
     "@demonicattack/typescript": "workspace:^",
     "@types/node": "^22.9.3",
     "eslint": "^9.15.0",
-    "prettier": "^3.3.3",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.4.1",
     "rimraf": "^6.0.1",
     "tsup": "^8.3.5",
     "typescript": "^5.7.2"
