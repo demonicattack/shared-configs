@@ -36,7 +36,7 @@
     "@demonicattack/prettier": "workspace:^",
     "@demonicattack/typescript": "workspace:^",
     "@types/eslint": "^9.6.1",
-    "@types/node": "^22.9.3",
+    "@types/node": "^22.10.1",
     "eslint": "^9.16.0",
     "lint-staged": "^15.2.10",
     "prettier": "^3.4.1",

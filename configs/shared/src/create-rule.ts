@@ -9,7 +9,9 @@ interface IPluginDocuments {
 const getMetaDocumentsUrl = (pluginName: string) => (ruleName: string) =>
     `https://github.com/Demonic-Codeworks-Collective/development-tools/blob/${version}/docs/rules/${pluginName}-${ruleName}.md`;
 
-const createRuleForPlugin = (pluginName: string): unknown =>
+// eslint-disable-next-line comments/disable-enable-pair
+/* eslint-disable ts/explicit-function-return-type */
+const createRuleForPlugin = (pluginName: string) =>
     ESLintUtils.RuleCreator<IPluginDocuments>(getMetaDocumentsUrl(pluginName));
 
 export { createRuleForPlugin };

@@ -14,9 +14,9 @@ export default config({
         },
     },
     node: {
-      overrides: {
-        'node/callback-return': 'off',
-      }
+        overrides: {
+            'node/callback-return': 'off',
+        },
     },
     ts: {
         tsconfigPath: 'tsconfig.json',

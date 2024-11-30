@@ -6,25 +6,21 @@
   "type": "module",
   "workspaces": [
     "configs/*",
-    "configs/plugins/*"
+    "eslint/*"
   ],
   "scripts": {
-    "build": "yarn workspaces foreach -Apt run build",
-    "build:workspaces:clean": "yarn workspaces foreach -Apt run build:clean",
-    "cache:clean": "yarn cache clean --all && rm -rf .yarn/cache .yarn/__virtual__ .yarn/berry ./.pnp.cjs ./.pnp.loader.mjs .yarn node_modules",
-    "check-types": "yarn workspaces foreach -Apt run tsc --noEmit",
+    "build": "yarn workspaces foreach -Apt --exclude @demonicattack/typescript run build",
+    "build:workspaces:clean": "yarn workspaces foreach -Apt --exclude @demonicattack/typescript run build:clean",
+    "cache:clean": "yarn cache clean --all && rm -rf .yarn/cache .yarn/__virtual__ .yarn/berry ./.pnp.cjs ./.pnp.loader.mjs .yarn node_modules yarn.lock",
+    "check-types": "yarn workspaces foreach -Apt --exclude @demonicattack/typescript run check-types",
     "clean:all": "yarn run build:workspaces:clean && yarn run clean:workspaces:cache && yarn run cache:clean",
     "clean:workspaces:cache": "yarn workspaces foreach -Apt run clean",
-    "dev": "yarn workspace @demonicattack/eslint run dev",
-    "doctor": "yarn dlx @yarnpkg/doctor@latest",
-    "format": "yarn workspaces foreach -Apt run prettier --check . --cache --cache-location .yarn/cache/.prettiercache",
-    "format:fix": "yarn workspaces foreach -Apt run prettier --write . --cache --cache-location .yarn/cache/.prettiercache --log-level=warn",
-    "lint": "yarn workspaces foreach -Apt run eslint --cache --cache-location .yarn/cache/.eslintcache",
-    "lint:fix": "yarn workspaces foreach -Apt run eslint --fix --cache --cache-location .yarn/cache/.eslintcache",
+    "format": "yarn workspaces foreach -Apt run format",
+    "format:fix": "yarn workspaces foreach -Apt run format:fix",
+    "lint": "yarn workspaces foreach -Apt --exclude @demonicattack/typescript run lint",
+    "lint:fix": "yarn workspaces foreach -Apt --exclude @demonicattack/typescript run lint:fix",
     "lint:ws": "yarn dlx sherif@latest -r packages-without-package-json",
     "prepare": "husky",
-    "sdk": "yarn dlx @yarnpkg/sdks@latest vscode",
-    "yarn:focus:all": "yarn workspaces focus -A",
     "yarn:workspace:list": "yarn workspaces list -R -v --json --no-private"
   },
   "config": {

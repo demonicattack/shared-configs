@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-nodejs-modules
 import { createRequire } from 'node:module';
 
 import type { Awaitable, TOverride, TPrettierOptions } from './types';

@@ -1698,9 +1698,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@demonicattack/eslint-plugin-ts@workspace:^, @demonicattack/eslint-plugin-ts@workspace:configs/plugins/eslint-plugin-ts":
+"@demonicattack/eslint-plugin-ts@workspace:^, @demonicattack/eslint-plugin-ts@workspace:eslint/eslint-plugin-ts":
   version: 0.0.0-use.local
-  resolution: "@demonicattack/eslint-plugin-ts@workspace:configs/plugins/eslint-plugin-ts"
+  resolution: "@demonicattack/eslint-plugin-ts@workspace:eslint/eslint-plugin-ts"
   dependencies:
     "@demonicattack/eslint": "workspace:^"
     "@demonicattack/lint-staged": "workspace:^"
@@ -1708,7 +1708,7 @@ __metadata:
     "@demonicattack/shared": "workspace:^"
     "@demonicattack/typescript": "workspace:^"
     "@types/eslint": "npm:^9.6.1"
-    "@types/node": "npm:^22.9.3"
+    "@types/node": "npm:^22.10.1"
     "@typescript-eslint/utils": "npm:^8.16.0"
     eslint: "npm:^9.16.0"
     lint-staged: "npm:^15.2.10"
@@ -1721,9 +1721,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@demonicattack/eslint-plugin@workspace:configs/plugins/eslint-plugin":
+"@demonicattack/eslint-plugin@workspace:eslint/eslint-plugin":
   version: 0.0.0-use.local
-  resolution: "@demonicattack/eslint-plugin@workspace:configs/plugins/eslint-plugin"
+  resolution: "@demonicattack/eslint-plugin@workspace:eslint/eslint-plugin"
   dependencies:
     "@demonicattack/eslint": "workspace:^"
     "@demonicattack/eslint-plugin-ts": "workspace:^"
