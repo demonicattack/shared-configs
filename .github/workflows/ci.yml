@@ -21,14 +21,15 @@ jobs:
         with:
           node-version: 'latest'
 
-      - name: Setup Latest Yarn
-        uses: threeal/setup-yarn-action@v2.0.0
-        with:
-          version: latest
+      - name: Install latest Yarn
+        run: corepack prepare yarn@latest --activate
+     
+      - name: Activate latest Yarn
+        run: yarn set version latest
 
       - name: Install packages
         run: |
-          yarn install
+          yarn install --immutable --immutable-cache --check-cache
       
       - name: Building
         run: |
