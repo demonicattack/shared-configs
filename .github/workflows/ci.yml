@@ -4,11 +4,14 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   linters:
     name: Linters
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -24,7 +27,7 @@ jobs:
       - name: Enable Corepack and install Yarn latest
         run: |
           corepack enable
-          corepack prepare yarn@latest --activate
+          corepack prepare yarn@latest
 
       - name: Install packages
         run: |

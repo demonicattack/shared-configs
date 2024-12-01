@@ -73,3 +73,5 @@ Thumbs.db
 # Other
 .eslint-config-inspector
 typegen.d.ts
+.nx/cache
+.nx/workspace-data
