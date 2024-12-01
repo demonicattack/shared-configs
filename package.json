@@ -25,7 +25,7 @@
     "lint:ws": "yarn dlx sherif@latest -r packages-without-package-json",
     "nx:graph": "nx graph",
     "prepare": "husky",
-    "publish:ci": "lerna publish from-package --no-private --yes --no-verify-access",
+    "publish:ci": "lerna publish from-package --no-private --yes",
     "version:ci": "lerna version --yes --conventional-commits --create-release github --message 'chore(release): publish'",
     "yarn:workspace:list": "yarn workspaces list -R -v --json --no-private"
   },
