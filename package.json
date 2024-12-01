@@ -1,7 +1,10 @@
 {
   "name": "@demonicattack/shared-configs",
-  "version": "0.0.0",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/demonicattack/shared-configs.git"
+  },
   "license": "MIT",
   "type": "module",
   "workspaces": [
@@ -22,6 +25,8 @@
     "lint:ws": "yarn dlx sherif@latest -r packages-without-package-json",
     "nx:graph": "nx graph",
     "prepare": "husky",
+    "publish:ci": "lerna publish from-package --no-private --yes --no-verify-access",
+    "version:ci": "lerna version --yes --conventional-commits --create-release github --message 'chore(release): publish'",
     "yarn:workspace:list": "yarn workspaces list -R -v --json --no-private"
   },
   "config": {

@@ -3,6 +3,10 @@
   "command": {
     "publish": {
       "registry": "https://npm.pkg.github.com"
+    },
+    "version": {
+      "allowBranch": "main",
+      "ignoreChanges": ["**/*.md"]
     }
   },
   "includeMergedTags": true,
