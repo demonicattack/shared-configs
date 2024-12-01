@@ -37,8 +37,8 @@ jobs:
         
       - name: Setup npm
         run: |
-          npm set @${{ github.actor }}:registry=https://npm.pkg.github.com/${{ github.actor }}
-          npm set "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}"
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
+          echo "@${{ github.actor }}:registry=https://npm.pkg.github.com" >> ~/.npmrc
 
       - name: Ensure access
         run: npm whoami --registry https://npm.pkg.github.com/
