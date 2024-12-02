@@ -4,29 +4,30 @@ on:
   push:
     branches:
       - main
-    types: [ closed ]
   workflow_dispatch:
 
 jobs:
   check:
-    permissions: 
+    permissions:
       contents: read
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
     outputs:
       EXISTS_TAG: ${{ steps.tag_check.outputs.EXISTS_TAG }}
     steps:
-      - name: Checkout
+      - name: Checkout Repository
         uses: actions/checkout@v4
+
       - name: Set PACKAGE_VERSION
-        run: echo "PACKAGE_VERSION=$(cat lerna.json | jq -r .version)" >> $GITHUB_ENV
-      - name: Tag Check
+        run: echo "PACKAGE_VERSION=$(jq -r .version lerna.json)" >> $GITHUB_ENV
+
+      - name: Check if Tag Exists
         id: tag_check
         run: |
-          GET_API_URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/git/ref/tags/${TAG_NAME}"
-          http_status_code=$(curl -LI $GET_API_URL -o /dev/null -w '%{http_code}\n' -s \
+          API_URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/git/ref/tags/${TAG_NAME}"
+          STATUS_CODE=$(curl -LI $API_URL -o /dev/null -w '%{http_code}' -s \
             -H "Authorization: token ${GH_TOKEN}")
-          if [ "$http_status_code" -ne "404" ] ; then
+          if [ "$STATUS_CODE" -ne "404" ]; then
             echo "EXISTS_TAG=true" >> $GITHUB_OUTPUT
           else
             echo "EXISTS_TAG=false" >> $GITHUB_OUTPUT
@@ -45,66 +46,76 @@ jobs:
       pull-requests: write
       packages: write
     steps:
-        - name: Checkout
-          uses: actions/checkout@v4
-        - name: Setup Node
-          uses: actions/setup-node@v4
-          with:
-            node-version: 'latest'
-            registry-url: 'https://registry.npmjs.org'
-        - name: Git Identity
-          run: |
-              git config --global user.name 'github-actions[bot]'
-              git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-              git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/$GITHUB_REPOSITORY
-          env:
-              GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        - name: Set PACKAGE_VERSION
-          run: echo "PACKAGE_VERSION=$(cat lerna.json | jq -r .version)" >> $GITHUB_ENV
-        - name: Enable Corepack and install Yarn latest
-          run: |
-            corepack enable
-            corepack prepare yarn@latest
-        - name: Install packages
-          run: yarn install
-        - name: Building lerna
-          run: yarn run build
-        - name: Setup npmrc
-          run: |
-            echo "echo "${ registry-url }/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc" >> .npmrc
-        - name: Publish
-          run: npm run ci:release
-          env: 
-            GH_TOKEN: ${{ secrets.GH_TOKEN }}
-            NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        - name: Create Git Tag
-          uses: pkgdeps/git-tag-action@v2
-          with:
-              version: ${{ env.PACKAGE_VERSION }}
-              github_token: ${{ secrets.GITHUB_TOKEN }}
-              github_repo: ${{ github.repository }}
-              git_commit_sha: ${{ github.sha }}
-              git_tag_prefix: "v"
-        - name: Create Release
-          id: create_release
-          uses: softprops/action-gh-release@v2
-          with:
-            tag_name: v${{ env.PACKAGE_VERSION }}
-            release_name: ${{ github.event.pull_request.title }}
-            body: ${{ github.event.pull_request.body }}
-            draft: false
-            prerelease: false
-            generate_release_notes: ${{ !github.event.pull_request.body }}
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        - uses: actions/github-script@v6
-          if: github.event_name != 'workflow_dispatch'
-          with:
-              github-token: ${{secrets.GITHUB_TOKEN}}
-              script: |
-                github.rest.issues.createComment({
-                  issue_number: context.issue.number,
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  body: '🎉 Release https://github.com/${{ github.repository }}/releases/tag/v${{ env.PACKAGE_VERSION }}'
-                })
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'latest'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Configure Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+      - name: Set PACKAGE_VERSION
+        run: echo "PACKAGE_VERSION=$(jq -r .version lerna.json)" >> $GITHUB_ENV
+
+      - name: Enable Corepack and Install Yarn
+        run: |
+          corepack enable
+          corepack prepare yarn@latest
+
+      - name: Install Dependencies
+        run: yarn install
+
+      - name: Build Packages with Lerna
+        run: yarn run build
+
+      - name: Configure npm Authentication
+        run: echo "${ registry-url }/:_authToken=${{ secrets.NPM_TOKEN }}" >> .npmrc
+
+      - name: Publish Packages
+        run: npm run ci:release
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create Git Tag
+        uses: pkgdeps/git-tag-action@v2
+        with:
+          version: ${{ env.PACKAGE_VERSION }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_repo: ${{ github.repository }}
+          git_commit_sha: ${{ github.sha }}
+          git_tag_prefix: "v"
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ env.PACKAGE_VERSION }}
+          body: ${{ github.event.pull_request.body }}
+          draft: false
+          prerelease: false
+          generate_release_notes: ${{ !github.event.pull_request.body }}
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+      - name: Post Release Comment
+        if: github.event_name != 'workflow_dispatch'
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GH_TOKEN }}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `🎉 Release created: [v${{ env.PACKAGE_VERSION }}](https://github.com/${{ github.repository }}/releases/tag/v${{ env.PACKAGE_VERSION }})`
+            })
