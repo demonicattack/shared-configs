@@ -1,11 +1,6 @@
 name: Release
 
 on:
-  workflow_run: 
-    workflows:
-      - CI
-    types: 
-      - completed
   push:
     branches:
       - main
@@ -18,7 +13,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          persist-credentials: false
           fetch-depth: 0
 
       - name: Setup Node
@@ -31,18 +25,17 @@ jobs:
           corepack enable
           corepack prepare yarn@latest
 
+      - name: Setup npmrc
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+
       - name: Install packages
         run: yarn install
         
-      - name: Setup npm
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
-
       - name: Config git user
         run: |
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
-          git remote set-url origin https://${{ github.actor }}:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/${{ github.repository }}
+          git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
 
       - name: Building lerna
         run: yarn run build
@@ -54,4 +47,3 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
