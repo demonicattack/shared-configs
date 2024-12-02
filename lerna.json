@@ -2,11 +2,7 @@
   "$schema": "node_modules/lerna/schemas/lerna-schema.json",
   "command": {
     "publish": {
-      "registry": "https://npm.pkg.github.com"
-    },
-    "version": {
-      "allowBranch": "main",
-      "ignoreChanges": ["**/*.md"]
+      "registry": "https://registry.npmjs.org"
     }
   },
   "includeMergedTags": true,
