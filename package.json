@@ -1,5 +1,6 @@
 {
   "name": "@demonicattack/shared-configs",
+  "version": "0.0.0",
   "private": true,
   "repository": {
     "type": "git",
@@ -26,7 +27,7 @@
     "lint:ws": "yarn dlx sherif@latest -r packages-without-package-json",
     "nx:graph": "nx graph",
     "prepare": "husky",
-    "publish": "lerna publish --no-private",
+    "publish": "lerna publish --no-private --force-publish",
     "version": "lerna version --no-private",
     "yarn:workspace:list": "yarn workspaces list -R -v --json --no-private"
   },
