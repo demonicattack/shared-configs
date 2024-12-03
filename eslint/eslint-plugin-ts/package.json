@@ -1,6 +1,7 @@
 {
   "name": "@demonicattack/eslint-plugin-ts",
-  "version": "0.0.1",
+  "version": "0.0.0",
+  "private": true,
   "description": "",
   "keywords": [],
   "license": "MIT",
