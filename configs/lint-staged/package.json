@@ -37,5 +37,5 @@
     "lint-staged": "^15.2.10"
   },
   "packageManager": "yarn@4.5.3",
-  "gitHead": "ab9136ed713cf790988428f4ebfba3774e497419"
+  "gitHead": "34e92a9b63a66fe43e43df94df4eb6bf210cc0f2"
 }

@@ -2,8 +2,7 @@
   "$schema": "node_modules/lerna/schemas/lerna-schema.json",
   "command": {
     "publish": {
-      "registry": "https://registry.npmjs.org",
-      "npmClient": "npm"
+      "registry": "https://registry.npmjs.org"
     }
   },
   "includeMergedTags": true,

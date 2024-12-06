@@ -32,7 +32,7 @@
     "lint:ws": "yarn dlx sherif@latest -r packages-without-package-json",
     "nx:graph": "nx graph",
     "prepare": "husky",
-    "release": "lerna publish from-package",
+    "release": "lerna publish from-package --registry=https://registry.npmjs.org",
     "versionup": "lerna version",
     "yarn:workspace:list": "yarn workspaces list -R -v --json --no-private"
   },
