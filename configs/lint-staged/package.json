@@ -23,9 +23,9 @@
     "micromatch": "^4.0.8"
   },
   "devDependencies": {
-    "@demonicattack/eslint": "workspace:^",
-    "@demonicattack/prettier": "workspace:^",
-    "@demonicattack/typescript": "workspace:^",
+    "@demonicattack/eslint": "^1.0.2",
+    "@demonicattack/prettier": "^1.0.2",
+    "@demonicattack/typescript": "^1.0.2",
     "@types/micromatch": "^4.0.9",
     "eslint": "^9.16.0",
     "prettier": "^3.4.1",
@@ -36,5 +36,6 @@
   "peerDependencies": {
     "lint-staged": "^15.2.10"
   },
-  "packageManager": "yarn@4.5.3"
+  "packageManager": "yarn@4.5.3",
+  "gitHead": "9612707584e40f7bbbda4a5e3382d8f83d95786a"
 }
