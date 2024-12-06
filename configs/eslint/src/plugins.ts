@@ -31,8 +31,6 @@ export { default as eslintReactDomPlugin } from 'eslint-plugin-react-dom';
 export { default as eslintReactHooksPlugin } from 'eslint-plugin-react-hooks';
 export { default as eslintReactHooksExtraPlugin } from 'eslint-plugin-react-hooks-extra';
 export { default as eslintReactNamingConventionPlugin } from 'eslint-plugin-react-naming-convention';
-
-// @ts-expect-error eslint-plugin-react-refresh is not typed
 export { default as eslintReactRefreshPlugin } from 'eslint-plugin-react-refresh';
 export { default as eslintReactWebApiPlugin } from 'eslint-plugin-react-web-api';
 export { default as eslintReactXPlugin } from 'eslint-plugin-react-x';
