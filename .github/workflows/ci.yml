@@ -1,0 +1,35 @@
+name: CI Workflow
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  linters:
+    name: Linters
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: 
+        node-version: [21.x, 22.x, 23.x]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - name: Setup Node 
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
+      - name: Enable Corepack and install Yarn latest
+        run: |
+            corepack enable
+            corepack prepare yarn@latest
+      - name: Install dependencies
+        run: yarn install --immutable
+      - name: Lerna build
+        run: yarn build
+      - name: Run lint-staged
+        run: yarn lint-staged --diff=origin/main
