@@ -4,11 +4,12 @@
     "publish": {
       "registry": "https://registry.npmjs.org",
       "verifyAccess": false,
+      "yes": true,
       "ignoreChanges": ["*.md", "*/test/*"]
     }
   },
   "includeMergedTags": true,
   "npmClient": "yarn",
   "useNx": true,
-  "version": "independent"
+  "version": "1.0.2"
 }
