@@ -2,7 +2,9 @@
   "$schema": "node_modules/lerna/schemas/lerna-schema.json",
   "command": {
     "publish": {
-      "registry": "https://registry.npmjs.org"
+      "registry": "https://registry.npmjs.org",
+      "verifyAccess": false,
+      "ignoreChanges": ["*.md", "*/test/*"]
     }
   },
   "includeMergedTags": true,
