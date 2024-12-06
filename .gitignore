@@ -69,7 +69,6 @@ testem.log
 
 # System Files
 Thumbs.db
-yarn.lock
 # Other
 .eslint-config-inspector
 # typegen.d.ts
