@@ -274,6 +274,11 @@ export interface RuleOptions {
    */
   '@eslint-react/no-duplicate-key'?: Linter.RuleEntry<[]>
   /**
+   * disallow the use of 'forwardRef'
+   * @see https://eslint-react.xyz/docs/rules/no-forward-ref
+   */
+  '@eslint-react/no-forward-ref'?: Linter.RuleEntry<[]>
+  /**
    * disallow implicit 'key' props
    * @see https://eslint-react.xyz/docs/rules/no-implicit-key
    */
@@ -4711,6 +4716,11 @@ export interface RuleOptions {
    * @see https://eslint-react.xyz/docs/rules/no-duplicate-key
    */
   'react-x/no-duplicate-key'?: Linter.RuleEntry<[]>
+  /**
+   * disallow the use of 'forwardRef'
+   * @see https://eslint-react.xyz/docs/rules/no-forward-ref
+   */
+  'react-x/no-forward-ref'?: Linter.RuleEntry<[]>
   /**
    * disallow implicit 'key' props
    * @see https://eslint-react.xyz/docs/rules/no-implicit-key

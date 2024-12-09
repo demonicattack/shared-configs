@@ -31,7 +31,7 @@
     "lint:fix": "lerna run --ignore @demonicattack/typescript lint:fix",
     "lint:ws": "yarn dlx sherif@latest -r packages-without-package-json",
     "nx:graph": "nx graph",
-    "prepare": "husky",
+    "prepare": "husky install && lerna run build",
     "publish": "lerna publish from-package",
     "versionup": "lerna version",
     "yarn:workspace:list": "yarn workspaces list -R -v --json --no-private"
@@ -55,7 +55,7 @@
     "husky": "^9.1.7",
     "lerna": "^8.1.9",
     "lint-staged": "^15.2.10",
-    "nx": "^20.2.1",
+    "nx": "^20.2.0",
     "prettier": "^3.4.1",
     "typescript": "^5.7.2"
   },
