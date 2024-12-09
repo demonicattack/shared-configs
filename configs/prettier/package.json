@@ -45,5 +45,8 @@
     "prettier": "^3.4.1"
   },
   "packageManager": "yarn@4.5.3",
-  "gitHead": "6af4dfb763c92e637836abcaa8a3aaef64c849fe"
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "4c66b4ef0c930b83a121fcf0138527707cb9204d"
 }

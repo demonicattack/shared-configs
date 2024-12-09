@@ -4,6 +4,9 @@ on:
   pull_request:
     branches: [main]
     types: [closed]
+  push: 
+    branches: [main]
+    tags: [v*]  
 
 permissions:
   contents: write
@@ -32,6 +35,13 @@ jobs:
           git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/$GITHUB_REPOSITORY
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Authenticate
+        run: |
+            echo "@demonicattack:registry=https://registry.npmjs.org/" > .npmrc
+            echo "registry=https://registry.npmjs.org/" >> .npmrc
+            echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> .npmrc
+        env:
+            NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Enable Corepack and install Yarn latest
         run: |
@@ -44,26 +54,28 @@ jobs:
       - name: Lerna build
         run: yarn build
 
-      - name: Set Current Version
+      - name: Get Current Versions
+        id: get-versions
         run: |
-          CURRENT_VERSION=$(node -p 'require("./lerna.json").version')
-          echo "CURRENT_VERSION=${CURRENT_VERSION}" >> $GITHUB_ENV
+          echo "Versions=$(yarn run lerna list --json | jq -r '.[].version')" >> $GITHUB_ENV        
 
       - name: Tag Check
         id: tag-check
         run: |
-          TAG_EXISTS=$(git ls-remote --tags origin refs/tags/v${CURRENT_VERSION})
-          if [ -n "$TAG_EXISTS" ]; then
-            echo "exists_tag=true" >> $GITHUB_ENV
-            echo "exists_tag=true" >> $GITHUB_OUTPUT
-          else
-            echo "exists_tag=false" >> $GITHUB_ENV
-            echo "exists_tag=false" >> $GITHUB_OUTPUT
-          fi
-
+          versions=(${{ env.Versions }})
+          for version in "${versions[@]}"; do
+            TAG_EXISTS=$(git ls-remote --tags origin refs/tags/v${version})
+            if [ -n "$TAG_EXISTS" ]; then
+              echo "exists_tag=true" >> $GITHUB_ENV
+              echo "exists_tag=true" >> $GITHUB_OUTPUT
+            else
+              echo "exists_tag=false" >> $GITHUB_ENV
+              echo "exists_tag=false" >> $GITHUB_OUTPUT
+            fi
+          done
       - name: Create Release
         if: steps.tag-check.outputs.exists_tag == 'false' && github.event.pull_request.merged == 'true'
-        uses: actions/create-release@v1
+        uses: comnoco/create-release-action@v2.0.5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -78,8 +90,7 @@ jobs:
         if: steps.tag-check.outputs.exists_tag == 'false'
         run: yarn publish
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Add Release Comment
         uses: actions/github-script@v7
