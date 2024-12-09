@@ -57,12 +57,13 @@ jobs:
       - name: Get Current Versions
         id: get-versions
         run: |
-          echo "Versions=$(yarn run lerna list --json | jq -r '.[].version')" >> $GITHUB_ENV        
+          versions=$(yarn run lerna list --json | jq -r '.[].version')    
+          echo "VERSIONS=$versions" >> $GITHUB_ENV    
 
       - name: Tag Check
         id: tag-check
         run: |
-          versions=(${{ env.Versions }})
+          versions=(${{ env.VERSIONS }})
           for version in "${versions[@]}"; do
             TAG_EXISTS=$(git ls-remote --tags origin refs/tags/v${version})
             if [ -n "$TAG_EXISTS" ]; then
