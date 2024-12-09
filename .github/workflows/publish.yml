@@ -93,7 +93,6 @@ jobs:
           prerelease: false
 
       - name: Publish
-        if: steps.tag-check.outputs.exists_tag == 'false'
         run: yarn publish
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
