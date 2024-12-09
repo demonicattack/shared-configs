@@ -5,5 +5,6 @@ export default {
             allStagedFiles,
         }),
         'yarn run lint:ws',
+        'yarn run build',
     ],
 };
