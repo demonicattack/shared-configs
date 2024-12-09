@@ -58,8 +58,14 @@ jobs:
         id: get-versions
         run: |
           versions=$(yarn run lerna list --json | jq -r '.[].version')    
-          echo "VERSIONS=$versions" >> $GITHUB_ENV    
-
+          for version in $versions; do
+            echo "VERSION=$version" >> $GITHUB_ENV
+          done  
+      
+      - name: Display Versions
+        run: | 
+          echo "Versions: ${{ env.VERSION }}"
+        
       - name: Tag Check
         id: tag-check
         run: |
