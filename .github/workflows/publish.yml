@@ -81,7 +81,6 @@ jobs:
             fi
           done
       - name: Create Release
-        if: steps.tag-check.outputs.exists_tag == 'false' && github.event.pull_request.merged == 'true'
         uses: comnoco/create-release-action@v2.0.5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
