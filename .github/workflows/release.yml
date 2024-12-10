@@ -21,6 +21,8 @@ jobs:
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Lerna Build Tools
+        run: yarn run build
       - uses: step-security/wait-for-secrets@v1
         id: wait-for-secrets
         with:

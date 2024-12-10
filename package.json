@@ -18,7 +18,7 @@
     "cache:clean": "yarn cache clean --all && rm -rf .yarn/cache .yarn/__virtual__ .yarn/berry ./.pnp.cjs ./.pnp.loader.mjs .yarn node_modules yarn.lock",
     "changesets": "changeset",
     "check-types": "lerna run --ignore @demonicattack/typescript check-types",
-    "ci:release": "yarn build && changeset publish",
+    "ci:release": "changeset publish",
     "ci:version": "changeset version",
     "ci:versionup:major": "lerna version major --no-push --no-git-tag-version --yes && yarn run commit-version",
     "ci:versionup:minor": "lerna version minor --no-push --no-git-tag-version --yes && yarn run commit-version",
