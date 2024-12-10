@@ -15,12 +15,13 @@ type TOverride<T> = {
 type TResolvedPrettierConfig<T = Record<string, unknown>> = {
     overrides?: TOverride<T>[];
 } & Omit<PrettierConfig, 'overrides'> &
-    Partial<T>;
+    Partial<T> &
+    TPrettierOptions;
 
 type TUserPrettierOptions<T = Record<string, unknown>> = {
     overrides?: TOverride<T>[];
     plugins?: PrettierOptions['plugins'];
 } & Partial<T> &
-    PrettierOptions;
+    TPrettierOptions;
 
 export type { Awaitable, IOverrideBase, TOverride, TPrettierOptions, TResolvedPrettierConfig, TUserPrettierOptions };

@@ -7,9 +7,9 @@ import { JAVASCRIPT_FILES, JSON_FILES, PRISMA_FILES, TYPESCRIPT_FILES } from './
 import type { TResolvedPrettierConfig, TUserPrettierOptions } from './types';
 import { createOverride, interopDefault } from './utils';
 
-const prettier = async (
-    options: TUserPrettierOptions<ITailwindcssPluginConfigOptions & TMultilineArrayPluginConfigOptions> = {},
-): Promise<TResolvedPrettierConfig<ITailwindcssPluginConfigOptions & TMultilineArrayPluginConfigOptions>> => {
+type T = ITailwindcssPluginConfigOptions & TMultilineArrayPluginConfigOptions;
+
+const prettier = async (options: TUserPrettierOptions<T> = {}): Promise<TResolvedPrettierConfig<T>> => {
     const { overrides = [], plugins = [], ...rest } = options;
     const multilineArraysPlugin = await interopDefault(import('prettier-plugin-multiline-arrays'));
     const jsonPlugins = await Promise.all([
@@ -54,11 +54,7 @@ const prettier = async (
             ...overrides,
         ],
         plugins: [
-            (
-                isPackageExists('tailwindcss')
-            ) ?
-                [tailwindcssPlugin]
-            :   [],
+            ...(isPackageExists('tailwindcss') ? [tailwindcssPlugin] : []),
             ...plugins,
         ],
         printWidth: 120,

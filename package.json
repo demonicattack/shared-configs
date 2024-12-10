@@ -16,8 +16,10 @@
     "build": "lerna run build",
     "build:workspaces:clean": "lerna run --ignore @demonicattack/typescript build:clean",
     "cache:clean": "yarn cache clean --all && rm -rf .yarn/cache .yarn/__virtual__ .yarn/berry ./.pnp.cjs ./.pnp.loader.mjs .yarn node_modules yarn.lock",
+    "changesets": "changeset",
     "check-types": "lerna run --ignore @demonicattack/typescript check-types",
-    "ci:release": "lerna publish from-package --yes",
+    "ci:release": "yarn build && changeset publish",
+    "ci:version": "changeset version",
     "ci:versionup:major": "lerna version major --no-push --no-git-tag-version --yes && yarn run commit-version",
     "ci:versionup:minor": "lerna version minor --no-push --no-git-tag-version --yes && yarn run commit-version",
     "ci:versionup:patch": "lerna version patch --no-push --no-git-tag-version --yes && yarn run commit-version",
@@ -32,8 +34,6 @@
     "lint:ws": "yarn dlx sherif@latest -r packages-without-package-json",
     "nx:graph": "nx graph",
     "prepare": "husky",
-    "publish": "lerna publish --no-private from-package",
-    "versionup": "lerna version",
     "yarn:workspace:list": "yarn workspaces list -R -v --json --no-private"
   },
   "config": {
@@ -42,6 +42,7 @@
     }
   },
   "devDependencies": {
+    "@changesets/cli": "^2.27.10",
     "@commitlint/cli": "^19.6.0",
     "@commitlint/config-conventional": "^19.6.0",
     "@commitlint/config-lerna-scopes": "^19.5.0",
