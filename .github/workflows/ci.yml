@@ -42,6 +42,15 @@ jobs:
       - name: Format
         run: yarn run format:fix
 
+  sherif-lint:
+    name: sherif-lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/ci-setup
+      - name: Build Tools
+        run: yarn run lint:ws
+
   ci-ok: 
     name: CI OK
     runs-on: ubuntu-latest
