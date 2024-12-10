@@ -15,26 +15,19 @@
   "scripts": {
     "build": "lerna run build",
     "build:workspaces:clean": "lerna run --ignore @demonicattack/typescript build:clean",
-    "cache:clean": "yarn cache clean --all && rm -rf .yarn/cache .yarn/__virtual__ .yarn/berry ./.pnp.cjs ./.pnp.loader.mjs .yarn node_modules yarn.lock",
     "changesets": "changeset",
     "check-types": "lerna run --ignore @demonicattack/typescript check-types",
     "ci:release": "changeset publish",
     "ci:version": "changeset version",
-    "ci:versionup:major": "lerna version major --no-push --no-git-tag-version --yes && yarn run commit-version",
-    "ci:versionup:minor": "lerna version minor --no-push --no-git-tag-version --yes && yarn run commit-version",
-    "ci:versionup:patch": "lerna version patch --no-push --no-git-tag-version --yes && yarn run commit-version",
-    "clean:all": "yarn run build:workspaces:clean && yarn run clean:workspaces:cache && yarn run cache:clean",
-    "clean:workspaces:cache": "lerna run clean",
-    "commit-version": "git add . && git commit -m \"chore(release): v$(node -p 'require(\"./lerna.json\").version')\"",
-    "copy-changelog": "git tag --points-at HEAD | xargs -I{} monorepo-utils-collect-changelog {} | pbcopy",
+    "clean:all": "yarn run build:workspaces:clean && yarn run workspaces:clean && yarn run clean:cache",
+    "clean:cache": "yarn cache clean --all && rm -rf .yarn/cache .yarn/__virtual__ .yarn/berry ./.pnp.cjs ./.pnp.loader.mjs .yarn node_modules yarn.lock",
     "format": "lerna run format",
     "format:fix": "lerna run format:fix",
     "lint": "lerna run --ignore @demonicattack/typescript lint",
     "lint:fix": "lerna run --ignore @demonicattack/typescript lint:fix",
     "lint:ws": "yarn dlx sherif@latest -r packages-without-package-json",
-    "nx:graph": "nx graph",
     "prepare": "husky",
-    "yarn:workspace:list": "yarn workspaces list -R -v --json --no-private"
+    "workspaces:clean": "lerna run clean"
   },
   "config": {
     "commitizen": {
@@ -56,13 +49,13 @@
     "husky": "^9.1.7",
     "lerna": "^8.1.9",
     "lint-staged": "^15.2.10",
-    "nx": "^20.2.0",
+    "nx": "^20.2.1",
     "prettier": "^3.4.1",
     "typescript": "^5.7.2"
   },
   "packageManager": "yarn@4.5.3",
   "engines": {
-    "node": ">=18.20.4",
+    "node": ">=22.3.0",
     "yarn": ">=4.5.3"
   }
 }

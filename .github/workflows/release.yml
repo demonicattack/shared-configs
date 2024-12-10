@@ -1,6 +1,9 @@
 name: Release
 
 on:
+  pull_request:
+    branches: [ main ]
+    types: [ closed ]
   push:
     branches: [ main ]
 
@@ -9,31 +12,72 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 permissions:
   id-token: write
   contents: write
+  pull-requests: write
+  packages: write
 
 jobs:
   release:
     name: Release
     if: github.repository == 'demonicattack/shared-configs'
-    runs-on: [ ubuntu-latest ]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: ./.github/actions/ci-setup
-      - name: Git Identity
+
+      - name: Configure Git Identity
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Lerna Build Tools
+
+      - name: Build Tools with Lerna
         run: yarn run build
-      - uses: step-security/wait-for-secrets@v1
+
+      - name: Get Current Versions
+        id: get-versions
+        run: |
+          versions=$(yarn run lerna list --json | jq -r '.[].version')
+          echo "VERSIONS=$versions" >> $GITHUB_ENV
+
+      - name: Tag Check
+        id: tag-check
+        run: |
+          versions=(${{ steps.get-versions.outputs.VERSIONS }})
+          for version in "${versions[@]}"; do
+            TAG_EXISTS=$(git ls-remote --tags origin refs/tags/v${version})
+            if [ -n "$TAG_EXISTS" ]; then
+              echo "exists_tag=true" >> $GITHUB_ENV
+              echo "exists_tag=true" >> $GITHUB_OUTPUT
+            else
+              echo "exists_tag=false" >> $GITHUB_ENV
+              echo "exists_tag=false" >> $GITHUB_OUTPUT
+            fi
+          done
+
+      - name: Create Release
+        uses: comnoco/create-release-action@v2.0.5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ steps.get-versions.outputs.VERSIONS }}
+          release_name: ${{ github.event.pull_request.title }}
+          body: |
+            ${{ github.event.pull_request.body }}
+          draft: false
+          prerelease: false
+
+      - name: Wait for OTP Secret
+        uses: step-security/wait-for-secrets@v1
         id: wait-for-secrets
         with:
           secrets: |
             OTP:
               name: 'OTP to publish package'
               description: 'OTP from authenticator app'
+
       - name: Create Release Pull Request or Publish to npm
         uses: changesets/action@v1
         with:
@@ -42,3 +86,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_NPM_TOKEN }}
+
+      - name: Add Release Comment
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'https://github.com/${{ github.repository }}/releases/tag/v${{ steps.get-versions.outputs.VERSIONS }} is released 🎉'
+            })

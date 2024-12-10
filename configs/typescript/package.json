@@ -1,6 +1,6 @@
 {
   "name": "@demonicattack/typescript",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "type": "module",
   "files": [
     "base.json"
@@ -28,6 +28,5 @@
   "packageManager": "yarn@4.5.3",
   "publishConfig": {
     "access": "public"
-  },
-  "gitHead": "4c66b4ef0c930b83a121fcf0138527707cb9204d"
+  }
 }
