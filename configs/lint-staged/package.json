@@ -1,6 +1,6 @@
 {
   "name": "@demonicattack/lint-staged",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "type": "module",
   "exports": "./dist/index.js",
   "main": "./dist/index.js",
@@ -23,9 +23,9 @@
     "micromatch": "^4.0.8"
   },
   "devDependencies": {
-    "@demonicattack/eslint": "^1.0.2",
-    "@demonicattack/prettier": "^1.0.2",
-    "@demonicattack/typescript": "^1.0.2",
+    "@demonicattack/eslint": "workspace:^",
+    "@demonicattack/prettier": "workspace:^",
+    "@demonicattack/typescript": "workspace:^",
     "@types/micromatch": "^4.0.9",
     "eslint": "^9.16.0",
     "prettier": "^3.4.1",
