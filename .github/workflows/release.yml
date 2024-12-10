@@ -39,9 +39,8 @@ jobs:
       - name: Get Current Versions
         id: get-versions
         run: |
-          versions=$(yarn run lerna list --json | jq -r '.[].version')
-          echo "VERSIONS=$versions" >> $GITHUB_ENV
-
+              versions=$(yarn run lerna list --json | jq -r '[.[].version] | join(",")')
+              echo "VERSIONS=$versions" >> $GITHUB_ENV
       - name: Tag Check
         id: tag-check
         run: |
@@ -92,8 +91,9 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            const issueNumber = github.event.pull_request ? github.event.pull_request.number : github.event.issue.number;
             github.rest.issues.createComment({
-              issue_number: context.issue.number,
+              issue_number: issueNumber,
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: 'https://github.com/${{ github.repository }}/releases/tag/v${{ steps.get-versions.outputs.VERSIONS }} is released 🎉'
