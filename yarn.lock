@@ -2102,7 +2102,7 @@ __metadata:
     husky: "npm:^9.1.7"
     lerna: "npm:^8.1.9"
     lint-staged: "npm:^15.2.10"
-    nx: "npm:^20.2.0"
+    nx: "npm:^20.2.1"
     prettier: "npm:^3.4.1"
     typescript: "npm:^5.7.2"
   languageName: unknown
@@ -10841,7 +10841,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nx@npm:>=17.1.2 < 21, nx@npm:^20.2.0":
+"nx@npm:>=17.1.2 < 21, nx@npm:^20.2.1":
   version: 20.2.1
   resolution: "nx@npm:20.2.1"
   dependencies:
