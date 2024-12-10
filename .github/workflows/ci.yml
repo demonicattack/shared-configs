@@ -44,7 +44,7 @@ jobs:
         run: yarn run format:fix
 
   sherif-lint:
-    name: sherif-lint
+    name: Sherif-lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
