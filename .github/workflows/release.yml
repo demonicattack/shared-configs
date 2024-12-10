@@ -4,9 +4,7 @@ on:
   pull_request:
     branches: [ main ]
     types: [ opened, reopened, edited ]
-  push:
-    branches: [ main ]
-
+    
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 permissions:
