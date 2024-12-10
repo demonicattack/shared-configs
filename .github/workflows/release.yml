@@ -3,7 +3,7 @@ name: Release
 on:
   pull_request:
     branches: [ main ]
-    types: [ closed ]
+    types: [ opened, reopened, edited ]
   push:
     branches: [ main ]
 
@@ -91,9 +91,8 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const issueNumber = github.event.pull_request ? github.event.pull_request.number : github.event.issue.number;
             github.rest.issues.createComment({
-              issue_number: issueNumber,
+              issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: 'https://github.com/${{ github.repository }}/releases/tag/v${{ steps.get-versions.outputs.VERSIONS }} is released 🎉'
