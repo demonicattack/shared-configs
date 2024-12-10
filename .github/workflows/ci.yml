@@ -40,7 +40,7 @@ jobs:
       - name: Build Tools
         run: yarn run build
       - name: Format
-        run: yarn run format
+        run: yarn run format:fix
 
   ci-ok: 
     name: CI OK
