@@ -19,7 +19,7 @@ jobs:
       - name: Build Tools
         run: yarn run build
       - name: Lint
-        run: yarn run lint:fix
+        run: yarn run lint
 
   typecheck: 
     name: Typecheck
@@ -41,7 +41,7 @@ jobs:
       - name: Build Tools
         run: yarn run build
       - name: Format
-        run: yarn run format:fix
+        run: yarn run format
 
   sherif-lint:
     name: Sherif-lint
