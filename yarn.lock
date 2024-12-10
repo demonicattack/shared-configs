@@ -1972,7 +1972,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@demonicattack/eslint@npm:^1.0.2, @demonicattack/eslint@workspace:^, @demonicattack/eslint@workspace:configs/eslint":
+"@demonicattack/eslint@workspace:^, @demonicattack/eslint@workspace:configs/eslint":
   version: 0.0.0-use.local
   resolution: "@demonicattack/eslint@workspace:configs/eslint"
   dependencies:
@@ -2039,13 +2039,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@demonicattack/lint-staged@npm:^1.0.2, @demonicattack/lint-staged@workspace:^, @demonicattack/lint-staged@workspace:configs/lint-staged":
+"@demonicattack/lint-staged@workspace:^, @demonicattack/lint-staged@workspace:configs/lint-staged":
   version: 0.0.0-use.local
   resolution: "@demonicattack/lint-staged@workspace:configs/lint-staged"
   dependencies:
-    "@demonicattack/eslint": "npm:^1.0.2"
-    "@demonicattack/prettier": "npm:^1.0.2"
-    "@demonicattack/typescript": "npm:^1.0.2"
+    "@demonicattack/eslint": "workspace:^"
+    "@demonicattack/prettier": "workspace:^"
+    "@demonicattack/typescript": "workspace:^"
     "@types/micromatch": "npm:^4.0.9"
     eslint: "npm:^9.16.0"
     lint-staged: "npm:^15.2.10"
@@ -2059,13 +2059,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@demonicattack/prettier@npm:^1.0.2, @demonicattack/prettier@workspace:^, @demonicattack/prettier@workspace:configs/prettier":
+"@demonicattack/prettier@workspace:^, @demonicattack/prettier@workspace:configs/prettier":
   version: 0.0.0-use.local
   resolution: "@demonicattack/prettier@workspace:configs/prettier"
   dependencies:
-    "@demonicattack/eslint": "npm:^1.0.2"
-    "@demonicattack/lint-staged": "npm:^1.0.2"
-    "@demonicattack/typescript": "npm:^1.0.2"
+    "@demonicattack/eslint": "workspace:^"
+    "@demonicattack/lint-staged": "workspace:^"
+    "@demonicattack/typescript": "workspace:^"
     "@types/node": "npm:^22.10.1"
     eslint: "npm:^9.16.0"
     lint-staged: "npm:^15.2.10"
@@ -2112,10 +2112,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@demonicattack/shared@workspace:configs/shared"
   dependencies:
-    "@demonicattack/eslint": "npm:^1.0.2"
-    "@demonicattack/lint-staged": "npm:^1.0.2"
-    "@demonicattack/prettier": "npm:^1.0.2"
-    "@demonicattack/typescript": "npm:^1.0.2"
+    "@demonicattack/eslint": "workspace:^"
+    "@demonicattack/lint-staged": "workspace:^"
+    "@demonicattack/prettier": "workspace:^"
+    "@demonicattack/typescript": "workspace:^"
     "@types/node": "npm:^22.10.1"
     "@typescript-eslint/utils": "npm:^8.16.0"
     eslint: "npm:^9.16.0"
@@ -2135,10 +2135,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@demonicattack/typegen@workspace:configs/typegen"
   dependencies:
-    "@demonicattack/eslint": "npm:^1.0.2"
-    "@demonicattack/lint-staged": "npm:^1.0.2"
-    "@demonicattack/prettier": "npm:^1.0.2"
-    "@demonicattack/typescript": "npm:^1.0.2"
+    "@demonicattack/eslint": "workspace:^"
+    "@demonicattack/lint-staged": "workspace:^"
+    "@demonicattack/prettier": "workspace:^"
+    "@demonicattack/typescript": "workspace:^"
     eslint: "npm:^9.16.0"
     lint-staged: "npm:^15.2.10"
     prettier: "npm:^3.4.1"
@@ -2153,12 +2153,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@demonicattack/typescript@npm:^1.0.2, @demonicattack/typescript@workspace:^, @demonicattack/typescript@workspace:configs/typescript":
+"@demonicattack/typescript@workspace:^, @demonicattack/typescript@workspace:configs/typescript":
   version: 0.0.0-use.local
   resolution: "@demonicattack/typescript@workspace:configs/typescript"
   dependencies:
-    "@demonicattack/lint-staged": "npm:^1.0.2"
-    "@demonicattack/prettier": "npm:^1.0.2"
+    "@demonicattack/lint-staged": "workspace:^"
+    "@demonicattack/prettier": "workspace:^"
     lint-staged: "npm:^15.2.10"
     prettier: "npm:^3.4.1"
     rimraf: "npm:^6.0.1"
@@ -3106,11 +3106,11 @@ __metadata:
   linkType: hard
 
 "@next/eslint-plugin-next@npm:^15.0.3":
-  version: 15.0.4
-  resolution: "@next/eslint-plugin-next@npm:15.0.4"
+  version: 15.1.0
+  resolution: "@next/eslint-plugin-next@npm:15.1.0"
   dependencies:
     fast-glob: "npm:3.3.1"
-  checksum: 10c0/ce55e4102712baac47d79f4b6ed8962b472d1a9aafe2ec0fcb7160e818fd2768d806c7a6cd95e122e1c32ac1897bc10cb39f70b6c53f7b36589269177f88f66f
+  checksum: 10c0/d20c396d9c298523e31b4402d126e28d536cfa151bc6a9a9da3e74bddd5770547c76d5fbda59fe4332ffaea3af1e7f489b2358336cb2f921d3561577a0f4cd1a
   languageName: node
   linkType: hard
 
