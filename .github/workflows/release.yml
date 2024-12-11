@@ -3,7 +3,7 @@ name: Release
 on:
   pull_request:
     branches: [ main ]
-    types: [ opened, reopened, edited ]
+    types: [ opened, reopened, edited, closed ]
     
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
@@ -42,7 +42,7 @@ jobs:
       - name: Tag Check
         id: tag-check
         run: |
-          versions=(${{ steps.get-versions.outputs.VERSIONS }})
+          versions=(${{ env.VERSIONS }})
           for version in "${versions[@]}"; do
             TAG_EXISTS=$(git ls-remote --tags origin refs/tags/v${version})
             if [ -n "$TAG_EXISTS" ]; then
@@ -59,7 +59,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v${{ steps.get-versions.outputs.VERSIONS }}
+          tag_name: v${{ env.VERSIONS }}
           release_name: ${{ github.event.pull_request.title }}
           body: |
             ${{ github.event.pull_request.body }}
@@ -93,5 +93,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: 'https://github.com/${{ github.repository }}/releases/tag/v${{ steps.get-versions.outputs.VERSIONS }} is released 🎉'
+              body: 'https://github.com/${{ github.repository }}/releases/tag/v${{ env.VERSIONS }} is released 🎉'
             })
