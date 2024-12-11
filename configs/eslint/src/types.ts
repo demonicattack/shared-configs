@@ -75,10 +75,6 @@ interface IOptionsRegExp {
     level?: 'error' | 'warn';
 }
 
-export interface IOptionsDemonicAttack {
-    r: boolean;
-}
-
 interface IOptionsUnicorn {
     base?: boolean | TFlatConfigItem['rules'];
     recommended?: boolean | TFlatConfigItem['rules'];
@@ -99,7 +95,6 @@ type TOptionsTypescript =
     | (IOptionsOverrides & IOptionsTypeScriptWithTypes);
 
 interface IOptionsConfig extends IOptionsComponentExtensions, IOptionsProjectType {
-    demonicattack?: IOptionsOverrides;
     gitignore?: boolean | FlatGitignoreOptions;
     js?: IOptionsJs | IOptionsOverrides;
     /**
@@ -146,7 +141,6 @@ interface IOptionsConfig extends IOptionsComponentExtensions, IOptionsProjectTyp
         node?: TFlatConfigItem['rules'];
         arca?: TFlatConfigItem['rules'];
         comments?: TFlatConfigItem['rules'];
-        demonicattack?: TFlatConfigItem['rules'];
         esx?: TFlatConfigItem['rules'];
         import?: TFlatConfigItem['rules'];
         js?: TFlatConfigItem['rules'];
