@@ -67,7 +67,6 @@ interface IOptionsPrettier {
 }
 
 interface IOptionsImport {
-    react?: boolean;
     typescript?: boolean;
 }
 
