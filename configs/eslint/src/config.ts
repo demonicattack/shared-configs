@@ -33,7 +33,9 @@ import { interopDefault, isBoolean } from './utils';
 const defaultPluginRenaming = {
     '@typescript-eslint': 'ts',
     'better-mutation': 'mutation',
+    import: '@import',
     n: 'node',
+    'simple-import-sort': '@simple-import-sort',
     tailwindcss: 'tw',
 };
 
@@ -160,7 +162,6 @@ const config = (
         configs.push(
             imrt({
                 overrides: getOverrides(options, 'import'),
-                react: isPackageExists('react'),
                 typescript: isPackageExists('typescript'),
             }),
         );

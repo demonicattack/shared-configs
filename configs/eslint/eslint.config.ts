@@ -12,7 +12,6 @@ export default config({
     ],
     import: {
         overrides: {},
-        react: true,
         typescript: true,
     },
     js: {

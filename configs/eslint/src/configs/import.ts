@@ -1,70 +1,45 @@
 import { JAVASCRIPT_FILES, TYPESCRIPT_FILES } from '../constants';
 import { eslintImportPlugin, eslintSimpleImportSortPlugin } from '../plugins';
 import type { IOptionsImport, IOptionsOverrides, TFlatConfigItem } from '../types';
-import { requireEslintTool } from '../utils';
+import { interopDefault, renameRules } from '../utils';
 
 import { airbnbBaseImports } from './airbnb';
 
 const imrt = async (options: IOptionsImport & IOptionsOverrides = {}): Promise<TFlatConfigItem[]> => {
-    const { overrides = {}, react = false, typescript = false } = options;
+    const { overrides = {}, typescript = true } = options;
 
-    const baseSettings = {
-        'import/parsers': {
-            [requireEslintTool('@typescript-eslint/parser')]: [
-                ...TYPESCRIPT_FILES,
-                '.d.ts',
-            ],
-        },
-        'import/resolver': {
-            [requireEslintTool('eslint-import-resolver-node')]: {
-                extensions: [
-                    ...JAVASCRIPT_FILES,
-                    ...TYPESCRIPT_FILES,
-                ],
-            },
-            [requireEslintTool('eslint-import-resolver-typescript')]: {
-                alwaysTryTypes: true,
-            },
-        },
-    };
-
-    const settings = {
-        ...baseSettings,
-        ...airbnbBaseImports.settings,
-        ...(typescript && {
-            ...eslintImportPlugin.flatConfigs.typescript.settings,
-            'import/resolver': {
-                ...eslintImportPlugin.flatConfigs.typescript.settings['import/resolver'],
-                typescript: { alwaysTryTypes: true },
-            },
-        }),
-        ...(react && {
-            ...eslintImportPlugin.flatConfigs.react.settings,
-            'import/resolver': {
-                node: {
-                    extensions: [
-                        ...JAVASCRIPT_FILES,
-                        ...TYPESCRIPT_FILES,
-                    ],
-                },
-            },
-        }),
-    };
+    const tsParser = await interopDefault(import('@typescript-eslint/parser'));
 
     return [
         {
-            name: 'import/rules',
+            name: '@import/setup',
             plugins: {
-                ['import']: eslintImportPlugin,
-                ['simple-import-sort']: eslintSimpleImportSortPlugin,
+                ['@import']: eslintImportPlugin,
+                ['@simple-import-sort']: eslintSimpleImportSortPlugin,
             },
+        },
+        {
+            name: '@import/rules',
             rules: {
-                ...eslintImportPlugin.flatConfigs.recommended.rules,
-                ...(react && eslintImportPlugin.flatConfigs.react.rules),
-                ...(typescript && eslintImportPlugin.flatConfigs.typescript.rules),
-                ...airbnbBaseImports.rules,
-                'import/consistent-type-specifier-style': 'error',
-                'import/extensions': [
+                ...renameRules(eslintImportPlugin.flatConfigs.recommended.rules, {
+                    import: '@import',
+                }),
+                ...renameRules(airbnbBaseImports.rules, {
+                    import: '@import',
+                }),
+                /**
+                 * TypeScript compilation already ensures that named imports exist in the referenced module
+                 */
+                ...(typescript ?
+                    {
+                        '@import/named': 'off',
+                    }
+                :   {}),
+                '@import/consistent-type-specifier-style': [
+                    'error',
+                    'prefer-top-level',
+                ],
+                '@import/extensions': [
                     'error',
                     'ignorePackages',
                     {
@@ -75,27 +50,13 @@ const imrt = async (options: IOptionsImport & IOptionsOverrides = {}): Promise<T
                         tsx: 'never',
                     },
                 ],
-                'import/imports-first': 'off',
-                'import/newline-after-import': 'error',
-                'import/no-absolute-path': 'error',
-                'import/no-cycle': 'error',
-                'import/no-default-export': 'error',
-                'import/no-duplicates': 'error',
-                'import/no-dynamic-require': 'warn',
-                'import/no-extraneous-dependencies': [
-                    'error',
-                    { includeTypes: true },
-                ],
-                'import/no-mutable-exports': 'error',
-                'import/no-named-default': 'error',
-                'import/no-relative-packages': 'warn',
-                'import/no-self-import': 'error',
-                'import/no-useless-path-segments': ['error'],
-                'import/no-webpack-loader-syntax': 'error',
-                'import/order': 'off',
-                'import/prefer-default-export': 'off',
-                'simple-import-sort/exports': 'error',
-                'simple-import-sort/imports': [
+                '@import/no-dynamic-require': 'warn',
+                '@import/no-extraneous-dependencies': 'off',
+                '@import/no-useless-path-segments': ['error'],
+                '@import/order': 'off',
+                '@import/prefer-default-export': 'off',
+                '@simple-import-sort/exports': 'error',
+                '@simple-import-sort/imports': [
                     'error',
                     {
                         groups: [
@@ -104,25 +65,63 @@ const imrt = async (options: IOptionsImport & IOptionsOverrides = {}): Promise<T
                                 '^next',
                                 '^\\w',
                             ],
-                            ['^@app(/.*|$)'],
-                            ['^@store(/.*|$)'],
-                            ['^@components(/.*|$)'],
-                            ['^@ui(/.*|$)'],
-                            ['^@lib(/.*|$)'],
-                            ['^@pages(/.*|$)'],
-                            ['^@routes(/.*|$)'],
-                            ['^@layouts(/.*|$)'],
-                            ['^@widgets(/.*|$)'],
-                            ['^@features(/.*|$)'],
-                            ['^@entities(/.*|$)'],
-                            ['^@utils(/.*|$)'],
-                            ['^@assets(/.*|$)'],
-                            ['^@helpers(/.*|$)'],
-                            ['^@hooks(/.*|$)'],
-                            ['^@providers(/.*|$)'],
-                            ['^@services(/.*|$)'],
-                            ['^@shared(/.*|$)'],
-                            ['^\\u0000'],
+                            [
+                                '^@app(/.*|$)',
+                            ],
+                            [
+                                '^@store(/.*|$)',
+                            ],
+                            [
+                                '^@components(/.*|$)',
+                            ],
+                            [
+                                '^@ui(/.*|$)',
+                            ],
+                            [
+                                '^@lib(/.*|$)',
+                            ],
+                            [
+                                '^@pages(/.*|$)',
+                            ],
+                            [
+                                '^@routes(/.*|$)',
+                            ],
+                            [
+                                '^@layouts(/.*|$)',
+                            ],
+                            [
+                                '^@widgets(/.*|$)',
+                            ],
+                            [
+                                '^@features(/.*|$)',
+                            ],
+                            [
+                                '^@entities(/.*|$)',
+                            ],
+                            [
+                                '^@utils(/.*|$)',
+                            ],
+                            [
+                                '^@assets(/.*|$)',
+                            ],
+                            [
+                                '^@helpers(/.*|$)',
+                            ],
+                            [
+                                '^@hooks(/.*|$)',
+                            ],
+                            [
+                                '^@providers(/.*|$)',
+                            ],
+                            [
+                                '^@services(/.*|$)',
+                            ],
+                            [
+                                '^@shared(/.*|$)',
+                            ],
+                            [
+                                '^\\u0000',
+                            ],
                             [
                                 '^\\.\\.(?!/?$)',
                                 '^\\.\\./?$',
@@ -132,13 +131,43 @@ const imrt = async (options: IOptionsImport & IOptionsOverrides = {}): Promise<T
                                 '^\\.(?!/?$)',
                                 '^\\./?$',
                             ],
-                            ['^.+\\.?(css)$'],
+                            [
+                                '^.+\\.?(css)$',
+                            ],
                         ],
                     },
                 ],
                 ...overrides,
             },
-            settings,
+            settings: {
+                ...airbnbBaseImports.settings,
+                'import/extensions': [
+                    ...JAVASCRIPT_FILES,
+                    ...TYPESCRIPT_FILES,
+                ],
+                'import/parsers': {
+                    [tsParser.meta.name]: [
+                        ...TYPESCRIPT_FILES,
+                        '.d.ts',
+                    ],
+                },
+                'import/resolver': {
+                    node: {
+                        extensions: [
+                            ...(typescript ? TYPESCRIPT_FILES : []),
+                            ...JAVASCRIPT_FILES,
+                            '.json',
+                        ],
+                    },
+                    ...(typescript ?
+                        {
+                            typescript: {
+                                alwaysTryTypes: true,
+                            },
+                        }
+                    :   {}),
+                },
+            },
         },
     ];
 };
