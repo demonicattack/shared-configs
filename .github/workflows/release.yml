@@ -34,32 +34,48 @@ jobs:
       - name: Build Tools with Lerna
         run: yarn run build
 
-      - name: Get Current Versions
-        id: get-versions
+      - name: Get Current Versions and packages name
+        id: get-versions-and-names
         run: |
-              versions=$(yarn run lerna list --json | jq -r '[.[].version] | join(",")')
-              echo "VERSIONS=$versions" >> $GITHUB_ENV
+              packages=$(yarn run lerna list --json)
+              hashmap=$(echo "$packages" | jq -r '.[] | "\(.name):\(.version)"' | paste -sd "," -)
+              echo "HASHMAP=$hashmap" >> $GITHUB_ENV
       - name: Tag Check
         id: tag-check
         run: |
-          versions=(${{ env.VERSIONS }})
-          for version in "${versions[@]}"; do
+          IFS=',' read -r -a hashmap <<< "${{ env.HASHMAP }}"
+          exists_tag=false
+          for pair in "${hashmap[@]}"; do
+            name=$(echo "$pair" | cut -d':' -f1)
+            version=$(echo "$pair" | cut -d':' -f2)
             TAG_EXISTS=$(git ls-remote --tags origin refs/tags/v${version})
             if [ -n "$TAG_EXISTS" ]; then
-              echo "exists_tag=true" >> $GITHUB_ENV
-              echo "exists_tag=true" >> $GITHUB_OUTPUT
+              exists_tag=true
             else
-              echo "exists_tag=false" >> $GITHUB_ENV
-              echo "exists_tag=false" >> $GITHUB_OUTPUT
+              exists_tag=false
             fi
           done
+          echo "exists_tag=${exists_tag}" >> $GITHUB_ENV
+          echo "exists_tag=${exists_tag}" >> $GITHUB_OUTPUT
+          
+      - name: Prepare Tags
+        id: prepare-tags
+        run: |
+            # Преобразуем хэш-мапу в список тегов
+            IFS=',' read -r -a hashmap <<< "${{ env.HASHMAP }}"
+            tag_names=""
+            for pair in "${hashmap[@]}"; do
+              version=$(echo "$pair" | cut -d':' -f2)
+              tag_names+="${tag_names:+,}v${version}"
+            done
+            echo "tag_names=$tag_names" >> $GITHUB_OUTPUT
 
       - name: Create Release
         uses: comnoco/create-release-action@v2.0.5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v${{ env.VERSIONS }}
+          tag_name: v${{ steps.prepare-tags.outputs.tag_names }}
           release_name: ${{ github.event.pull_request.title }}
           body: |
             ${{ github.event.pull_request.body }}
@@ -89,9 +105,18 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            const hashmap = process.env.HASHMAP.split(',').reduce((acc, pair) => {
+              const [name, version] = pair.split(':');
+              acc[name] = version;
+              return acc;
+            }
+            const comment = Object.entries(hashmap)
+              .map(([name, version]) => `- **${name}**: \`${version}\``)
+              .join('\n');
+
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: 'https://github.com/${{ github.repository }}/releases/tag/v${{ env.VERSIONS }} is released 🎉'
+              body: `The following packages were released:\n\n${comment}\n\n🎉`,
             })
