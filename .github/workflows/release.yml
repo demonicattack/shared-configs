@@ -3,7 +3,7 @@ name: Release
 on:
   pull_request:
     branches: [ main ]
-    types: [ opened, reopened, edited, closed ]
+    types: [ closed ]
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
@@ -105,7 +105,7 @@ jobs:
         with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
             script: |
-            
+
              const hashmap = process.env.HASHMAP.split(',').reduce((acc, pair) => {
                const [name, version] = pair.split(':');
                acc[name] = version;
