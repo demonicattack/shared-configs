@@ -105,10 +105,16 @@ jobs:
         with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
             script: |
-              const hashmap = JSON.parse(fs.readFileSync('hashmap.json'));
-              const comment = Object.entries(hashmap)
-                .map(([name, version]) => `- **${name}**: \`${version}\``)
-                .join('\n');
+            
+             const hashmap = process.env.HASHMAP.split(',').reduce((acc, pair) => {
+               const [name, version] = pair.split(':');
+               acc[name] = version;
+               return acc;
+             }, {});
+
+             const comment = Object.entries(hashmap)
+             .map(([name, version]) => `- **${name}**: \`${version}\``)
+             .join('\n');
   
               github.rest.issues.createComment({
                 issue_number: context.issue.number,
