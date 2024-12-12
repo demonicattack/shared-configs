@@ -67,16 +67,11 @@ interface IOptionsPrettier {
 }
 
 interface IOptionsImport {
-    react?: boolean;
     typescript?: boolean;
 }
 
 interface IOptionsRegExp {
     level?: 'error' | 'warn';
-}
-
-export interface IOptionsDemonicAttack {
-    r: boolean;
 }
 
 interface IOptionsUnicorn {
@@ -99,7 +94,6 @@ type TOptionsTypescript =
     | (IOptionsOverrides & IOptionsTypeScriptWithTypes);
 
 interface IOptionsConfig extends IOptionsComponentExtensions, IOptionsProjectType {
-    demonicattack?: IOptionsOverrides;
     gitignore?: boolean | FlatGitignoreOptions;
     js?: IOptionsJs | IOptionsOverrides;
     /**
@@ -146,7 +140,6 @@ interface IOptionsConfig extends IOptionsComponentExtensions, IOptionsProjectTyp
         node?: TFlatConfigItem['rules'];
         arca?: TFlatConfigItem['rules'];
         comments?: TFlatConfigItem['rules'];
-        demonicattack?: TFlatConfigItem['rules'];
         esx?: TFlatConfigItem['rules'];
         import?: TFlatConfigItem['rules'];
         js?: TFlatConfigItem['rules'];
