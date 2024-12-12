@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: [ main ]
     types: [ opened, reopened, edited, closed ]
-    
+
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 permissions:
@@ -34,12 +34,13 @@ jobs:
       - name: Build Tools with Lerna
         run: yarn run build
 
-      - name: Get Current Versions and packages name
+      - name: Get Current Versions and Package Names
         id: get-versions-and-names
         run: |
-              packages=$(yarn run lerna list --json)
-              hashmap=$(echo "$packages" | jq -r '.[] | "\(.name):\(.version)"' | paste -sd "," -)
-              echo "HASHMAP=$hashmap" >> $GITHUB_ENV
+          packages=$(yarn run lerna list --json)
+          hashmap=$(echo "$packages" | jq -r '.[] | "\(.name):\(.version)"' | paste -sd "," -)
+          echo "HASHMAP=$hashmap" >> $GITHUB_ENV
+
       - name: Tag Check
         id: tag-check
         run: |
@@ -51,31 +52,30 @@ jobs:
             TAG_EXISTS=$(git ls-remote --tags origin refs/tags/v${version})
             if [ -n "$TAG_EXISTS" ]; then
               exists_tag=true
-            else
-              exists_tag=false
+              break
             fi
           done
           echo "exists_tag=${exists_tag}" >> $GITHUB_ENV
           echo "exists_tag=${exists_tag}" >> $GITHUB_OUTPUT
-          
+
       - name: Prepare Tags
         id: prepare-tags
         run: |
-            # Преобразуем хэш-мапу в список тегов
-            IFS=',' read -r -a hashmap <<< "${{ env.HASHMAP }}"
-            tag_names=""
-            for pair in "${hashmap[@]}"; do
-              version=$(echo "$pair" | cut -d':' -f2)
-              tag_names+="${tag_names:+,}v${version}"
-            done
-            echo "tag_names=$tag_names" >> $GITHUB_OUTPUT
+          IFS=',' read -r -a hashmap <<< "${{ env.HASHMAP }}"
+          tag_names=""
+          for pair in "${hashmap[@]}"; do
+            version=$(echo "$pair" | cut -d':' -f2)
+            tag_names+="${tag_names:+,}v${version}"
+          done
+          echo "TAG_NAMES=$tag_names" >> $GITHUB_ENV
+          echo "tag_names=$tag_names" >> $GITHUB_OUTPUT
 
       - name: Create Release
         uses: comnoco/create-release-action@v2.0.5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v${{ steps.prepare-tags.outputs.tag_names }}
+          tag_name: ${{ steps.prepare-tags.outputs.tag_names }}
           release_name: ${{ github.event.pull_request.title }}
           body: |
             ${{ github.event.pull_request.body }}
@@ -103,20 +103,16 @@ jobs:
       - name: Add Release Comment
         uses: actions/github-script@v7
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const hashmap = process.env.HASHMAP.split(',').reduce((acc, pair) => {
-              const [name, version] = pair.split(':');
-              acc[name] = version;
-              return acc;
-            }
-            const comment = Object.entries(hashmap)
-              .map(([name, version]) => `- **${name}**: \`${version}\``)
-              .join('\n');
-
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `The following packages were released:\n\n${comment}\n\n🎉`,
-            })
+            github-token: ${{ secrets.GITHUB_TOKEN }}
+            script: |
+              const hashmap = JSON.parse(fs.readFileSync('hashmap.json'));
+              const comment = Object.entries(hashmap)
+                .map(([name, version]) => `- **${name}**: \`${version}\``)
+                .join('\n');
+  
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: `### Released Packages\n\n${comment}\n\n🎉`,
+              });
