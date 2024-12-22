@@ -67,6 +67,8 @@ interface IOptionsPrettier {
 }
 
 interface IOptionsImport {
+    airbnb?: boolean;
+    recommended?: boolean;
     typescript?: boolean;
 }
 

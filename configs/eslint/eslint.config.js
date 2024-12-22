@@ -32,4 +32,5 @@ export default config({
             'ts/strict-boolean-expressions': 'off',
         },
     },
+    prettier: true,
 });

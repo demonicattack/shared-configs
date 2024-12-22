@@ -31,8 +31,8 @@ import type { Awaitable, IOptionsConfig, TConfigNames, TFlatConfigItem } from '.
 import { interopDefault, isBoolean } from './utils';
 
 const defaultPluginRenaming = {
-    '@typescript-eslint': 'ts',
-    'better-mutation': 'mutation',
+    // '@typescript-eslint': 'ts',
+    'better-mutation': '@mutation',
     import: '@import',
     n: 'node',
     'simple-import-sort': '@simple-import-sort',
@@ -121,15 +121,14 @@ const config = (
         }
     }
 
-    const jsOptions = isSubOptions(options, 'js');
-
     configs.push(
         ignores(options.ignores),
         javascript({
-            ...jsOptions,
+            ...isSubOptions(options, 'js'),
             overrides: getOverrides(options, 'js'),
         }),
     );
+
     if (enableNode) {
         configs.push(
             node({
@@ -137,6 +136,7 @@ const config = (
             }),
         );
     }
+
     if (enableArca) {
         configs.push(
             arca({
@@ -144,6 +144,7 @@ const config = (
             }),
         );
     }
+
     if (enableComments) {
         configs.push(
             comments({
@@ -151,6 +152,7 @@ const config = (
             }),
         );
     }
+
     if (enableEsx) {
         configs.push(
             esx({
@@ -158,14 +160,17 @@ const config = (
             }),
         );
     }
+
     if (enableImport) {
         configs.push(
             imrt({
+                ...isSubOptions(options, 'import'),
                 overrides: getOverrides(options, 'import'),
                 typescript: isPackageExists('typescript'),
             }),
         );
     }
+
     if (enableMutation) {
         configs.push(
             mutation({
@@ -173,6 +178,7 @@ const config = (
             }),
         );
     }
+
     if (enablePerfectionist) {
         configs.push(
             perfectionist({
@@ -180,6 +186,7 @@ const config = (
             }),
         );
     }
+
     if (enablePromise) {
         configs.push(
             promise({
@@ -187,19 +194,22 @@ const config = (
             }),
         );
     }
+
     if (enableRegexp) configs.push(regexp(typeof enableRegexp === 'boolean' ? {} : enableRegexp));
 
-    const unicornOptions = isSubOptions(options, 'unicorn');
     if (enableUnicorn) {
         configs.push(
             unicorn({
-                ...unicornOptions,
+                ...isSubOptions(options, 'unicorn'),
                 overrides: getOverrides(options, 'unicorn'),
             }),
         );
     }
+
     if (enableJsx) configs.push(jsx());
+
     if (enableEslint) configs.push(eslint());
+
     if (enableSonarjs) {
         configs.push(
             sonarjs({
@@ -207,6 +217,7 @@ const config = (
             }),
         );
     }
+
     if (enableTailwindcss) {
         configs.push(
             tailwindcss({
@@ -214,6 +225,7 @@ const config = (
             }),
         );
     }
+
     if (enableNext) {
         configs.push(
             next({
@@ -244,11 +256,11 @@ const config = (
             }),
         );
     }
-    const prettierOption = isSubOptions(options, 'prettier');
+
     if (enablePrettier) {
         configs.push(
             prettier({
-                ...prettierOption,
+                ...isSubOptions(options, 'prettier'),
             }),
         );
     }

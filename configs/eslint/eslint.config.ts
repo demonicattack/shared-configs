@@ -11,8 +11,8 @@ export default config({
         '.eslint-config-inspector',
     ],
     import: {
+        airbnb: true,
         overrides: {},
-        typescript: true,
     },
     js: {
         configurations: {

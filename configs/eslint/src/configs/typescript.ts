@@ -10,7 +10,10 @@ import type {
     IOptionsTypeScriptWithTypes,
     TFlatConfigItem,
 } from '../types';
-import { interopDefault, renameRules } from '../utils';
+import {
+    interopDefault,
+    // renameRules
+} from '../utils';
 
 import type { ParserOptions } from '@typescript-eslint/parser';
 
@@ -196,12 +199,14 @@ const typescript = async (
             name: 'ts/rules',
             files,
             rules: {
-                ...renameRules(recommendedRules ?? {}, {
-                    '@typescript-eslint': 'ts',
-                }),
-                ...renameRules(strictRules ?? {}, {
-                    '@typescript-eslint': 'ts',
-                }),
+                ...recommendedRules,
+                ...strictRules,
+                // ...renameRules(recommendedRules ?? {}, {
+                //     '@typescript-eslint': 'ts',
+                // }),
+                // ...renameRules(strictRules ?? {}, {
+                //     '@typescript-eslint': 'ts',
+                // }),
                 'ts/ban-ts-comment': 'error',
                 'ts/consistent-type-definitions': [
                     'error',

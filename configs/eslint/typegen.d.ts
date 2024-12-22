@@ -649,6 +649,18 @@ export interface RuleOptions {
    */
   '@import/unambiguous'?: Linter.RuleEntry<[]>
   /**
+   * disallow unsafe mutating functions such as Object.assign
+   */
+  '@mutation/no-mutating-functions'?: Linter.RuleEntry<MutationNoMutatingFunctions>
+  /**
+   * disallow unsafe mutating methods such as sort.
+   */
+  '@mutation/no-mutating-methods'?: Linter.RuleEntry<MutationNoMutatingMethods>
+  /**
+   * disallow mutating operators.
+   */
+  '@mutation/no-mutation'?: Linter.RuleEntry<MutationNoMutation>
+  /**
    * Enforce font-display behavior with Google Fonts.
    * @see https://nextjs.org/docs/messages/google-font-display
    */
@@ -3071,18 +3083,6 @@ export interface RuleOptions {
    * @deprecated
    */
   'multiline-ternary'?: Linter.RuleEntry<MultilineTernary>
-  /**
-   * disallow unsafe mutating functions such as Object.assign
-   */
-  'mutation/no-mutating-functions'?: Linter.RuleEntry<MutationNoMutatingFunctions>
-  /**
-   * disallow unsafe mutating methods such as sort.
-   */
-  'mutation/no-mutating-methods'?: Linter.RuleEntry<MutationNoMutatingMethods>
-  /**
-   * disallow mutating operators.
-   */
-  'mutation/no-mutation'?: Linter.RuleEntry<MutationNoMutation>
   /**
    * Require constructor names to begin with a capital letter
    * @see https://eslint.org/docs/latest/rules/new-cap
@@ -9273,6 +9273,36 @@ type ImportOrder = []|[{
 type ImportPreferDefaultExport = []|[{
   target?: ("single" | "any")
 }]
+// ----- @mutation/no-mutating-functions -----
+type MutationNoMutatingFunctions = []|[{
+  functionProps?: boolean
+  ignoredMethods?: string[]
+  useLodashFunctionImports?: boolean
+  reducers?: string[]
+  [k: string]: unknown | undefined
+}]
+// ----- @mutation/no-mutating-methods -----
+type MutationNoMutatingMethods = []|[{
+  allowedObjects?: string[]
+  reducers?: string[]
+  initializers?: string[]
+  [k: string]: unknown | undefined
+}]
+// ----- @mutation/no-mutation -----
+type MutationNoMutation = []|[{
+  commonjs?: boolean
+  allowThis?: boolean
+  prototypes?: boolean
+  functionProps?: boolean
+  exceptions?: {
+    object?: string
+    property?: string
+    [k: string]: unknown | undefined
+  }[]
+  reducers?: string[]
+  initializers?: string[]
+  [k: string]: unknown | undefined
+}]
 // ----- @next/next/no-html-link-for-pages -----
 type NextNextNoHtmlLinkForPages = []|[(string | string[])]
 // ----- @simple-import-sort/imports -----
@@ -10932,36 +10962,6 @@ type MultilineCommentStyle = ([]|[("starred-block" | "bare-block")] | []|["separ
 }])
 // ----- multiline-ternary -----
 type MultilineTernary = []|[("always" | "always-multiline" | "never")]
-// ----- mutation/no-mutating-functions -----
-type MutationNoMutatingFunctions = []|[{
-  functionProps?: boolean
-  ignoredMethods?: string[]
-  useLodashFunctionImports?: boolean
-  reducers?: string[]
-  [k: string]: unknown | undefined
-}]
-// ----- mutation/no-mutating-methods -----
-type MutationNoMutatingMethods = []|[{
-  allowedObjects?: string[]
-  reducers?: string[]
-  initializers?: string[]
-  [k: string]: unknown | undefined
-}]
-// ----- mutation/no-mutation -----
-type MutationNoMutation = []|[{
-  commonjs?: boolean
-  allowThis?: boolean
-  prototypes?: boolean
-  functionProps?: boolean
-  exceptions?: {
-    object?: string
-    property?: string
-    [k: string]: unknown | undefined
-  }[]
-  reducers?: string[]
-  initializers?: string[]
-  [k: string]: unknown | undefined
-}]
 // ----- new-cap -----
 type NewCap = []|[{
   newIsCap?: boolean
@@ -15043,4 +15043,4 @@ type Yoda = []|[("always" | "never")]|[("always" | "never"), {
   onlyEquality?: boolean
 }]
 // Names of all the configs
-export type ConfigNames = 'js/setup' | 'js/rules' | 'tailwindcss/rules' | 'node/rules' | 'jsx/setup' | 'perfectionist/rules' | 'unicorn/rules' | 'react/setup' | 'react/rules' | 'next/rules' | 'esx/rules' | 'eslint-rules/rules' | '@import/setup' | '@import/rules' | 'ts/setup' | 'ts/parser' | 'ts/rules' | 'prettier/rules' | 'arca/rules' | 'comments/rules' | 'mutation/rules' | 'promise/rules' | 'regexp/rules' | 'sonarjs/rules'
+export type ConfigNames = 'js/setup' | 'js/rules' | 'tailwindcss/rules' | 'node/rules' | 'jsx/setup' | 'perfectionist/rules' | 'unicorn/rules' | 'react/setup' | 'react/rules' | 'next/rules' | 'esx/rules' | 'eslint-rules/rules' | '@demonicattack/@import/setup' | '@demonicattack/@import/rules' | 'ts/setup' | 'ts/parser' | 'ts/rules' | 'prettier/rules' | 'arca/rules' | 'comments/rules' | '@demonicattack/@mutation/rules' | 'promise/rules' | 'regexp/rules' | 'sonarjs/rules'

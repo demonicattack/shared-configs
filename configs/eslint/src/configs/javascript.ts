@@ -121,7 +121,7 @@ const javascript = async (options: IOptionsJs & IOptionsOverrides = {}): Promise
         {
             name: 'js/rules',
             plugins: {
-                ['js']: eslintJsPlugin,
+                ['@js']: eslintJsPlugin,
             },
             rules: {
                 ...(onEslintAllConfigRules ? all.rules : {}),
