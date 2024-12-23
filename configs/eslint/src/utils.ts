@@ -27,47 +27,38 @@ const interopDefault = async <T>(m: Awaitable<T>): Promise<T extends { default: 
 
 const renameAndFilterRules = (rules: Record<string, any>, map: Record<string, string>): Record<string, any> =>
     Object.fromEntries(
-        Object.entries(rules)
-            .map(
-                ([
+        Object.entries(rules).map(
+            ([
+                key,
+                value,
+            ]) => {
+                for (const [
+                    from,
+                    to,
+                ] of Object.entries(map)) {
+                    if (key.startsWith(`${from}/`)) {
+                        return [
+                            to + key.slice(from.length),
+                            value,
+                        ];
+                    }
+                }
+                return [
                     key,
                     value,
-                ]) => {
-                    for (const [
-                        from,
-                        to,
-                    ] of Object.entries(map)) {
-                        if (key.startsWith(`${from}/`)) {
-                            return [
-                                to + key.slice(from.length),
-                                value,
-                            ];
-                        }
-                    }
-                    return [
-                        key,
-                        value,
-                    ];
-                },
-            )
-            .filter(
-                ([
-                    _,
-                    value,
-                ]) => {
-                    if (value === 'off') return false;
-                    if (Array.isArray(value) && value[0] === 'off') return false;
-                    return true;
-                },
-            ),
+                ];
+            },
+        ),
+        // .filter(
+        //     ([
+        //         _,
+        //         value,
+        //     ]) => {
+        //         if (value === 'off') return false;
+        //         if (Array.isArray(value) && value[0] === 'off') return false;
+        //         return true;
+        //     },
+        // ),
     );
 
-export {
-    combine,
-    interopDefault,
-    isBoolean,
-    isPackageInScope,
-    renameAndFilterRules as renameRules, // renameAndFilterRules
-    requireEslintTool,
-    toArray,
-};
+export { combine, interopDefault, isBoolean, isPackageInScope, renameAndFilterRules, requireEslintTool, toArray };

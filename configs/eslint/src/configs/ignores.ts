@@ -3,7 +3,7 @@ import type { TFlatConfigItem } from '../types';
 
 const ignores = async (ignore: string[] = []): Promise<TFlatConfigItem[]> => [
     {
-        name: 'files/ignores',
+        name: '@demonicattack/@files/ignores',
         ignores: [
             ...EXCLUDE_PATTERNS,
             ...ignore,

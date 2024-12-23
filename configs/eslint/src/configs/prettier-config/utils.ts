@@ -11,8 +11,12 @@ const reformattedRules = (rules: Record<string, any>): Record<string, any> => {
         )
             continue;
 
-        const newKey = rule.startsWith('@typescript-eslint/') ? rule.replace('@typescript-eslint/', 'ts/') : rule;
-        accumulator[newKey] = rules[rule];
+        const newKeys = rule
+            .replace('@typescript-eslint/', '@ts/')
+            .replace('react/', '@react/')
+            .replace('unicorn/', '@unicorn/');
+
+        accumulator[newKeys] = rules[rule];
     }
 
     return accumulator;

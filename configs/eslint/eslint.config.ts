@@ -1,6 +1,6 @@
-import { config } from './src/config';
+import { eslint } from './src/config';
 
-export default config({
+export default eslint({
     node: true,
     arca: true,
     comments: true,
@@ -12,27 +12,26 @@ export default config({
     ],
     import: {
         airbnb: true,
-        overrides: {},
+        recommended: true,
+        typescript: true,
     },
     js: {
         configurations: {
             airbnb: true,
-            all: true,
-            base: true,
             formatter: true,
             recommended: true,
         },
-        overrides: {},
     },
     jsx: true,
     mutation: true,
     next: true,
     perfectionist: true,
-    prettier: {
-        recommended: true,
-    },
+    prettier: true,
     promise: true,
-    react: true,
+    react: {
+        a11y: true,
+        airbnb: true,
+    },
     regexp: true,
     sonarjs: true,
     ts: {
@@ -40,8 +39,6 @@ export default config({
     },
     tw: true,
     unicorn: {
-        base: true,
-        overrides: {},
         recommended: true,
     },
 });

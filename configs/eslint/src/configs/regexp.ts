@@ -1,32 +1,22 @@
-import { configs } from 'eslint-plugin-regexp';
+import * as eslintRegexpPlugin from 'eslint-plugin-regexp';
 
-import type { IOptionsOverrides, IOptionsRegExp, TFlatConfigItem } from '../types';
+import type { IOptionsOverrides, TFlatConfigItem } from '../types';
+import { renameAndFilterRules } from '../utils';
 
-const regexp = async (options: IOptionsOverrides & IOptionsRegExp = {}): Promise<TFlatConfigItem[]> => {
+const regexp = async (options: IOptionsOverrides = {}): Promise<TFlatConfigItem[]> => {
     const { overrides = {} } = options;
-
-    const config = configs['flat/recommended'] as TFlatConfigItem;
-
-    const rules = {
-        ...config.rules,
-    };
-
-    if (options.level === 'warn') {
-        for (const [
-            key,
-            value,
-        ] of Object.entries(rules)) {
-            rules[key] = value === 'error' ? 'warn' : value;
-        }
-    }
 
     return [
         {
-            ...config,
-            name: 'regexp/rules',
+            name: '@demonicattack/@regexp/rules',
+            plugins: {
+                ['@regexp']: eslintRegexpPlugin,
+            },
             rules: {
-                ...rules,
-                'regexp/match-any': [
+                ...renameAndFilterRules(eslintRegexpPlugin.configs['flat/recommended'].rules, {
+                    regexp: '@regexp',
+                }),
+                '@regexp/match-any': [
                     'error',
                     {
                         allows: [
@@ -35,18 +25,18 @@ const regexp = async (options: IOptionsOverrides & IOptionsRegExp = {}): Promise
                         ],
                     },
                 ],
-                'regexp/no-super-linear-move': 'off',
-                'regexp/no-useless-flag': [
+                '@regexp/no-super-linear-move': 'off',
+                '@regexp/no-useless-flag': [
                     'error',
                     { strictTypes: false },
                 ],
-                'regexp/order-in-character-class': 'off',
-                'regexp/prefer-lookaround': 'off',
-                'regexp/prefer-named-capture-group': 'off',
-                'regexp/require-unicode-regexp': 'off',
-                'regexp/require-unicode-sets-regexp': 'off',
-                'regexp/sort-character-class-elements': 'off',
-                'regexp/strict': 'off',
+                '@regexp/order-in-character-class': 'off',
+                '@regexp/prefer-lookaround': 'off',
+                '@regexp/prefer-named-capture-group': 'off',
+                '@regexp/require-unicode-regexp': 'off',
+                '@regexp/require-unicode-sets-regexp': 'off',
+                '@regexp/sort-character-class-elements': 'off',
+                '@regexp/strict': 'off',
                 ...overrides,
             },
         },

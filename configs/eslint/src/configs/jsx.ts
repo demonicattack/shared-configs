@@ -3,7 +3,7 @@ import type { TFlatConfigItem } from '../types';
 
 const jsx = async (): Promise<TFlatConfigItem[]> => [
     {
-        name: 'jsx/setup',
+        name: '@demonicattack/@jsx/setup',
         files: [
             ...JAVASCRIPT_FILES,
             ...TYPESCRIPT_FILES,

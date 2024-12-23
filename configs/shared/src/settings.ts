@@ -1,5 +1,5 @@
-// eslint-disable-next-line comments/disable-enable-pair
-/* eslint-disable unicorn/no-empty-file */
+// eslint-disable-next-line @comments/disable-enable-pair
+/* eslint-disable @unicorn/no-empty-file */
 // import memoize from 'micro-memoize';
 // import pm from 'picomatch';
 

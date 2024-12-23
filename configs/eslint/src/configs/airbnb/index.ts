@@ -47,9 +47,9 @@ const airbnbBaseRules = {
 };
 
 const airbnbBaseReactRules = {
-    ...eslintConfigAirbnbRulesReact.rules,
-    ...eslintConfigAirbnbRulesReactA11y.rules,
-    ...eslintConfigAirbnbRulesReactHooks.rules,
+    a11y: eslintConfigAirbnbRulesReactA11y.rules,
+    react: eslintConfigAirbnbRulesReact.rules,
+    reactHooks: eslintConfigAirbnbRulesReactHooks.rules,
 };
 
 const airbnbBaseImports = {

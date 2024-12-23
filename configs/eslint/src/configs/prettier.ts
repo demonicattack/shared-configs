@@ -8,12 +8,12 @@ const prettier = async (options: IOptionsPrettier = {}): Promise<TFlatConfigItem
 
     return [
         {
-            name: 'prettier/rules',
+            name: '@demonicattack/@prettier/rules',
             plugins: {
-                ['prettier']: eslintPrettierPlugin,
+                ['@prettier']: eslintPrettierPlugin,
             },
             rules: {
-                'prettier/prettier': 'error',
+                '@prettier/prettier': 'error',
                 ...(recommended ? prettierReformattedRules : {}),
             },
         },

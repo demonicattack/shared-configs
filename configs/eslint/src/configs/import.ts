@@ -1,6 +1,6 @@
 import { eslintImportPlugin, eslintSimpleImportSortPlugin } from '../plugins';
 import type { IOptionsImport, IOptionsOverrides, TFlatConfigItem } from '../types';
-import { interopDefault, renameRules } from '../utils';
+import { interopDefault, renameAndFilterRules } from '../utils';
 
 import { airbnbBaseImports } from './airbnb';
 
@@ -9,12 +9,13 @@ const imrt = async (options: IOptionsImport & IOptionsOverrides = {}): Promise<T
 
     const tsParser = await interopDefault(import('@typescript-eslint/parser'));
 
-    const recommendedRules = renameRules(eslintImportPlugin.flatConfigs.recommended.rules, {
+    const recommendedRules = renameAndFilterRules(eslintImportPlugin.flatConfigs.recommended.rules, {
         import: '@import',
     });
-    const airbnbRules = renameRules(airbnbBaseImports.rules, {
+    const airbnbRules = renameAndFilterRules(airbnbBaseImports.rules, {
         import: '@import',
     });
+
     return [
         {
             name: '@demonicattack/@import/setup',
@@ -32,6 +33,7 @@ const imrt = async (options: IOptionsImport & IOptionsOverrides = {}): Promise<T
                     'error',
                     'prefer-top-level',
                 ],
+                '@import/export': 'off',
                 '@import/extensions': [
                     'error',
                     'ignorePackages',

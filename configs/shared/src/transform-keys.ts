@@ -10,7 +10,6 @@ const transformKeys = <T extends Record<string, unknown>>(object: T, transform: 
             }
         }
         return accumulator;
-        // eslint-disable-next-line ts/prefer-reduce-type-parameter
     }, {} as T);
 };
 

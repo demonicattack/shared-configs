@@ -8,7 +8,7 @@ import {
     arca,
     comments,
     disables,
-    eslint,
+    eslint as esl,
     esx,
     ignores,
     imrt,
@@ -31,12 +31,30 @@ import type { Awaitable, IOptionsConfig, TConfigNames, TFlatConfigItem } from '.
 import { interopDefault, isBoolean } from './utils';
 
 const defaultPluginRenaming = {
-    // '@typescript-eslint': 'ts',
+    '@eslint-community/eslint-comments': '@comments',
+    '@next/next': '@next',
+    '@typescript-eslint': '@ts',
+    arca: '@arca',
     'better-mutation': '@mutation',
+    'es-x': '@es-x',
+    eslint: '@eslint',
     import: '@import',
-    n: 'node',
+    'jsx-a11y': '@jsx-a11y',
+    n: '@node',
+    promise: '@promise',
+    react: '@react',
+    'react-dom': '@react-dom',
+    'react-hooks': '@react-hooks',
+    'react-hooks-extra': '@react-hooks-extra',
+    'react-naming-convention': '@react-naming-convention',
+    'react-refresh': '@react-refresh',
+    'react-web-api': '@react-web-api',
+    'react-x': '@react-x',
+    regexp: '@regexp',
     'simple-import-sort': '@simple-import-sort',
-    tailwindcss: 'tw',
+    sonarjs: '@sonarjs',
+    tailwindcss: '@tw',
+    unicorn: '@unicorn',
 };
 
 const flatConfigProperties = [
@@ -69,7 +87,7 @@ const getOverrides = (options: IOptionsConfig, key: TOverridesKey): TOverridesTy
     };
 };
 
-const config = (
+const eslint = (
     options: IOptionsConfig & Omit<TFlatConfigItem, 'files'> = {},
     ...userConfigs: Awaitable<FlatConfigComposer<any, any> | Linter.Config[] | TFlatConfigItem | TFlatConfigItem[]>[]
 ): FlatConfigComposer<TFlatConfigItem, TConfigNames> => {
@@ -91,7 +109,7 @@ const config = (
         promise: enablePromise = true,
         react: enableReact = isPackageExists('react'),
         regexp: enableRegexp = true,
-        sonarjs: enableSonarjs = false,
+        sonarjs: enableSonarjs = true,
         ts: enableTypeScript = isPackageExists('typescript'),
         tw: enableTailwindcss = isPackageExists('tailwindcss'),
         unicorn: enableUnicorn = true,
@@ -104,7 +122,7 @@ const config = (
             configs.push(
                 interopDefault(import('eslint-config-flat-gitignore')).then(r => [
                     r({
-                        name: 'git/gitignore',
+                        name: '@demonicattack/@git/gitignore',
                         strict: false,
                     }),
                 ]),
@@ -113,7 +131,7 @@ const config = (
             configs.push(
                 interopDefault(import('eslint-config-flat-gitignore')).then(r => [
                     r({
-                        name: 'git/gitignore',
+                        name: '@demonicattack/@git/gitignore',
                         ...enableGitignore,
                     }),
                 ]),
@@ -208,7 +226,7 @@ const config = (
 
     if (enableJsx) configs.push(jsx());
 
-    if (enableEslint) configs.push(eslint());
+    if (enableEslint) configs.push(esl());
 
     if (enableSonarjs) {
         configs.push(
@@ -228,6 +246,7 @@ const config = (
 
     if (enableNext) {
         configs.push(
+            // eslint-disable-next-line @node/callback-return
             next({
                 overrides: getOverrides(options, 'next'),
             }),
@@ -251,6 +270,7 @@ const config = (
     if (enableReact) {
         configs.push(
             react({
+                ...isSubOptions(options, 'react'),
                 overrides: getOverrides(options, 'react'),
                 tsconfigPath,
             }),
@@ -291,4 +311,4 @@ const config = (
     return composer;
 };
 
-export { config };
+export { eslint };

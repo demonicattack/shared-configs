@@ -3,7 +3,7 @@ import type { TFlatConfigItem } from '../types';
 
 const disables = async (): Promise<TFlatConfigItem[]> => [
     {
-        name: 'disables/allow-default-export',
+        name: '@demonicattack/@disables/allow-default-export',
         files: [
             '**/*config*.?([cm])[jt]s?(x)',
             '**/{views,pages,routes,middleware,plugins,api,modules}/**/*.?([cm])[jt]s?(x)',
@@ -13,32 +13,33 @@ const disables = async (): Promise<TFlatConfigItem[]> => [
             '**/.prettierrc*',
         ],
         rules: {
-            'arca/no-default-export': 'off',
-            'import/no-default-export': 'off',
+            '@arca/no-default-export': 'off',
+            '@import/no-default-export': 'off',
         },
     },
     {
-        name: 'disables/js',
+        name: '@demonicattack/@disables/js',
         files: [...JAVASCRIPT_FILES],
         rules: {
-            'ts/explicit-function-return-type': 'off',
+            '@ts/explicit-function-return-type': 'off',
         },
     },
     {
-        name: 'disables/config-files',
+        name: '@demonicattack/@disables/config-files',
         files: [
             '**/*.config.?([cm])js?(x)',
             '**/*.config.?([m])ts?(x)',
         ],
         rules: {
-            'arca/no-default-export': 'off',
-            'import/no-default-export': 'off',
+            '@arca/no-default-export': 'off',
+            '@import/no-default-export': 'off',
+            '@import/no-extraneous-dependencies': 'off',
+            '@ts/explicit-function-return-type': 'off',
             'no-console': 'off',
-            'ts/explicit-function-return-type': 'off',
         },
     },
     {
-        name: 'disables/nextjs',
+        name: '@demonicattack/@disables/nextjs',
         files: [
             'src/app/**/{page,layout,not-found,error,loading}.tsx',
             'src/app/{sitemap,robots}.ts',
@@ -47,9 +48,9 @@ const disables = async (): Promise<TFlatConfigItem[]> => [
             'middleware.ts',
         ],
         rules: {
-            'arca/jsx-import-react': 'off',
-            'arca/no-default-export': 'off',
-            'react/react-in-jsx-scope': 'off',
+            '@arca/jsx-import-react': 'off',
+            '@arca/no-default-export': 'off',
+            '@react/react-in-jsx-scope': 'off',
         },
     },
 ];

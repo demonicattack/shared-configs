@@ -34,32 +34,22 @@ interface IOptionsOverrides {
 }
 
 interface IOptionsTypeScriptParserOptions {
-    parserOptions?: Partial<ParserOptions>;
-
     /**
      * Glob patterns for files that should be type aware.
      * @default ['**\/*.{ts,tsx}']
      */
     filesTypeAware?: string[];
-
     /**
      * Glob patterns for files that should not be type aware.
      * @default ['**\/*.md\/**', '**\/*.astro/*.ts']
      */
     ignoresTypeAware?: string[];
+    parserOptions?: Partial<ParserOptions>;
 }
 
 interface IOptionsTypeScriptWithTypes {
-    /**
-     * When this options is provided, type aware rules will be enabled.
-     * @see https://typescript-eslint.io/linting/typed-linting/
-     */
-    tsconfigPath?: string;
-
-    /**
-     * Override type aware rules.
-     */
     overridesTypeAware?: TFlatConfigItem['rules'];
+    tsconfigPath?: string;
 }
 
 interface IOptionsPrettier {
@@ -72,20 +62,18 @@ interface IOptionsImport {
     typescript?: boolean;
 }
 
-interface IOptionsRegExp {
-    level?: 'error' | 'warn';
+interface IOptionsReact {
+    a11y?: boolean | TFlatConfigItem['rules'];
+    airbnb?: boolean | TFlatConfigItem['rules'];
 }
 
 interface IOptionsUnicorn {
-    base?: boolean | TFlatConfigItem['rules'];
     recommended?: boolean | TFlatConfigItem['rules'];
 }
 
 interface IOptionsJs {
     configurations?: Partial<{
         airbnb?: boolean | TFlatConfigItem['rules'];
-        all?: boolean | TFlatConfigItem['rules'];
-        base?: boolean | TFlatConfigItem['rules'];
         formatter?: boolean | TFlatConfigItem['rules'];
         recommended?: boolean | TFlatConfigItem['rules'];
     }>;
@@ -96,45 +84,31 @@ type TOptionsTypescript =
     | (IOptionsOverrides & IOptionsTypeScriptWithTypes);
 
 interface IOptionsConfig extends IOptionsComponentExtensions, IOptionsProjectType {
-    gitignore?: boolean | FlatGitignoreOptions;
-    js?: IOptionsJs | IOptionsOverrides;
     /**
      * By default, the plugins is enabled
      */
     node?: boolean | IOptionsOverrides;
+    /**
+     * By default, the plugins is disabled
+     */
+    arca?: boolean | IOptionsOverrides;
+    /**
+     * Rename plugins
+     */
+    autoRenamePlugins?: boolean;
     comments?: boolean | IOptionsOverrides;
+    eslint?: boolean | IOptionsOverrides;
     esx?: boolean | IOptionsOverrides;
+    gitignore?: boolean | FlatGitignoreOptions;
     import?: boolean | (IOptionsImport & IOptionsOverrides);
+    js?: IOptionsJs | IOptionsOverrides;
+    jsx?: boolean;
     mutation?: boolean | IOptionsOverrides;
-    perfectionist?: boolean | IOptionsOverrides;
-    promise?: boolean | IOptionsOverrides;
-    regexp?: boolean | (IOptionsOverrides & IOptionsRegExp);
-    unicorn?: boolean | (IOptionsOverrides & IOptionsUnicorn);
-
     /**
      * By default, the plugins is enabled if the current package is in your project
      * @example typescript, react, tailwindcss, etc
      */
     next?: boolean | IOptionsOverrides;
-    prettier?: boolean | IOptionsPrettier;
-    react?: boolean | IOptionsOverrides;
-    ts?: boolean | TOptionsTypescript;
-    tw?: boolean | IOptionsOverrides;
-
-    /**
-     * By default, the plugins is disabled
-     */
-    arca?: boolean | IOptionsOverrides;
-    eslint?: boolean | IOptionsOverrides;
-    // json?: IOptionsOverrides | boolean;
-    jsx?: boolean;
-    sonarjs?: boolean | IOptionsOverrides;
-
-    /**
-     * Rename plugins
-     */
-    autoRenamePlugins?: boolean;
-
     /**
      * Override rules
      */
@@ -145,7 +119,6 @@ interface IOptionsConfig extends IOptionsComponentExtensions, IOptionsProjectTyp
         esx?: TFlatConfigItem['rules'];
         import?: TFlatConfigItem['rules'];
         js?: TFlatConfigItem['rules'];
-        // json?: TFlatConfigItem['rules'];
         mutation?: TFlatConfigItem['rules'];
         next?: TFlatConfigItem['rules'];
         perfectionist?: TFlatConfigItem['rules'];
@@ -156,6 +129,15 @@ interface IOptionsConfig extends IOptionsComponentExtensions, IOptionsProjectTyp
         tw?: TFlatConfigItem['rules'];
         unicorn?: TFlatConfigItem['rules'];
     };
+    perfectionist?: boolean | IOptionsOverrides;
+    prettier?: boolean | IOptionsPrettier;
+    promise?: boolean | IOptionsOverrides;
+    react?: boolean | (IOptionsOverrides & IOptionsReact);
+    regexp?: boolean | IOptionsOverrides;
+    sonarjs?: boolean | IOptionsOverrides;
+    ts?: boolean | TOptionsTypescript;
+    tw?: boolean | IOptionsOverrides;
+    unicorn?: boolean | (IOptionsOverrides & IOptionsUnicorn);
 }
 
 export type {
@@ -169,7 +151,7 @@ export type {
     IOptionsOverrides,
     IOptionsPrettier,
     IOptionsProjectType,
-    IOptionsRegExp,
+    IOptionsReact,
     IOptionsTypeScriptParserOptions,
     IOptionsTypeScriptWithTypes,
     IOptionsUnicorn,
