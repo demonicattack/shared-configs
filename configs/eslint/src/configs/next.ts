@@ -1,17 +1,20 @@
 import { eslintNextPlugin } from '../plugins';
 import type { IOptionsOverrides, TFlatConfigItem } from '../types';
+import { renameAndFilterRules } from '../utils';
 
 const next = async (options: IOptionsOverrides = {}): Promise<TFlatConfigItem[]> => {
     const { overrides = {} } = options;
 
     return [
         {
-            name: 'next/rules',
+            name: '@demonicattack/@next/rules',
             plugins: {
-                '@next/next': eslintNextPlugin,
+                ['@next/next']: eslintNextPlugin,
             },
             rules: {
-                ...eslintNextPlugin.configs.recommended.rules,
+                ...renameAndFilterRules(eslintNextPlugin.configs.recommended.rules, {
+                    '@next/next': '@next',
+                }),
                 ...overrides,
             },
         },

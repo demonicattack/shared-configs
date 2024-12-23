@@ -1,44 +1,39 @@
-import { JAVASCRIPT_FILES, TYPESCRIPT_FILES } from '../constants';
 import { eslintImportPlugin, eslintSimpleImportSortPlugin } from '../plugins';
 import type { IOptionsImport, IOptionsOverrides, TFlatConfigItem } from '../types';
-import { interopDefault, renameRules } from '../utils';
+import { interopDefault, renameAndFilterRules } from '../utils';
 
 import { airbnbBaseImports } from './airbnb';
 
 const imrt = async (options: IOptionsImport & IOptionsOverrides = {}): Promise<TFlatConfigItem[]> => {
-    const { overrides = {}, typescript = true } = options;
+    const { airbnb = false, overrides = {}, recommended = true, typescript = false } = options;
 
     const tsParser = await interopDefault(import('@typescript-eslint/parser'));
 
+    const recommendedRules = renameAndFilterRules(eslintImportPlugin.flatConfigs.recommended.rules, {
+        import: '@import',
+    });
+    const airbnbRules = renameAndFilterRules(airbnbBaseImports.rules, {
+        import: '@import',
+    });
+
     return [
         {
-            name: '@import/setup',
+            name: '@demonicattack/@import/setup',
             plugins: {
                 ['@import']: eslintImportPlugin,
                 ['@simple-import-sort']: eslintSimpleImportSortPlugin,
             },
         },
         {
-            name: '@import/rules',
+            name: '@demonicattack/@import/rules',
             rules: {
-                ...renameRules(eslintImportPlugin.flatConfigs.recommended.rules, {
-                    import: '@import',
-                }),
-                ...renameRules(airbnbBaseImports.rules, {
-                    import: '@import',
-                }),
-                /**
-                 * TypeScript compilation already ensures that named imports exist in the referenced module
-                 */
-                ...(typescript ?
-                    {
-                        '@import/named': 'off',
-                    }
-                :   {}),
+                ...(recommended ? recommendedRules : {}),
+                ...(airbnb ? airbnbRules : {}),
                 '@import/consistent-type-specifier-style': [
                     'error',
                     'prefer-top-level',
                 ],
+                '@import/export': 'off',
                 '@import/extensions': [
                     'error',
                     'ignorePackages',
@@ -46,13 +41,14 @@ const imrt = async (options: IOptionsImport & IOptionsOverrides = {}): Promise<T
                         js: 'never',
                         jsx: 'never',
                         mjs: 'never',
-                        ts: 'never',
-                        tsx: 'never',
+                        ...(typescript ?
+                            {
+                                ts: 'never',
+                                tsx: 'never',
+                            }
+                        :   {}),
                     },
                 ],
-                '@import/no-dynamic-require': 'warn',
-                '@import/no-extraneous-dependencies': 'off',
-                '@import/no-useless-path-segments': ['error'],
                 '@import/order': 'off',
                 '@import/prefer-default-export': 'off',
                 '@simple-import-sort/exports': 'error',
@@ -137,25 +133,46 @@ const imrt = async (options: IOptionsImport & IOptionsOverrides = {}): Promise<T
                         ],
                     },
                 ],
+                /**
+                 * TypeScript compilation already ensures that named imports exist in the referenced module
+                 */
+                ...(typescript ?
+                    {
+                        '@import/named': 'off',
+                    }
+                :   {}),
                 ...overrides,
             },
             settings: {
-                ...airbnbBaseImports.settings,
+                ...(airbnb ? airbnbBaseImports.settings : {}),
                 'import/extensions': [
-                    ...JAVASCRIPT_FILES,
-                    ...TYPESCRIPT_FILES,
+                    '.js',
+                    '.jsx',
+                    ...(typescript ?
+                        [
+                            '.ts',
+                            '.tsx',
+                        ]
+                    :   []),
                 ],
                 'import/parsers': {
                     [tsParser.meta.name]: [
-                        ...TYPESCRIPT_FILES,
+                        '.ts',
+                        '.tsx',
                         '.d.ts',
                     ],
                 },
                 'import/resolver': {
                     node: {
                         extensions: [
-                            ...(typescript ? TYPESCRIPT_FILES : []),
-                            ...JAVASCRIPT_FILES,
+                            ...(typescript ?
+                                [
+                                    '.ts',
+                                    '.tsx',
+                                ]
+                            :   []),
+                            '.js',
+                            '.jsx',
                             '.json',
                         ],
                     },

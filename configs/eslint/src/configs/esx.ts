@@ -6,17 +6,17 @@ const esx = async (options: IOptionsOverrides = {}): Promise<TFlatConfigItem[]> 
 
     return [
         {
-            name: 'esx/rules',
+            name: '@demonicattack/@esx/rules',
             plugins: {
-                ['es-x']: eslintEsXPlugin,
+                ['@es-x']: eslintEsXPlugin,
             },
             rules: {
-                'es-x/no-async-iteration': 'error',
-                'es-x/no-malformed-template-literals': 'error',
-                'es-x/no-regexp-lookbehind-assertions': 'error',
-                'es-x/no-regexp-named-capture-groups': 'error',
-                'es-x/no-regexp-s-flag': 'error',
-                'es-x/no-regexp-unicode-property-escapes': 'error',
+                '@es-x/no-async-iteration': 'error',
+                '@es-x/no-malformed-template-literals': 'error',
+                '@es-x/no-regexp-lookbehind-assertions': 'error',
+                '@es-x/no-regexp-named-capture-groups': 'error',
+                '@es-x/no-regexp-s-flag': 'error',
+                '@es-x/no-regexp-unicode-property-escapes': 'error',
                 ...overrides,
             },
         },

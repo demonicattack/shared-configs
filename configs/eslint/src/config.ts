@@ -8,7 +8,7 @@ import {
     arca,
     comments,
     disables,
-    eslint,
+    eslint as esl,
     esx,
     ignores,
     imrt,
@@ -31,12 +31,30 @@ import type { Awaitable, IOptionsConfig, TConfigNames, TFlatConfigItem } from '.
 import { interopDefault, isBoolean } from './utils';
 
 const defaultPluginRenaming = {
-    '@typescript-eslint': 'ts',
-    'better-mutation': 'mutation',
+    '@eslint-community/eslint-comments': '@comments',
+    '@next/next': '@next',
+    '@typescript-eslint': '@ts',
+    arca: '@arca',
+    'better-mutation': '@mutation',
+    'es-x': '@es-x',
+    eslint: '@eslint',
     import: '@import',
-    n: 'node',
+    'jsx-a11y': '@jsx-a11y',
+    n: '@node',
+    promise: '@promise',
+    react: '@react',
+    'react-dom': '@react-dom',
+    'react-hooks': '@react-hooks',
+    'react-hooks-extra': '@react-hooks-extra',
+    'react-naming-convention': '@react-naming-convention',
+    'react-refresh': '@react-refresh',
+    'react-web-api': '@react-web-api',
+    'react-x': '@react-x',
+    regexp: '@regexp',
     'simple-import-sort': '@simple-import-sort',
-    tailwindcss: 'tw',
+    sonarjs: '@sonarjs',
+    tailwindcss: '@tw',
+    unicorn: '@unicorn',
 };
 
 const flatConfigProperties = [
@@ -69,7 +87,7 @@ const getOverrides = (options: IOptionsConfig, key: TOverridesKey): TOverridesTy
     };
 };
 
-const config = (
+const eslint = (
     options: IOptionsConfig & Omit<TFlatConfigItem, 'files'> = {},
     ...userConfigs: Awaitable<FlatConfigComposer<any, any> | Linter.Config[] | TFlatConfigItem | TFlatConfigItem[]>[]
 ): FlatConfigComposer<TFlatConfigItem, TConfigNames> => {
@@ -91,7 +109,7 @@ const config = (
         promise: enablePromise = true,
         react: enableReact = isPackageExists('react'),
         regexp: enableRegexp = true,
-        sonarjs: enableSonarjs = false,
+        sonarjs: enableSonarjs = true,
         ts: enableTypeScript = isPackageExists('typescript'),
         tw: enableTailwindcss = isPackageExists('tailwindcss'),
         unicorn: enableUnicorn = true,
@@ -104,7 +122,7 @@ const config = (
             configs.push(
                 interopDefault(import('eslint-config-flat-gitignore')).then(r => [
                     r({
-                        name: 'git/gitignore',
+                        name: '@demonicattack/@git/gitignore',
                         strict: false,
                     }),
                 ]),
@@ -113,7 +131,7 @@ const config = (
             configs.push(
                 interopDefault(import('eslint-config-flat-gitignore')).then(r => [
                     r({
-                        name: 'git/gitignore',
+                        name: '@demonicattack/@git/gitignore',
                         ...enableGitignore,
                     }),
                 ]),
@@ -121,15 +139,14 @@ const config = (
         }
     }
 
-    const jsOptions = isSubOptions(options, 'js');
-
     configs.push(
         ignores(options.ignores),
         javascript({
-            ...jsOptions,
+            ...isSubOptions(options, 'js'),
             overrides: getOverrides(options, 'js'),
         }),
     );
+
     if (enableNode) {
         configs.push(
             node({
@@ -137,6 +154,7 @@ const config = (
             }),
         );
     }
+
     if (enableArca) {
         configs.push(
             arca({
@@ -144,6 +162,7 @@ const config = (
             }),
         );
     }
+
     if (enableComments) {
         configs.push(
             comments({
@@ -151,6 +170,7 @@ const config = (
             }),
         );
     }
+
     if (enableEsx) {
         configs.push(
             esx({
@@ -158,14 +178,17 @@ const config = (
             }),
         );
     }
+
     if (enableImport) {
         configs.push(
             imrt({
+                ...isSubOptions(options, 'import'),
                 overrides: getOverrides(options, 'import'),
                 typescript: isPackageExists('typescript'),
             }),
         );
     }
+
     if (enableMutation) {
         configs.push(
             mutation({
@@ -173,6 +196,7 @@ const config = (
             }),
         );
     }
+
     if (enablePerfectionist) {
         configs.push(
             perfectionist({
@@ -180,6 +204,7 @@ const config = (
             }),
         );
     }
+
     if (enablePromise) {
         configs.push(
             promise({
@@ -187,19 +212,22 @@ const config = (
             }),
         );
     }
+
     if (enableRegexp) configs.push(regexp(typeof enableRegexp === 'boolean' ? {} : enableRegexp));
 
-    const unicornOptions = isSubOptions(options, 'unicorn');
     if (enableUnicorn) {
         configs.push(
             unicorn({
-                ...unicornOptions,
+                ...isSubOptions(options, 'unicorn'),
                 overrides: getOverrides(options, 'unicorn'),
             }),
         );
     }
+
     if (enableJsx) configs.push(jsx());
-    if (enableEslint) configs.push(eslint());
+
+    if (enableEslint) configs.push(esl());
+
     if (enableSonarjs) {
         configs.push(
             sonarjs({
@@ -207,6 +235,7 @@ const config = (
             }),
         );
     }
+
     if (enableTailwindcss) {
         configs.push(
             tailwindcss({
@@ -214,8 +243,10 @@ const config = (
             }),
         );
     }
+
     if (enableNext) {
         configs.push(
+            // eslint-disable-next-line @node/callback-return
             next({
                 overrides: getOverrides(options, 'next'),
             }),
@@ -239,16 +270,17 @@ const config = (
     if (enableReact) {
         configs.push(
             react({
+                ...isSubOptions(options, 'react'),
                 overrides: getOverrides(options, 'react'),
                 tsconfigPath,
             }),
         );
     }
-    const prettierOption = isSubOptions(options, 'prettier');
+
     if (enablePrettier) {
         configs.push(
             prettier({
-                ...prettierOption,
+                ...isSubOptions(options, 'prettier'),
             }),
         );
     }
@@ -279,4 +311,4 @@ const config = (
     return composer;
 };
 
-export { config };
+export { eslint };

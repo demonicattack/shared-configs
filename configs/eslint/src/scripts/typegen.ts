@@ -1,3 +1,4 @@
+// eslint-disable-next-line @sonarjs/deprecation
 import { builtinRules } from 'eslint/use-at-your-own-risk';
 import { flatConfigsToRulesDTS } from 'eslint-typegen/core';
 import { writeFile } from 'node:fs/promises';
@@ -29,6 +30,7 @@ const configs = await combine(
     {
         plugins: {
             '': {
+                // eslint-disable-next-line @sonarjs/deprecation
                 rules: Object.fromEntries(builtinRules.entries()),
             },
         },

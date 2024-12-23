@@ -1,6 +1,6 @@
 {
   "name": "@demonicattack/typegen",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "license": "MIT",
   "type": "module",
   "exports": "./dist/index.js",
@@ -29,9 +29,9 @@
     "@demonicattack/lint-staged": "workspace:^",
     "@demonicattack/prettier": "workspace:^",
     "@demonicattack/typescript": "workspace:^",
-    "eslint": "^9.16.0",
-    "lint-staged": "^15.2.10",
-    "prettier": "^3.4.1",
+    "eslint": "^9.17.0",
+    "lint-staged": "^15.2.11",
+    "prettier": "^3.4.2",
     "rimraf": "^6.0.1",
     "tsup": "^8.3.5",
     "typescript": "^5.7.2"

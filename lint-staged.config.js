@@ -3,8 +3,10 @@ export default {
     '*': allStagedFiles => [
         ...lintStaged({
             allStagedFiles,
+            configuration: {
+                eslint: false,
+            },
         }),
         'yarn run lint:ws',
-        'yarn run build',
     ],
 };

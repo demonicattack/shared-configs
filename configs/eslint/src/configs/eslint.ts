@@ -1,16 +1,19 @@
 import { eslintPlugin } from '../plugins';
 import type { IOptionsOverrides, TFlatConfigItem } from '../types';
+import { renameAndFilterRules } from '../utils';
 
 const eslint = async (options: IOptionsOverrides = {}): Promise<TFlatConfigItem[]> => {
     const { overrides = {} } = options;
     return [
         {
-            name: 'eslint-rules/rules',
+            name: '@demonicattack/@eslint/rules',
             plugins: {
-                ['eslint-plugin']: eslintPlugin,
+                ['@eslint']: eslintPlugin,
             },
             rules: {
-                ...eslintPlugin.configs['flat/recommended'].rules,
+                ...renameAndFilterRules(eslintPlugin.configs['flat/recommended'].rules, {
+                    'eslint-plugin': '@eslint',
+                }),
                 ...overrides,
             },
         },

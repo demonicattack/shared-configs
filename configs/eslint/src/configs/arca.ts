@@ -6,18 +6,18 @@ const arca = async (options: IOptionsOverrides = {}): Promise<TFlatConfigItem[]>
 
     return [
         {
-            name: 'arca/rules',
+            name: '@demonicattack/@arca/rules',
             plugins: {
-                ['arca']: eslintArcaPlugin,
+                ['@arca']: eslintArcaPlugin,
             },
             rules: {
-                'arca/curly': 'error',
-                'arca/import-quotes': 'error',
-                'arca/jsx-import-react': 'error',
-                'arca/jsx-longhand-props': 'error',
-                'arca/jsx-no-string-styles': 'error',
-                'arca/melted-constructs': 'error',
-                'arca/no-default-export': 'error',
+                '@arca/curly': 'error',
+                '@arca/import-quotes': 'error',
+                '@arca/jsx-import-react': 'error',
+                '@arca/jsx-longhand-props': 'error',
+                '@arca/jsx-no-string-styles': 'error',
+                '@arca/melted-constructs': 'error',
+                '@arca/no-default-export': 'error',
                 ...overrides,
             },
         },

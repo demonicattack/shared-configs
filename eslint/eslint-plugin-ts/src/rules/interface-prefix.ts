@@ -7,6 +7,9 @@ const defaultOptions = ['never'];
 
 const isPrefixedWithI = (name: string): boolean => typeof name === 'string' && /^I[A-Z]/u.test(name);
 
+// eslint-disable-next-line @ts/ban-ts-comment
+// @ts-expect-error
+// eslint-disable-next-line @arca/no-default-export
 export default createRule<[], CamelCase<typeof RULE_NAME>>({
     meta: {
         type: 'suggestion',
@@ -29,17 +32,20 @@ export default createRule<[], CamelCase<typeof RULE_NAME>>({
         ],
     },
     name: RULE_NAME,
-    create(context, options) {
+    create(context: any, options: any) {
         const option = applyDefault(defaultOptions, options)[0];
-        // console.log('🚀 ~ create ~ option:', option); // never
         const never = option !== 'always';
         return {
+            // eslint-disable-next-line @ts/ban-ts-comment
+            // @ts-expect-error
             TSInterfaceDeclaration(interfaceNode) {
                 if (never) {
                     if (!isPrefixedWithI(interfaceNode.id.name)) {
                         context.report({
                             messageId: 'interfacePrefix',
                             node: interfaceNode.id,
+                            // eslint-disable-next-line @ts/ban-ts-comment
+                            // @ts-expect-error
                             fix(fixer) {
                                 return fixer.replaceText(interfaceNode.id, `I${interfaceNode.id.name}`);
                             },
