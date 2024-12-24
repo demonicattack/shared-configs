@@ -4,6 +4,7 @@
       "mode": "auto"
     }
   ],
+  "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
   "npm.packageManager": "yarn",
   // "search.exclude": {
   //   "**/.yarn": true,
