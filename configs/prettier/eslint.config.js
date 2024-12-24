@@ -1,40 +1,29 @@
 import { eslint } from '@demonicattack/eslint';
-import { prettier, JAVASCRIPT_FILES, JSON_FILES, PRISMA_FILES, TYPESCRIPT_FILES } from '@demonicattack/prettier';
+import { JAVASCRIPT_FILES, TYPESCRIPT_FILES } from '@demonicattack/prettier';
 
-export const parserPlain = {
-    meta: {
-        name: 'parser-plain',
-    },
-    parseForESLint: code => ({
-        ast: {
-            body: [],
-            comments: [],
-            loc: { end: code.length, start: 0 },
-            range: [
-                0,
-                code.length,
-            ],
-            tokens: [],
-            type: 'Program',
-        },
-        scopeManager: null,
-        services: { isPlain: true },
-        visitorKeys: {
-            Program: [],
-        },
-    }),
-};
-
-const mergePrettierOptions = (options, overrides = {}) => {
-    return {
-        ...options,
-        ...overrides,
-        plugins: [
-            ...(overrides.plugins || []),
-            ...(options.plugins || []),
-        ],
-    };
-};
+// export const parserPlain = {
+//     meta: {
+//         name: 'parser-plain',
+//     },
+//     parseForESLint: code => ({
+//         ast: {
+//             body: [],
+//             comments: [],
+//             loc: { end: code.length, start: 0 },
+//             range: [
+//                 0,
+//                 code.length,
+//             ],
+//             tokens: [],
+//             type: 'Program',
+//         },
+//         scopeManager: null,
+//         services: { isPlain: true },
+//         visitorKeys: {
+//             Program: [],
+//         },
+//     }),
+// };
 
 export default eslint({
     type: 'lib',
@@ -59,51 +48,47 @@ export default eslint({
     /**
      * @detect "prettier-plugin-tailwindcss"
      */
+    sonarjs: {
+        overrides: {
+            '@sonarjs/fixme-tag': 'off',
+        },
+    },
     prettier: true,
     tw: false,
-    perfectionist: false,
+    perfectionist: true,
 })
     .override('@demonicattack/@prettier/rules', {
         files: [
-            // ...JAVASCRIPT_FILES,
-            // ...TYPESCRIPT_FILES,
-            ...JSON_FILES,
-            // ...PRISMA_FILES,
+            ...JAVASCRIPT_FILES,
+            ...TYPESCRIPT_FILES,
         ],
-        languageOptions: {
-            parser: parserPlain,
-        },
         rules: {
             '@prettier/prettier': [
                 'error',
-                mergePrettierOptions(prettier, {
-                    parser: 'json-stringify',
-                    plugins: [
-                        'prettier-plugin-packagejson',
-                    ],
-                }),
                 {
-                    usePrettierrc: false,
-                },
-            ],
-        },
-    })
-    .override('@demonicattack/@prettier/rules', {
-        files: [
-            ...JSON_FILES,
-        ],
-        languageOptions: {
-            parser: parserPlain,
-        },
-        rules: {
-            '@prettier/prettier': [
-                'error',
-                mergePrettierOptions(prettier, {
-                    parser: 'json',
                     plugins: [
+                        'prettier-plugin-multiline-arrays',
+                        'prettier-plugin-packagejson',
                         'prettier-plugin-sort-json',
+                        'prettier-plugin-prisma',
+                        'prettier-plugin-tailwindcss',
                     ],
-                }),
+                    arrowParens: 'avoid',
+                    bracketSameLine: false,
+                    bracketSpacing: true,
+                    endOfLine: 'lf',
+                    experimentalTernaries: true,
+                    jsxSingleQuote: true,
+                    multilineArraysWrapThreshold: 1,
+                    printWidth: 120,
+                    proseWrap: 'always',
+                    quoteProps: 'as-needed',
+                    semi: true,
+                    singleQuote: true,
+                    tabWidth: 4,
+                    trailingComma: 'all',
+                    useTabs: false,
+                },
                 {
                     usePrettierrc: false,
                 },
@@ -111,10 +96,9 @@ export default eslint({
         },
     })
     .onResolved(config => {
-        config.forEach(({ name, rules, files, languageOptions }) => {
+        config.forEach(({ name, rules, files }) => {
             if (name === '@demonicattack/@prettier/rules') {
                 console.log('@demonicattack/@prettier/files', files);
-                console.log('@demonicattack/@prettier/languageOptions', languageOptions);
                 if (rules['@prettier/prettier']) {
                     rules['@prettier/prettier'].map(r => {
                         if (typeof r === 'object') {
