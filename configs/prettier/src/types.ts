@@ -20,7 +20,9 @@ type TResolvedPrettierConfig<T = Record<string, unknown>> = {
 
 type TUserPrettierOptions<T = Record<string, unknown>> = {
     overrides?: TOverride<T>[];
-    plugins?: PrettierOptions['plugins'];
+    plugins?: {
+        multilinearrays: PrettierOptions['plugins'];
+    };
 } & Partial<T> &
     TPrettierOptions;
 
