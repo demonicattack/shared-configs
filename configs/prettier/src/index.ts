@@ -20,6 +20,7 @@ const prettier = async (options: TUserPrettierOptions<T> = {}): Promise<TResolve
     const tailwindcssPlugin = await interopDefault(import('prettier-plugin-tailwindcss'));
     // @ts-expect-error prettier-plugin-prisma is not typed
     const prismaPlugin = await interopDefault<unknown>(import('prettier-plugin-prisma'));
+
     return {
         arrowParens: 'avoid',
         bracketSameLine: false,
@@ -65,8 +66,9 @@ const prettier = async (options: TUserPrettierOptions<T> = {}): Promise<TResolve
         tabWidth: 4,
         trailingComma: 'all',
         useTabs: false,
+
         ...rest,
     };
 };
 
-export { prettier };
+export { JAVASCRIPT_FILES, prettier, TYPESCRIPT_FILES };

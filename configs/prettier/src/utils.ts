@@ -1,6 +1,11 @@
 import { createRequire } from 'node:module';
 
-import type { Awaitable, TOverride, TPrettierOptions } from './types';
+import type {
+    Awaitable,
+    TOverride,
+    TPrettierOptions,
+    // TVendoredPrettierOptions, TVendoredPrettierRuleOptions
+} from './types';
 
 const requirePrettierTool = createRequire(new URL(import.meta.url));
 
@@ -19,4 +24,25 @@ const resolvePlugins = (plugins: string | string[]): string[] => {
     return pluginList.map(plugin => import.meta.resolve(plugin));
 };
 
-export { createOverride, interopDefault, requirePrettierTool, resolvePlugins };
+/** FIXME: TYPES!!! */
+// const mergePrettierOptions = (
+//   options: TVendoredPrettierOptions,
+//   overrides: TVendoredPrettierRuleOptions = {},
+// ): TVendoredPrettierRuleOptions => {
+//   return {
+//     ...options,
+//     ...overrides,
+//     plugins: [
+//       ...(overrides.plugins || []),
+//       ...(options.plugins || []),
+//     ],
+//   }
+// }
+
+export {
+    createOverride,
+    // mergePrettierOptions,
+    interopDefault,
+    requirePrettierTool,
+    resolvePlugins,
+};
