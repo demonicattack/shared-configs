@@ -2,6 +2,9 @@
 
 // Функция для определения значения `base`
 export const determineBase = stringReference => {
+    // eslint-disable-next-line no-console
+    console.log('GITHUB_REF:', process.env.GITHUB_REF);
+
     const githubReference = process.env.GITHUB_REF ?? stringReference;
 
     if (!githubReference) return '/shared-configs/';
@@ -19,7 +22,7 @@ export const determineBase = stringReference => {
 // Главная функция
 const main = () => {
     try {
-        const base = determineBase();
+        const base = determineBase(process.env.GITHUB_REF);
         // eslint-disable-next-line no-console
         console.log(base);
     } catch (error) {
