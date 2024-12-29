@@ -22,7 +22,7 @@
     "ci:version": "changeset version",
     "clean:all": "yarn run build:workspaces:clean && yarn run workspaces:clean && yarn run clean:cache",
     "clean:cache": "yarn cache clean --all && rm -rf .yarn/cache .yarn/__virtual__ .yarn/berry ./.pnp.cjs ./.pnp.loader.mjs .yarn node_modules yarn.lock",
-    "format": "lerna run format",
+    "format": "lerna run --ignore @demonicattack/eslint format",
     "format:fix": "lerna run format:fix",
     "lint": "lerna run --ignore @demonicattack/typescript lint",
     "lint:fix": "lerna run --ignore @demonicattack/typescript lint:fix",
