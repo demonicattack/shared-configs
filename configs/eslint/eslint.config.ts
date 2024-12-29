@@ -39,7 +39,7 @@ export default eslint({
     },
     /** Overrides for ignored files */
     ignores: ['typegen.d.ts', '.eslint-config-inspector'],
-    /** @default true @imrt plugin enabled */
+    /** @default true [@]import plugin enabled */
     import: {
         /** @default false airbnb rules overrides and settings */
         airbnb: true,
