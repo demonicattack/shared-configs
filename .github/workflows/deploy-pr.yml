@@ -1,0 +1,34 @@
+name: Deploy Main to GitHub Pages
+
+on:
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/ci-setup
+
+      - name: Build Tools
+        run: yarn run build:workspace:eslint
+        
+      - name: Run eslint config inspector build
+        run: |
+          yarn run build:inspector:eslint
+        env:
+          GITHUB_REF: ${{ github.ref }}
+  
+      - name: Deploy PR Preview (for pull requests)
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: configs/eslint/.eslint-viewer
+          destination_dir: pr/${{ github.event.pull_request.number }}
+          cname: false

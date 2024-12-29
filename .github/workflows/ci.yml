@@ -43,6 +43,17 @@ jobs:
       - name: Format
         run: yarn run format
 
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/ci-setup
+      - name: Build Tools
+        run: yarn run build
+      - name: Format
+        run: yarn run test
+
   sherif-lint:
     name: Sherif-lint
     runs-on: ubuntu-latest
@@ -58,7 +69,7 @@ jobs:
     name: CI OK
     runs-on: ubuntu-latest
     if: always()
-    needs: [lint, typecheck, format, sherif-lint]
+    needs: [lint, typecheck, format, sherif-lint, tests]
     env:
       FAILURE: ${{ contains(join(needs.*.result, ','), 'failure') }}
     steps:

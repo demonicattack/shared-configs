@@ -5,6 +5,7 @@ export default {
             allStagedFiles,
             configuration: {
                 eslint: false,
+                prettier: false,
             },
         }),
         'yarn run lint:ws',
