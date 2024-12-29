@@ -13,11 +13,21 @@ jobs:
       - uses: ./.github/actions/ci-setup
       - name: Build Tools
         run: yarn run build
+        
       - name: Build the Inspector
         run: yarn run build:inspector:eslint
 
-      - name: Deploy to GitHub Pages
+      - name: Upload PR Preview (for pull requests)
+        if: ${{ github.event_name == 'pull_request' }}
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: packages/eslint/.eslint-config-inspector
+          publish_dir: configs/eslint/.eslint-config-inspector
+          destination_dir: pr/${{ github.event.pull_request.number }}
+  
+      - name: Deploy to GitHub Pages (for main branch)
+        if: ${{ github.ref == 'refs/heads/main' }}
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: configs/eslint/.eslint-config-inspector
