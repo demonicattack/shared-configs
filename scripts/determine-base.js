@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 // Функция для определения значения `base`
-export const determineBase = () => {
-    const githubReference = process.env.GITHUB_REF;
+export const determineBase = stringReference => {
+    const githubReference = process.env.GITHUB_REF ?? stringReference;
 
     if (!githubReference) return '/shared-configs/';
 
