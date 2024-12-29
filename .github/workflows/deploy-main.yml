@@ -13,7 +13,7 @@ jobs:
       - uses: ./.github/actions/ci-setup
       - name: Build Tools
         run: yarn run build
-        
+
       - name: Build the Inspector
         run: yarn run build:inspector:eslint
 
@@ -22,7 +22,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: configs/eslint/.eslint-config-inspector
+          publish_dir: configs/eslint/.eslint-viewer
           destination_dir: pr/${{ github.event.pull_request.number }}
   
       - name: Deploy to GitHub Pages (for main branch)
@@ -30,4 +30,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: configs/eslint/.eslint-config-inspector
+          publish_dir: configs/eslint/.eslint-viewer

@@ -70,7 +70,7 @@ testem.log
 # System Files
 Thumbs.db
 # Other
-.eslint-config-inspector
+.eslint-viewer
 # typegen.d.ts
 .nx/cache
 .nx/workspace-data

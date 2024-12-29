@@ -4,7 +4,7 @@ public
 build
 logs
 coverage
-.eslint-config-inspector
+.eslint-viewer
 .next
 .turbo
 .github
