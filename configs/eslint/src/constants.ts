@@ -2,15 +2,9 @@ import type { Linter } from 'eslint';
 
 export const { ECMA_VERSION, JAVASCRIPT_FILES, JSON_FILES, TYPESCRIPT_FILES } = {
     ECMA_VERSION: 'latest' as Linter.EcmaVersion,
-    JAVASCRIPT_FILES: [
-        '**/*.?([cm])js?(x)',
-    ],
-    JSON_FILES: [
-        '**/*.json',
-    ],
-    TYPESCRIPT_FILES: [
-        '**/*.?([m])ts?(x)',
-    ],
+    JAVASCRIPT_FILES: ['**/*.?([cm])js?(x)'],
+    JSON_FILES: ['**/*.json'],
+    TYPESCRIPT_FILES: ['**/*.?([m])ts?(x)'],
 };
 
 const noUnusedVariablesOptions = {

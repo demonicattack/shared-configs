@@ -4,10 +4,7 @@ import type { TFlatConfigItem } from '../types';
 const jsx = async (): Promise<TFlatConfigItem[]> => [
     {
         name: '@demonicattack/@jsx/setup',
-        files: [
-            ...JAVASCRIPT_FILES,
-            ...TYPESCRIPT_FILES,
-        ],
+        files: [...JAVASCRIPT_FILES, ...TYPESCRIPT_FILES],
         languageOptions: {
             parserOptions: {
                 ecmaFeatures: {

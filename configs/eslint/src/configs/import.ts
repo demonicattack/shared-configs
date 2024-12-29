@@ -29,10 +29,7 @@ const imrt = async (options: IOptionsImport & IOptionsOverrides = {}): Promise<T
             rules: {
                 ...(recommended ? recommendedRules : {}),
                 ...(airbnb ? airbnbRules : {}),
-                '@import/consistent-type-specifier-style': [
-                    'error',
-                    'prefer-top-level',
-                ],
+                '@import/consistent-type-specifier-style': ['error', 'prefer-top-level'],
                 '@import/export': 'off',
                 '@import/extensions': [
                     'error',
@@ -56,80 +53,29 @@ const imrt = async (options: IOptionsImport & IOptionsOverrides = {}): Promise<T
                     'error',
                     {
                         groups: [
-                            [
-                                '^react',
-                                '^next',
-                                '^\\w',
-                            ],
-                            [
-                                '^@app(/.*|$)',
-                            ],
-                            [
-                                '^@store(/.*|$)',
-                            ],
-                            [
-                                '^@components(/.*|$)',
-                            ],
-                            [
-                                '^@ui(/.*|$)',
-                            ],
-                            [
-                                '^@lib(/.*|$)',
-                            ],
-                            [
-                                '^@pages(/.*|$)',
-                            ],
-                            [
-                                '^@routes(/.*|$)',
-                            ],
-                            [
-                                '^@layouts(/.*|$)',
-                            ],
-                            [
-                                '^@widgets(/.*|$)',
-                            ],
-                            [
-                                '^@features(/.*|$)',
-                            ],
-                            [
-                                '^@entities(/.*|$)',
-                            ],
-                            [
-                                '^@utils(/.*|$)',
-                            ],
-                            [
-                                '^@assets(/.*|$)',
-                            ],
-                            [
-                                '^@helpers(/.*|$)',
-                            ],
-                            [
-                                '^@hooks(/.*|$)',
-                            ],
-                            [
-                                '^@providers(/.*|$)',
-                            ],
-                            [
-                                '^@services(/.*|$)',
-                            ],
-                            [
-                                '^@shared(/.*|$)',
-                            ],
-                            [
-                                '^\\u0000',
-                            ],
-                            [
-                                '^\\.\\.(?!/?$)',
-                                '^\\.\\./?$',
-                            ],
-                            [
-                                '^\\./(?=.*/)(?!/?$)',
-                                '^\\.(?!/?$)',
-                                '^\\./?$',
-                            ],
-                            [
-                                '^.+\\.?(css)$',
-                            ],
+                            ['^react', '^next', '^\\w'],
+                            ['^@app(/.*|$)'],
+                            ['^@store(/.*|$)'],
+                            ['^@components(/.*|$)'],
+                            ['^@ui(/.*|$)'],
+                            ['^@lib(/.*|$)'],
+                            ['^@pages(/.*|$)'],
+                            ['^@routes(/.*|$)'],
+                            ['^@layouts(/.*|$)'],
+                            ['^@widgets(/.*|$)'],
+                            ['^@features(/.*|$)'],
+                            ['^@entities(/.*|$)'],
+                            ['^@utils(/.*|$)'],
+                            ['^@assets(/.*|$)'],
+                            ['^@helpers(/.*|$)'],
+                            ['^@hooks(/.*|$)'],
+                            ['^@providers(/.*|$)'],
+                            ['^@services(/.*|$)'],
+                            ['^@shared(/.*|$)'],
+                            ['^\\u0000'],
+                            ['^\\.\\.(?!/?$)', '^\\.\\./?$'],
+                            ['^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$'],
+                            ['^.+\\.?(css)$'],
                         ],
                     },
                 ],
@@ -145,36 +91,13 @@ const imrt = async (options: IOptionsImport & IOptionsOverrides = {}): Promise<T
             },
             settings: {
                 ...(airbnb ? airbnbBaseImports.settings : {}),
-                'import/extensions': [
-                    '.js',
-                    '.jsx',
-                    ...(typescript ?
-                        [
-                            '.ts',
-                            '.tsx',
-                        ]
-                    :   []),
-                ],
+                'import/extensions': ['.js', '.jsx', ...(typescript ? ['.ts', '.tsx'] : [])],
                 'import/parsers': {
-                    [tsParser.meta.name]: [
-                        '.ts',
-                        '.tsx',
-                        '.d.ts',
-                    ],
+                    [tsParser.meta.name]: ['.ts', '.tsx', '.d.ts'],
                 },
                 'import/resolver': {
                     node: {
-                        extensions: [
-                            ...(typescript ?
-                                [
-                                    '.ts',
-                                    '.tsx',
-                                ]
-                            :   []),
-                            '.js',
-                            '.jsx',
-                            '.json',
-                        ],
+                        extensions: [...(typescript ? ['.ts', '.tsx'] : []), '.js', '.jsx', '.json'],
                     },
                     ...(typescript ?
                         {

@@ -26,10 +26,7 @@ const disables = async (): Promise<TFlatConfigItem[]> => [
     },
     {
         name: '@demonicattack/@disables/config-files',
-        files: [
-            '**/*.config.?([cm])js?(x)',
-            '**/*.config.?([m])ts?(x)',
-        ],
+        files: ['**/*.config.?([cm])js?(x)', '**/*.config.?([m])ts?(x)'],
         rules: {
             '@arca/no-default-export': 'off',
             '@import/no-default-export': 'off',

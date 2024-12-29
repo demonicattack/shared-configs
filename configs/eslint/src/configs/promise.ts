@@ -18,10 +18,7 @@ const promise = async (options: IOptionsOverrides = {}): Promise<TFlatConfigItem
                 '@promise/always-return': 'off',
                 '@promise/catch-or-return': 'off',
                 '@promise/no-native': 'off',
-                '@promise/no-return-wrap': [
-                    'error',
-                    { allowReject: true },
-                ],
+                '@promise/no-return-wrap': ['error', { allowReject: true }],
                 ...overrides,
             },
         },

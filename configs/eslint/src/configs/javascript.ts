@@ -72,21 +72,12 @@ const javascript = async (options: IOptionsJs & IOptionsOverrides = {}): Promise
                 :   {}),
                 ...(formatter ? jsRecommendedFormatting.rules : {}),
                 ...(airbnb ? filteredAirbnbRules : {}),
-                'accessor-pairs': [
-                    'error',
-                    { enforceForClassMembers: true, setWithoutGet: true },
-                ],
-                'func-style': [
-                    'error',
-                    'expression',
-                ],
+                'accessor-pairs': ['error', { enforceForClassMembers: true, setWithoutGet: true }],
+                'func-style': ['error', 'expression'],
                 'no-console': [
                     'error',
                     {
-                        allow: [
-                            'warn',
-                            'error',
-                        ],
+                        allow: ['warn', 'error'],
                     },
                 ],
                 'no-restricted-globals': [
@@ -106,11 +97,7 @@ const javascript = async (options: IOptionsJs & IOptionsOverrides = {}): Promise
                     { message: 'Use `Object.getOwnPropertyDescriptor` instead.', property: '__lookupGetter__' },
                     { message: 'Use `Object.getOwnPropertyDescriptor` instead.', property: '__lookupSetter__' },
                 ],
-                'no-restricted-syntax': [
-                    'error',
-                    'TSEnumDeclaration[const=true]',
-                    'TSExportAssignment',
-                ],
+                'no-restricted-syntax': ['error', 'TSEnumDeclaration[const=true]', 'TSExportAssignment'],
                 'no-unmodified-loop-condition': 'error',
                 'no-unused-expressions': [
                     'error',
@@ -120,14 +107,8 @@ const javascript = async (options: IOptionsJs & IOptionsOverrides = {}): Promise
                         allowTernary: true,
                     },
                 ],
-                'no-unused-vars': [
-                    'error',
-                    noUnusedVariablesOptions as any,
-                ],
-                'no-use-before-define': [
-                    'error',
-                    { classes: false, functions: false, variables: true },
-                ],
+                'no-unused-vars': ['error', noUnusedVariablesOptions as any],
+                'no-use-before-define': ['error', { classes: false, functions: false, variables: true }],
                 'prefer-arrow-callback': [
                     'error',
                     {

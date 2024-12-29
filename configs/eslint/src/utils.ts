@@ -27,28 +27,14 @@ const interopDefault = async <T>(m: Awaitable<T>): Promise<T extends { default: 
 
 const renameAndFilterRules = (rules: Record<string, any>, map: Record<string, string>): Record<string, any> =>
     Object.fromEntries(
-        Object.entries(rules).map(
-            ([
-                key,
-                value,
-            ]) => {
-                for (const [
-                    from,
-                    to,
-                ] of Object.entries(map)) {
-                    if (key.startsWith(`${from}/`)) {
-                        return [
-                            to + key.slice(from.length),
-                            value,
-                        ];
-                    }
+        Object.entries(rules).map(([key, value]) => {
+            for (const [from, to] of Object.entries(map)) {
+                if (key.startsWith(`${from}/`)) {
+                    return [to + key.slice(from.length), value];
                 }
-                return [
-                    key,
-                    value,
-                ];
-            },
-        ),
+            }
+            return [key, value];
+        }),
         // .filter(
         //     ([
         //         _,

@@ -4,10 +4,7 @@ const variables = {
     'no-label-var': 'error',
     'no-shadow': 'off',
     'no-undef-init': 'warn',
-    'no-unused-vars': [
-        'error',
-        noUnusedVariablesOptions,
-    ],
+    'no-unused-vars': ['error', noUnusedVariablesOptions],
     'no-use-before-define': [
         'error',
         {

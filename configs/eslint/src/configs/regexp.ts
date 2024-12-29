@@ -19,17 +19,11 @@ const regexp = async (options: IOptionsOverrides = {}): Promise<TFlatConfigItem[
                 '@regexp/match-any': [
                     'error',
                     {
-                        allows: [
-                            'dotAll',
-                            '[\\S\\s]',
-                        ],
+                        allows: ['dotAll', '[\\S\\s]'],
                     },
                 ],
                 '@regexp/no-super-linear-move': 'off',
-                '@regexp/no-useless-flag': [
-                    'error',
-                    { strictTypes: false },
-                ],
+                '@regexp/no-useless-flag': ['error', { strictTypes: false }],
                 '@regexp/order-in-character-class': 'off',
                 '@regexp/prefer-lookaround': 'off',
                 '@regexp/prefer-named-capture-group': 'off',

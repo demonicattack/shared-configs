@@ -1,13 +1,7 @@
 const MAX_PARAMS = 5;
 const style = {
-    camelcase: [
-        'error',
-        { allow: ['^UNSAFE_'], ignoreDestructuring: false, properties: 'never' },
-    ],
-    'func-names': [
-        'error',
-        'as-needed',
-    ],
+    camelcase: ['error', { allow: ['^UNSAFE_'], ignoreDestructuring: false, properties: 'never' }],
+    'func-names': ['error', 'as-needed'],
     indent: 'off',
     'lines-between-class-members': [
         'error',
@@ -29,24 +23,15 @@ const style = {
             tabWidth: 4,
         },
     ],
-    'max-params': [
-        'warn',
-        MAX_PARAMS,
-    ],
+    'max-params': ['warn', MAX_PARAMS],
     'max-statements-per-line': [
         'error',
         {
             max: 1,
         },
     ],
-    'multiline-ternary': [
-        'error',
-        'never',
-    ],
-    'new-cap': [
-        'error',
-        { capIsNew: false },
-    ],
+    'multiline-ternary': ['error', 'never'],
+    'new-cap': ['error', { capIsNew: false }],
     'new-parens': 'warn',
     'no-array-constructor': 'error',
     'no-bitwise': 'error',
@@ -54,10 +39,7 @@ const style = {
     'no-lonely-if': 'warn',
     'no-multi-assign': ['error'],
     'no-nested-ternary': 'error',
-    'no-plusplus': [
-        'error',
-        { allowForLoopAfterthoughts: true },
-    ],
+    'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
     'no-restricted-syntax': [
         'error',
         {

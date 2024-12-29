@@ -12,7 +12,7 @@
   "scripts": {
     "build": "yarn run build:clean && yarn run check-types && yarn run typegen && tsup",
     "build:clean": "rimraf dist",
-    "build:inspector": "yarn build && yarn dlx @eslint/config-inspector build && yarn dlx serve .eslint-config-inspector",
+    "build:inspector": "rimraf .eslint-config-inspector && yarn build && yarn dlx @eslint/config-inspector@latest build --config eslint.config.viewer.js && yarn dlx serve .eslint-config-inspector",
     "check-types": "tsc --noEmit",
     "clean": "rimraf node_modules .yarn .eslint-config-inspector",
     "dev": "yarn run typegen && yarn dlx @eslint/config-inspector --config eslint.config.ts",
@@ -78,6 +78,7 @@
     "@types/eslint-plugin-jsx-a11y": "^6.10.0",
     "@types/eslint__js": "^8.42.3",
     "@types/node": "^22.10.2",
+    "importx": "^0.5.1",
     "lint-staged": "^15.2.11",
     "prettier": "^3.4.2",
     "rimraf": "^6.0.1",

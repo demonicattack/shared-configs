@@ -9,9 +9,7 @@ const es6 = {
     'no-restricted-exports': [
         'error',
         {
-            restrictedNamedExports: [
-                'then',
-            ],
+            restrictedNamedExports: ['then'],
         },
     ],
     'no-useless-computed-key': 'warn',

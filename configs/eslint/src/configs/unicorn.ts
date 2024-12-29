@@ -30,10 +30,7 @@ const unicorn = async (options: IOptionsOverrides & IOptionsUnicorn = {}): Promi
                 '@unicorn/error-message': 'error',
                 '@unicorn/escape-case': 'error',
                 '@unicorn/expiring-todo-comments': 'warn',
-                '@unicorn/explicit-length-check': [
-                    'error',
-                    { 'non-zero': 'not-equal' },
-                ],
+                '@unicorn/explicit-length-check': ['error', { 'non-zero': 'not-equal' }],
                 '@unicorn/import-index': 'off',
                 '@unicorn/import-style': [
                     'error',
@@ -68,10 +65,7 @@ const unicorn = async (options: IOptionsOverrides & IOptionsUnicorn = {}): Promi
                 '@unicorn/prefer-dom-node-dataset': 'off',
                 '@unicorn/prefer-dom-node-remove': 'off',
                 '@unicorn/prefer-dom-node-text-content': 'error',
-                '@unicorn/prefer-export-from': [
-                    'error',
-                    { ignoreUsedVariables: true },
-                ],
+                '@unicorn/prefer-export-from': ['error', { ignoreUsedVariables: true }],
                 '@unicorn/prefer-includes': 'error',
                 '@unicorn/prefer-json-parse-buffer': 'error',
                 '@unicorn/prefer-modern-dom-apis': 'off',
@@ -91,14 +85,8 @@ const unicorn = async (options: IOptionsOverrides & IOptionsUnicorn = {}): Promi
                         checkShorthandProperties: true,
                     },
                 ],
-                '@unicorn/relative-url-style': [
-                    'error',
-                    'always',
-                ],
-                '@unicorn/switch-case-braces': [
-                    'error',
-                    'avoid',
-                ],
+                '@unicorn/relative-url-style': ['error', 'always'],
+                '@unicorn/switch-case-braces': ['error', 'avoid'],
                 '@unicorn/throw-new-error': 'error',
                 ...overrides,
             },

@@ -1,8 +1,5 @@
 const bestPractices = {
-    'array-callback-return': [
-        'error',
-        { allowImplicit: true },
-    ],
+    'array-callback-return': ['error', { allowImplicit: true }],
     'block-scoped-var': 'error',
     'consistent-return': [
         'off',
@@ -10,10 +7,7 @@ const bestPractices = {
             treatUndefinedAsUnspecified: true,
         },
     ],
-    curly: [
-        'error',
-        'multi-line',
-    ],
+    curly: ['error', 'multi-line'],
     'default-case-last': 'error',
     eqeqeq: 'error',
     'grouped-accessor-pairs': 'error',
@@ -49,10 +43,7 @@ const bestPractices = {
     'no-octal-escape': 'error',
     'no-param-reassign': 'error',
     'no-proto': 'error',
-    'no-return-assign': [
-        'error',
-        'except-parens',
-    ],
+    'no-return-assign': ['error', 'except-parens'],
     'no-script-url': 'error',
     'no-self-compare': 'error',
     'no-sequences': 'error',
@@ -61,10 +52,7 @@ const bestPractices = {
     'no-useless-concat': 'error',
     'no-useless-return': 'warn',
     'prefer-named-capture-group': 'error',
-    'prefer-promise-reject-errors': [
-        'error',
-        { allowEmptyReject: true },
-    ],
+    'prefer-promise-reject-errors': ['error', { allowEmptyReject: true }],
     'prefer-regex-literals': 'error',
     'vars-on-top': 'off',
     yoda: 'warn',

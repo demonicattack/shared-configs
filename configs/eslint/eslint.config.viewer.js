@@ -1,4 +1,5 @@
-import { eslint } from './src/config';
+// @ts-check
+import { eslint } from '@demonicattack/eslint';
 
 export default eslint({
     /** @default true @node plugin enabled */
@@ -206,5 +207,30 @@ export default eslint({
         },
         /** @default true add default rules */
         recommended: true,
+    },
+}).override('@demonicattack/@prettier/rules', {
+    rules: {
+        '@prettier/prettier': [
+            'error',
+            {
+                arrowParens: 'avoid',
+                bracketSameLine: false,
+                bracketSpacing: true,
+                endOfLine: 'lf',
+                experimentalTernaries: true,
+                jsxSingleQuote: true,
+                printWidth: 120,
+                proseWrap: 'always',
+                quoteProps: 'as-needed',
+                semi: true,
+                singleQuote: true,
+                tabWidth: 4,
+                trailingComma: 'all',
+                useTabs: false,
+            },
+            {
+                usePrettierrc: false,
+            },
+        ],
     },
 });

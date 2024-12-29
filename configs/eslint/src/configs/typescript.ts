@@ -28,16 +28,11 @@ const typescript = async (
         parserOptions = {},
     } = options;
 
-    const files = [
-        ...TYPESCRIPT_FILES,
-        ...componentExtensions.map(extension => `**/*${extension}`),
-    ];
+    const files = [...TYPESCRIPT_FILES, ...componentExtensions.map(extension => `**/*${extension}`)];
 
     const filesTypeAware = options.filesTypeAware ?? [...TYPESCRIPT_FILES];
 
-    const ignoresTypeAware = options.ignoresTypeAware ?? [
-        '**/*.md',
-    ];
+    const ignoresTypeAware = options.ignoresTypeAware ?? ['**/*.md'];
 
     const tsconfigPath = options.tsconfigPath ?? undefined;
     const isTypeAware = Boolean(tsconfigPath);
@@ -53,10 +48,7 @@ const typescript = async (
         '@ts/consistent-indexed-object-style': 'error',
         '@ts/consistent-type-assertions': 'error',
         '@ts/consistent-type-definitions': 'error',
-        '@ts/dot-notation': [
-            'error',
-            { allowKeywords: true },
-        ],
+        '@ts/dot-notation': ['error', { allowKeywords: true }],
         '@ts/no-array-constructor': 'error',
         '@ts/no-array-delete': 'error',
         '@ts/no-base-to-string': 'error',
@@ -127,24 +119,15 @@ const typescript = async (
         '@ts/require-await': 'error',
         '@ts/restrict-plus-operands': 'error',
         '@ts/restrict-template-expressions': 'error',
-        '@ts/return-await': [
-            'error',
-            'error-handling-correctness-only',
-        ],
-        '@ts/strict-boolean-expressions': [
-            'error',
-            { allowNullableBoolean: true, allowNullableObject: true },
-        ],
+        '@ts/return-await': ['error', 'error-handling-correctness-only'],
+        '@ts/strict-boolean-expressions': ['error', { allowNullableBoolean: true, allowNullableObject: true }],
         '@ts/switch-exhaustiveness-check': 'error',
         '@ts/unbound-method': 'error',
         '@ts/unified-signatures': 'error',
         '@ts/use-unknown-in-catch-callback-variable': 'error',
     };
 
-    const [
-        tsParser,
-        tsPlugin,
-    ] = await Promise.all([
+    const [tsParser, tsPlugin] = await Promise.all([
         interopDefault(import('@typescript-eslint/parser')),
         interopDefault(import('@typescript-eslint/eslint-plugin')),
     ] as const);
@@ -183,13 +166,8 @@ const typescript = async (
             },
         },
         ...(isTypeAware ?
-            [
-                parser(false, files),
-                parser(true, filesTypeAware, ignoresTypeAware),
-            ]
-        :   [
-                parser(false, files),
-            ]),
+            [parser(false, files), parser(true, filesTypeAware, ignoresTypeAware)]
+        :   [parser(false, files)]),
         {
             name: '@demonicattack/@ts/rules',
             files,
@@ -201,10 +179,7 @@ const typescript = async (
                     '@typescript-eslint': '@ts',
                 }),
                 '@ts/ban-ts-comment': 'error',
-                '@ts/consistent-type-definitions': [
-                    'error',
-                    'interface',
-                ],
+                '@ts/consistent-type-definitions': ['error', 'interface'],
                 '@ts/consistent-type-imports': [
                     'error',
                     {
@@ -230,10 +205,7 @@ const typescript = async (
                 '@ts/no-unsafe-declaration-merging': 'error',
                 '@ts/no-unsafe-function-type': 'error',
                 '@ts/no-unused-expressions': 'error',
-                '@ts/no-unused-vars': [
-                    'error',
-                    noUnusedVariablesOptions as any,
-                ],
+                '@ts/no-unused-vars': ['error', noUnusedVariablesOptions as any],
                 '@ts/no-useless-constructor': 'error',
                 '@ts/no-wrapper-object-types': 'error',
                 '@ts/prefer-as-const': 'error',

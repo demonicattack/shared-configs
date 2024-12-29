@@ -1918,6 +1918,7 @@ __metadata:
     eslint-typegen: "npm:^0.3.2"
     esm-loader: "npm:^0.1.0"
     globals: "npm:^15.14.0"
+    importx: "npm:^0.5.1"
     lint-staged: "npm:^15.2.11"
     local-pkg: "npm:^0.5.1"
     prettier: "npm:^3.4.2"
@@ -5497,7 +5498,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:4, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2, debug@npm:^4.3.4, debug@npm:^4.3.5, debug@npm:^4.3.7, debug@npm:~4.4.0":
+"debug@npm:4, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2, debug@npm:^4.3.4, debug@npm:^4.3.5, debug@npm:^4.3.7, debug@npm:^4.4.0, debug@npm:~4.4.0":
   version: 4.4.0
   resolution: "debug@npm:4.4.0"
   dependencies:
@@ -6037,7 +6038,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild@npm:^0.24.0":
+"esbuild@npm:^0.20.2 || ^0.21.0 || ^0.22.0 || ^0.23.0 || ^0.24.0, esbuild@npm:^0.24.0":
   version: 0.24.2
   resolution: "esbuild@npm:0.24.2"
   dependencies:
@@ -8269,6 +8270,20 @@ __metadata:
   version: 3.2.0
   resolution: "import-modules@npm:3.2.0"
   checksum: 10c0/83b1e5709c3d0056de2625052bdc9e80f93da9abc49e6b757dbe63261a9db07e976f10a52cc9d206830fc563212bda5a978a230da90eee2bd9d3d3319c7a8552
+  languageName: node
+  linkType: hard
+
+"importx@npm:^0.5.1":
+  version: 0.5.1
+  resolution: "importx@npm:0.5.1"
+  dependencies:
+    bundle-require: "npm:^5.0.0"
+    debug: "npm:^4.4.0"
+    esbuild: "npm:^0.20.2 || ^0.21.0 || ^0.22.0 || ^0.23.0 || ^0.24.0"
+    jiti: "npm:^2.4.1"
+    pathe: "npm:^1.1.2"
+    tsx: "npm:^4.19.2"
+  checksum: 10c0/5c5965363c11892e42d4221859bd23829cc796aaa907b0c7dd28815fa5fe9507e0c92b2d529a1c32211eb7a06fb4dd863a0617da5c3caa265f96dc4d5ba8462f
   languageName: node
   linkType: hard
 

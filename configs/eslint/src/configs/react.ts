@@ -24,13 +24,9 @@ import { interopDefault, renameAndFilterRules, toArray } from '../utils';
 
 import { airbnbBaseReactRules } from './airbnb';
 
-const ReactRefreshAllowConstantExportPackages = [
-    'vite',
-];
+const ReactRefreshAllowConstantExportPackages = ['vite'];
 
-const NextJsPackages = [
-    'next',
-];
+const NextJsPackages = ['next'];
 
 const react = async (
     options: IOptionsFiles & IOptionsOverrides & IOptionsReact & IOptionsTypeScriptWithTypes = {},
@@ -38,10 +34,7 @@ const react = async (
     const {
         a11y = false,
         airbnb = false,
-        files = [
-            ...JAVASCRIPT_FILES,
-            ...TYPESCRIPT_FILES,
-        ],
+        files = [...JAVASCRIPT_FILES, ...TYPESCRIPT_FILES],
         overrides = {},
     } = options;
 
@@ -122,10 +115,7 @@ const react = async (
                 '@react-hooks-extra/no-direct-set-state-in-use-effect': 'warn',
                 '@react-hooks-extra/no-redundant-custom-hook': 'warn',
                 '@react-hooks-extra/prefer-use-state-lazy-initialization': 'warn',
-                '@react-naming-convention/filename-extension': [
-                    'warn',
-                    'as-needed',
-                ],
+                '@react-naming-convention/filename-extension': ['warn', 'as-needed'],
                 '@react-naming-convention/use-state': 'warn',
                 '@react-refresh/only-export-components': [
                     'warn',
