@@ -15,6 +15,7 @@
   "scripts": {
     "build": "lerna run build",
     "build:inspector:eslint": "lerna run build:inspector --scope @demonicattack/eslint",
+    "build:workspace:eslint": "lerna run build --scope @demonicattack/eslint",
     "build:workspaces:clean": "lerna run --ignore @demonicattack/typescript build:clean",
     "changesets": "changeset",
     "check-types": "lerna run --ignore @demonicattack/typescript check-types",
