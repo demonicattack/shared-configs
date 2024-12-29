@@ -14,7 +14,7 @@
   ],
   "scripts": {
     "build": "lerna run build",
-    "build:inspector:eslint": "GITHUB_REF=$GITHUB_REF lerna run build:inspector --scope @demonicattack/eslint -- --base $(node scripts/determine-base.js)",
+    "build:inspector:eslint": "GITHUB_REF='refs/pull/44/merge' lerna run build:inspector --scope @demonicattack/eslint -- --base $(node scripts/determine-base.js)",
     "build:workspace:eslint": "lerna run build --scope @demonicattack/eslint",
     "build:workspaces:clean": "lerna run --ignore @demonicattack/typescript build:clean",
     "changesets": "changeset",

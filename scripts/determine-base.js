@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
 // Функция для определения значения `base`
-export const determineBase = stringReference => {
+export const determineBase = (stringReference = process.env.GITHUB_REF) => {
     // eslint-disable-next-line no-console
     // console.log('GITHUB_REF:', process.env.GITHUB_REF);
 
     const githubReference = process.env.GITHUB_REF ?? stringReference;
 
-    if (!githubReference) return '/shared-configs/';
+    // if (!githubReference) return '/shared-configs/';
 
     // eslint-disable-next-line prefer-named-capture-group
     const prMatch = githubReference.match(/^refs\/pull\/(\d+)(\/head)?$/);
