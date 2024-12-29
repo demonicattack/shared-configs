@@ -4465,7 +4465,7 @@
         "@react-refresh/only-export-components": [
           "warn",
           {
-            "allowConstantExport": false,
+            "allowConstantExport": true,
             "allowExportNames": []
           }
         ],
@@ -25833,7 +25833,7 @@
     }
   ],
   "meta": {
-    "lastUpdate": 1735496874133,
+    "lastUpdate": 1735501894835,
     "basePath": "",
     "configPath": ""
   }
