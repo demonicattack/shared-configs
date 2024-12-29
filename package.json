@@ -14,7 +14,7 @@
   ],
   "scripts": {
     "build": "lerna run build",
-    "build:inspector:eslint": "lerna run build:inspector --scope @demonicattack/eslint",
+    "build:inspector:eslint": "lerna run build:inspector --scope @demonicattack/eslint -- --base $(node scripts/determine-base.js)",
     "build:workspace:eslint": "lerna run build --scope @demonicattack/eslint",
     "build:workspaces:clean": "lerna run --ignore @demonicattack/typescript build:clean",
     "changesets": "changeset",
@@ -29,6 +29,7 @@
     "lint:fix": "lerna run --ignore @demonicattack/typescript lint:fix",
     "lint:ws": "yarn dlx sherif@latest -r packages-without-package-json",
     "prepare": "husky",
+    "test": "vitest",
     "workspaces:clean": "lerna run clean"
   },
   "config": {
@@ -53,7 +54,8 @@
     "lint-staged": "^15.2.11",
     "nx": "^20.3.0",
     "prettier": "^3.4.2",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
   },
   "packageManager": "yarn@4.5.3",
   "engines": {

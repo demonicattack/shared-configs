@@ -14,11 +14,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/ci-setup
+
       - name: Build Tools
         run: yarn run build:workspace:eslint
-
-      - name: Build the Inspector
-        run: yarn run build:inspector:eslint
+      
+      - name: Set GITHUB_REF in environment
+        run: echo "GITHUB_REF=${GITHUB_REF}" >> $GITHUB_ENV
+      
+      - name: Run eslint config inspector build
+        run: |
+          yarn run build:inspector:eslint
+        env:
+          GITHUB_REF: ${{ secrets.GITHUB_REF }}
   
       - name: Deploy PR Preview (for pull requests)
         if: ${{ github.event_name == 'pull_request' }}
