@@ -1,5 +1,4 @@
 import { noUnusedVariablesOptions, TYPESCRIPT_FILES } from '../constants';
-import { eslintSafeTsPlugin } from '../plugins';
 import type {
     IOptionsComponentExtensions,
     IOptionsFiles,
@@ -11,7 +10,8 @@ import type {
 } from '../types';
 import { interopDefault, renameAndFilterRules } from '../utils';
 
-import type { ParserOptions } from '@typescript-eslint/parser';
+// import { eslintSafeTsPlugin } from '../plugins';
+import eslintSafeTsPlugin from '@susisu/eslint-plugin-safe-typescript';
 
 const typescript = async (
     options: IOptionsComponentExtensions &
@@ -39,6 +39,9 @@ const typescript = async (
     const isTypeAware = Boolean(tsconfigPath);
 
     const typeAwareRules: TFlatConfigItem['rules'] = {
+        ...renameAndFilterRules(eslintSafeTsPlugin.configs.recommended.rules ?? {}, {
+            '@susisu/safe-typescript': '@ts-safe',
+        }),
         '@ts/adjacent-overload-signatures': 'error',
         '@ts/array-type': 'error',
         '@ts/await-thenable': 'error',
@@ -152,13 +155,12 @@ const typescript = async (
                     }
                 :   {}),
                 ...parserOptions,
-            } as ParserOptions,
+            },
         },
     });
 
     const recommendedRules = tsPlugin.configs['eslint-recommended']?.overrides?.[0]?.rules;
     const strictRules = tsPlugin.configs.strict?.rules;
-    const safeRules = eslintSafeTsPlugin.configs.recommended.rules;
 
     return [
         {
@@ -238,9 +240,6 @@ const typescript = async (
                     files: filesTypeAware,
                     ignores: ignoresTypeAware,
                     rules: {
-                        ...renameAndFilterRules(safeRules ?? {}, {
-                            '@susisu/safe-typescript': '@ts-safe',
-                        }),
                         ...typeAwareRules,
                         ...overridesTypeAware,
                     },

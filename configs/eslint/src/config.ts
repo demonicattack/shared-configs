@@ -296,6 +296,7 @@ const eslint = (
         }
     }
 
+    // eslint-disable-next-line @ts-safe/no-unsafe-object-enum-method
     if (Object.keys(fusedConfig).length !== 0) configs.push([fusedConfig]);
 
     let composer = new FlatConfigComposer<TFlatConfigItem, TConfigNames>();

@@ -183,8 +183,11 @@ export default eslint({
         },
         overridesTypeAware: {
             /**
-             *  @tsTypeAware @overrides {...}
+             * @ts @overrides {...}
+             * @ts-safe @overrides {...}
+             * ================================================
              * '@ts/await-thenable': 'off',
+             * '@ts-safe/no-object-assign': 'off',
              */
         },
         tsconfigPath: 'tsconfig.json',

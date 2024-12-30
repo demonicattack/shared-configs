@@ -176,16 +176,16 @@ export default eslint({
         overrides: {
             /**
              *  @ts @overrides {...}
-             *  @ts-safe @overrides {...}
-             * ================================================
              * '@ts/no-array-constructor': 'off',
-             * '@ts-safe/no-object-assign': 'error',
              */
         },
         overridesTypeAware: {
             /**
-             *  @tsTypeAware @overrides {...}
+             * @ts @overrides {...}
+             * @ts-safe @overrides {...}
+             * ================================================
              * '@ts/await-thenable': 'off',
+             * '@ts-safe/no-object-assign': 'off',
              */
         },
         tsconfigPath: 'tsconfig.json',

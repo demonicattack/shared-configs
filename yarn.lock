@@ -1876,6 +1876,7 @@ __metadata:
     "@eslint/js": "npm:^9.17.0"
     "@eslint/json": "npm:^0.9.0"
     "@next/eslint-plugin-next": "npm:^15.1.2"
+    "@susisu/eslint-plugin-safe-typescript": "npm:^0.9.2"
     "@types/eslint": "npm:^9.6.1"
     "@types/eslint-plugin-jsx-a11y": "npm:^6.10.0"
     "@types/eslint__js": "npm:^8.42.3"
@@ -3744,6 +3745,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@susisu/eslint-plugin-safe-typescript@npm:^0.9.2":
+  version: 0.9.2
+  resolution: "@susisu/eslint-plugin-safe-typescript@npm:0.9.2"
+  dependencies:
+    "@types/eslint": "npm:^9.6.1"
+    "@typescript-eslint/utils": "npm:^8.15.0"
+  peerDependencies:
+    "@typescript-eslint/parser": ^8.0.0
+    typescript: "*"
+    typescript-eslint: ^8.0.0
+  peerDependenciesMeta:
+    "@typescript-eslint/parser":
+      optional: true
+    typescript-eslint:
+      optional: true
+  checksum: 10c0/cb2bc5df1b8cd5abea789ff30beda65f093eab5782374dbc6ab044c954eaab9afdada0dd4bafc1d458759c024433c1bc62fb8b6640e62727fbc6618377058691
+  languageName: node
+  linkType: hard
+
 "@tufjs/canonical-json@npm:2.0.0":
   version: 2.0.0
   resolution: "@tufjs/canonical-json@npm:2.0.0"
@@ -3982,7 +4002,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/utils@npm:8.18.2, @typescript-eslint/utils@npm:^8.18.1, @typescript-eslint/utils@npm:^8.18.2":
+"@typescript-eslint/utils@npm:8.18.2, @typescript-eslint/utils@npm:^8.15.0, @typescript-eslint/utils@npm:^8.18.1, @typescript-eslint/utils@npm:^8.18.2":
   version: 8.18.2
   resolution: "@typescript-eslint/utils@npm:8.18.2"
   dependencies:

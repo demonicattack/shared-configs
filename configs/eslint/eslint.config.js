@@ -143,8 +143,11 @@ export default eslint({
         },
         overridesTypeAware: {
             /**
-             *  @tsTypeAware @overrides {...}
+             * @ts @overrides {...}
+             * @ts-safe @overrides {...}
+             * ================================================
              * '@ts/await-thenable': 'off',
+             * '@ts-safe/no-object-assign': 'off',
              */
             '@ts/no-deprecated': 'off',
             '@ts/require-await': 'off',
@@ -155,6 +158,9 @@ export default eslint({
             '@ts/promise-function-async': 'off',
             '@ts/no-unsafe-member-access': 'off',
             '@ts/strict-boolean-expressions': 'off',
+            '@ts-safe/no-unsafe-object-property-overwrite': 'off',
+            '@ts-safe/no-type-assertion': 'off',
+            '@ts-safe/no-unsafe-object-property-check': 'off',
         },
         tsconfigPath: 'tsconfig.json',
     },
