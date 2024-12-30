@@ -29,34 +29,19 @@ const prettier = async (options: TUserPrettierOptions<T> = {}): Promise<TResolve
         jsxSingleQuote: true,
         overrides: [
             createOverride(JSON_FILES, {
-                plugins: [
-                    ...jsonPlugins,
-                ],
+                plugins: [...jsonPlugins],
                 tabWidth: 2,
             }),
             createOverride(PRISMA_FILES, {
-                plugins: [
-                    prismaPlugin as Plugin<unknown>,
-                ],
+                plugins: [prismaPlugin as Plugin<unknown>],
             }),
-            createOverride(
-                [
-                    ...JAVASCRIPT_FILES,
-                    ...TYPESCRIPT_FILES,
-                ],
-                {
-                    multilineArraysWrapThreshold: 1,
-                    plugins: [
-                        multilineArraysPlugin,
-                    ],
-                },
-            ),
+            createOverride([...JAVASCRIPT_FILES, ...TYPESCRIPT_FILES], {
+                multilineArraysWrapThreshold: 1,
+                plugins: [multilineArraysPlugin],
+            }),
             ...overrides,
         ],
-        plugins: [
-            ...(isPackageExists('tailwindcss') ? [tailwindcssPlugin] : []),
-            ...plugins,
-        ],
+        plugins: [...(isPackageExists('tailwindcss') ? [tailwindcssPlugin] : []), ...plugins],
         printWidth: 120,
         proseWrap: 'always',
         quoteProps: 'as-needed',
