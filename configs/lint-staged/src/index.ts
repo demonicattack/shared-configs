@@ -29,10 +29,7 @@ const lintStaged = (options: IConfigOptions = {}): string[] => {
 
     if (shFiles.length !== 0) return ["printf '%s\n' \"Script files aren't allowed in src directory\" >&2"];
 
-    const eslintFiles = matchFiles(allStagedFiles, [
-        ...JAVASCRIPT_FILES,
-        ...TYPESCRIPT_FILES,
-    ]);
+    const eslintFiles = matchFiles(allStagedFiles, [...JAVASCRIPT_FILES, ...TYPESCRIPT_FILES]);
     const prettierFiles = matchFiles(allStagedFiles, [
         ...JAVASCRIPT_FILES,
         ...TYPESCRIPT_FILES,

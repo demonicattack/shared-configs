@@ -33,6 +33,7 @@ import { interopDefault, isBoolean } from './utils';
 const defaultPluginRenaming = {
     '@eslint-community/eslint-comments': '@comments',
     '@next/next': '@next',
+    '@susisu/safe-typescript': '@ts-safe',
     '@typescript-eslint': '@ts',
     arca: '@arca',
     'better-mutation': '@mutation',
@@ -295,6 +296,7 @@ const eslint = (
         }
     }
 
+    // eslint-disable-next-line @ts-safe/no-unsafe-object-enum-method
     if (Object.keys(fusedConfig).length !== 0) configs.push([fusedConfig]);
 
     let composer = new FlatConfigComposer<TFlatConfigItem, TConfigNames>();

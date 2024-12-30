@@ -5828,6 +5828,31 @@ export interface RuleOptions {
    */
   '@sonarjs/xpath'?: Linter.RuleEntry<[]>
   /**
+   * Disallow the use of Object.assign()
+   * @see https://github.com/susisu/eslint-plugin-safe-typescript/blob/main/src/rules/no-object-assign/README.md
+   */
+  '@ts-safe/no-object-assign'?: Linter.RuleEntry<[]>
+  /**
+   * Disallow type assertions
+   * @see https://github.com/susisu/eslint-plugin-safe-typescript/blob/main/src/rules/no-type-assertion/README.md
+   */
+  '@ts-safe/no-type-assertion'?: Linter.RuleEntry<[]>
+  /**
+   * Disallow possibly unsafe property enumeration methods of Object
+   * @see https://github.com/susisu/eslint-plugin-safe-typescript/blob/main/src/rules/no-unsafe-object-enum-method/README.md
+   */
+  '@ts-safe/no-unsafe-object-enum-method'?: Linter.RuleEntry<TsSafeNoUnsafeObjectEnumMethod>
+  /**
+   * Disallow possibly unsafe property checks of object
+   * @see https://github.com/susisu/eslint-plugin-safe-typescript/blob/main/src/rules/no-unsafe-object-property-check/README.md
+   */
+  '@ts-safe/no-unsafe-object-property-check'?: Linter.RuleEntry<[]>
+  /**
+   * Disallow possibly unsafe overwrites of object properties
+   * @see https://github.com/susisu/eslint-plugin-safe-typescript/blob/main/src/rules/no-unsafe-object-property-overwrite/README.md
+   */
+  '@ts-safe/no-unsafe-object-property-overwrite'?: Linter.RuleEntry<TsSafeNoUnsafeObjectPropertyOverwrite>
+  /**
    * Require that function overload signatures be consecutive
    * @see https://typescript-eslint.io/rules/adjacent-overload-signatures
    */
@@ -11852,6 +11877,14 @@ type SonarjsVariableName = []|[{
 }]
 // ----- @sonarjs/xml-parser-xxe -----
 type SonarjsXmlParserXxe = []|[("sonar-runtime" | "metric")]
+// ----- @ts-safe/no-unsafe-object-enum-method -----
+type TsSafeNoUnsafeObjectEnumMethod = []|[{
+  allowIndexSignatures?: boolean
+}]
+// ----- @ts-safe/no-unsafe-object-property-overwrite -----
+type TsSafeNoUnsafeObjectPropertyOverwrite = []|[{
+  allowIndexSignatures?: boolean
+}]
 // ----- @ts/array-type -----
 type TsArrayType = []|[{
   

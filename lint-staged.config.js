@@ -4,6 +4,7 @@ export default {
         ...lintStaged({
             allStagedFiles,
             configuration: {
+                prettier: false,
                 eslint: false,
             },
         }),

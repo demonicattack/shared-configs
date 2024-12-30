@@ -56,7 +56,7 @@ const configs = await combine(
     sonarjs(),
 );
 
-const configNames = configs.map(index => index.name).filter(Boolean) as string[];
+const configNames = configs.map(index => index.name).filter(Boolean);
 
 const dts = await flatConfigsToRulesDTS(configs, {
     includeAugmentation: false,

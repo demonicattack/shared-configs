@@ -1,5 +1,6 @@
 // @ts-check
-import { eslint } from '@demonicattack/eslint';
+// eslint-disable-next-line @import/extensions
+import { eslint } from './dist/index.js';
 
 export default eslint({
     /** @default true @node plugin enabled */
@@ -182,8 +183,11 @@ export default eslint({
         },
         overridesTypeAware: {
             /**
-             *  @tsTypeAware @overrides {...}
+             * @ts @overrides {...}
+             * @ts-safe @overrides {...}
+             * ================================================
              * '@ts/await-thenable': 'off',
+             * '@ts-safe/no-object-assign': 'off',
              */
         },
         tsconfigPath: 'tsconfig.json',

@@ -4,6 +4,7 @@ export default {
         allStagedFiles,
         configuration: {
           prettier: false,
+          eslint: false,
         }
      }),
 };

@@ -10,7 +10,8 @@ import type {
 } from '../types';
 import { interopDefault, renameAndFilterRules } from '../utils';
 
-import type { ParserOptions } from '@typescript-eslint/parser';
+// import { eslintSafeTsPlugin } from '../plugins';
+import eslintSafeTsPlugin from '@susisu/eslint-plugin-safe-typescript';
 
 const typescript = async (
     options: IOptionsComponentExtensions &
@@ -38,6 +39,9 @@ const typescript = async (
     const isTypeAware = Boolean(tsconfigPath);
 
     const typeAwareRules: TFlatConfigItem['rules'] = {
+        ...renameAndFilterRules(eslintSafeTsPlugin.configs.recommended.rules ?? {}, {
+            '@susisu/safe-typescript': '@ts-safe',
+        }),
         '@ts/adjacent-overload-signatures': 'error',
         '@ts/array-type': 'error',
         '@ts/await-thenable': 'error',
@@ -151,7 +155,7 @@ const typescript = async (
                     }
                 :   {}),
                 ...parserOptions,
-            } as ParserOptions,
+            },
         },
     });
 
@@ -163,6 +167,7 @@ const typescript = async (
             name: '@demonicattack/@ts/setup',
             plugins: {
                 ['@ts']: tsPlugin,
+                ['@ts-safe']: eslintSafeTsPlugin,
             },
         },
         ...(isTypeAware ?
