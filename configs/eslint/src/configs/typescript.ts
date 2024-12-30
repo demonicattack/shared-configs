@@ -1,4 +1,5 @@
 import { noUnusedVariablesOptions, TYPESCRIPT_FILES } from '../constants';
+import { eslintSafeTsPlugin } from '../plugins';
 import type {
     IOptionsComponentExtensions,
     IOptionsFiles,
@@ -157,12 +158,14 @@ const typescript = async (
 
     const recommendedRules = tsPlugin.configs['eslint-recommended']?.overrides?.[0]?.rules;
     const strictRules = tsPlugin.configs.strict?.rules;
+    const safeRules = eslintSafeTsPlugin.configs.recommended.rules;
 
     return [
         {
             name: '@demonicattack/@ts/setup',
             plugins: {
                 ['@ts']: tsPlugin,
+                ['@ts-safe']: eslintSafeTsPlugin,
             },
         },
         ...(isTypeAware ?
@@ -235,6 +238,9 @@ const typescript = async (
                     files: filesTypeAware,
                     ignores: ignoresTypeAware,
                     rules: {
+                        ...renameAndFilterRules(safeRules ?? {}, {
+                            '@susisu/safe-typescript': '@ts-safe',
+                        }),
                         ...typeAwareRules,
                         ...overridesTypeAware,
                     },

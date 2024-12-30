@@ -8,6 +8,6 @@ export default defineConfig({
     minify: true,
     outDir: 'dist',
     sourcemap: true,
-    target: 'esnext',
+    target: 'esnext', 
     tsconfig: 'tsconfig.json',
 });

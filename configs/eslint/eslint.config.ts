@@ -176,7 +176,10 @@ export default eslint({
         overrides: {
             /**
              *  @ts @overrides {...}
+             *  @ts-safe @overrides {...}
+             * ================================================
              * '@ts/no-array-constructor': 'off',
+             * '@ts-safe/no-object-assign': 'error',
              */
         },
         overridesTypeAware: {

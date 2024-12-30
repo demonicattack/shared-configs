@@ -33,6 +33,7 @@ import { interopDefault, isBoolean } from './utils';
 const defaultPluginRenaming = {
     '@eslint-community/eslint-comments': '@comments',
     '@next/next': '@next',
+    '@susisu/safe-typescript': '@ts-safe',
     '@typescript-eslint': '@ts',
     arca: '@arca',
     'better-mutation': '@mutation',

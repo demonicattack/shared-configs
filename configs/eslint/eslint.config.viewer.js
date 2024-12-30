@@ -1,5 +1,6 @@
 // @ts-check
-import { eslint } from '@demonicattack/eslint';
+// eslint-disable-next-line @import/extensions
+import { eslint } from './dist/index.js';
 
 export default eslint({
     /** @default true @node plugin enabled */

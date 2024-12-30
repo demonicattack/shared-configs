@@ -1,7 +1,12 @@
 // eslint-disable-next-line @sonarjs/deprecation
-import { builtinRules } from 'eslint/use-at-your-own-risk';
+// import { builtinRules } from 'eslint/use-at-your-own-risk';
 import { flatConfigsToRulesDTS } from 'eslint-typegen/core';
 import { writeFile } from 'node:fs/promises';
+import { createRequire } from 'node:module'
+
+let builtinRules;
+const require = createRequire(import.meta.url);
+builtinRules = require('eslint/use-at-your-own-risk').builtinRules;
 
 import {
     arca,
@@ -30,7 +35,7 @@ const configs = await combine(
     {
         plugins: {
             '': {
-                // eslint-disable-next-line @sonarjs/deprecation
+                // eslint-disable-next-line @sonarjs/deprecation, @ts/no-unsafe-call
                 rules: Object.fromEntries(builtinRules.entries()),
             },
         },

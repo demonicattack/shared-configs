@@ -1,5 +1,5 @@
 // @ts-check
-import { eslint } from '@demonicattack/eslint';
+import { eslint } from './dist/index.js';
 
 export default eslint({
     /** @default true @node plugin enabled */
