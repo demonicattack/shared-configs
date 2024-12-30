@@ -3510,7 +3510,8 @@
     {
       "name": "@demonicattack/@ts/setup",
       "plugins": {
-        "@ts": {}
+        "@ts": {},
+        "@ts-safe": {}
       },
       "index": 24
     },
@@ -3644,6 +3645,11 @@
         "**/*.md"
       ],
       "rules": {
+        "@ts-safe/no-object-assign": "error",
+        "@ts-safe/no-type-assertion": "error",
+        "@ts-safe/no-unsafe-object-enum-method": "error",
+        "@ts-safe/no-unsafe-object-property-check": "error",
+        "@ts-safe/no-unsafe-object-property-overwrite": "error",
         "@ts/adjacent-overload-signatures": "error",
         "@ts/array-type": "error",
         "@ts/await-thenable": "error",
@@ -21779,6 +21785,54 @@
       "name": "@ts/use-unknown-in-catch-callback-variable",
       "plugin": "@ts"
     },
+    "@ts-safe/no-object-assign": {
+      "type": "suggestion",
+      "docs": {
+        "description": "Disallow the use of Object.assign()",
+        "url": "https://github.com/susisu/eslint-plugin-safe-typescript/blob/main/src/rules/no-object-assign/README.md"
+      },
+      "name": "@ts-safe/no-object-assign",
+      "plugin": "@ts-safe"
+    },
+    "@ts-safe/no-type-assertion": {
+      "type": "suggestion",
+      "docs": {
+        "description": "Disallow type assertions",
+        "url": "https://github.com/susisu/eslint-plugin-safe-typescript/blob/main/src/rules/no-type-assertion/README.md"
+      },
+      "name": "@ts-safe/no-type-assertion",
+      "plugin": "@ts-safe"
+    },
+    "@ts-safe/no-unsafe-object-enum-method": {
+      "type": "suggestion",
+      "docs": {
+        "description": "Disallow possibly unsafe property enumeration methods of Object",
+        "requiresTypeChecking": true,
+        "url": "https://github.com/susisu/eslint-plugin-safe-typescript/blob/main/src/rules/no-unsafe-object-enum-method/README.md"
+      },
+      "name": "@ts-safe/no-unsafe-object-enum-method",
+      "plugin": "@ts-safe"
+    },
+    "@ts-safe/no-unsafe-object-property-check": {
+      "type": "suggestion",
+      "docs": {
+        "description": "Disallow possibly unsafe property checks of object",
+        "requiresTypeChecking": true,
+        "url": "https://github.com/susisu/eslint-plugin-safe-typescript/blob/main/src/rules/no-unsafe-object-property-check/README.md"
+      },
+      "name": "@ts-safe/no-unsafe-object-property-check",
+      "plugin": "@ts-safe"
+    },
+    "@ts-safe/no-unsafe-object-property-overwrite": {
+      "type": "suggestion",
+      "docs": {
+        "description": "Disallow possibly unsafe overwrites of object properties",
+        "requiresTypeChecking": true,
+        "url": "https://github.com/susisu/eslint-plugin-safe-typescript/blob/main/src/rules/no-unsafe-object-property-overwrite/README.md"
+      },
+      "name": "@ts-safe/no-unsafe-object-property-overwrite",
+      "plugin": "@ts-safe"
+    },
     "@eslint-react/avoid-shorthand-boolean": {
       "type": "problem",
       "docs": {
@@ -25833,7 +25887,7 @@
     }
   ],
   "meta": {
-    "lastUpdate": 1735496103728,
+    "lastUpdate": 1735591654158,
     "basePath": "",
     "configPath": ""
   }
