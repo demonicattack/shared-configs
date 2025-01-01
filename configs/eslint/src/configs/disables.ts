@@ -50,6 +50,13 @@ const disables = async (): Promise<TFlatConfigItem[]> => [
             '@react/react-in-jsx-scope': 'off',
         },
     },
+    {
+        name: '@demonicattack/@disables/unicorn',
+        files: ['vite-env.d.ts'],
+        rules: {
+            '@unicorn/prevent-abbreviations': 'off',
+        },
+    },
 ];
 
 export { disables };

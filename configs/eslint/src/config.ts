@@ -159,7 +159,9 @@ const eslint = (
     if (enableArca) {
         configs.push(
             arca({
+                ...isSubOptions(options, 'arca'),
                 overrides: getOverrides(options, 'arca'),
+                react: isPackageExists('react'),
             }),
         );
     }
