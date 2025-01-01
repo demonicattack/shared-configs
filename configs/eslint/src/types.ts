@@ -62,6 +62,10 @@ interface IOptionsImport {
     typescript?: boolean;
 }
 
+interface IArca {
+    react?: boolean;
+}
+
 interface IOptionsReact {
     a11y?: boolean | TFlatConfigItem['rules'];
     airbnb?: boolean | TFlatConfigItem['rules'];
@@ -91,7 +95,7 @@ interface IOptionsConfig extends IOptionsComponentExtensions, IOptionsProjectTyp
     /**
      * By default, the plugins is disabled
      */
-    arca?: boolean | IOptionsOverrides;
+    arca?: boolean | (IArca & IOptionsOverrides);
     /**
      * Rename plugins
      */
@@ -142,6 +146,7 @@ interface IOptionsConfig extends IOptionsComponentExtensions, IOptionsProjectTyp
 
 export type {
     Awaitable,
+    IArca,
     IOptionsComponentExtensions,
     IOptionsConfig,
     IOptionsFiles,

@@ -20,6 +20,8 @@ export default eslint({
              * '@arca/curly': 'error',
              */
         },
+        /** @default auto add react rules */
+        react: true,
     },
     /** @default true @comments plugin enabled */
     comments: {

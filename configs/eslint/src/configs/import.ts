@@ -1,13 +1,11 @@
 import { eslintImportPlugin, eslintSimpleImportSortPlugin } from '../plugins';
 import type { IOptionsImport, IOptionsOverrides, TFlatConfigItem } from '../types';
-import { interopDefault, renameAndFilterRules } from '../utils';
+import { renameAndFilterRules } from '../utils';
 
 import { airbnbBaseImports } from './airbnb';
 
 const imrt = async (options: IOptionsImport & IOptionsOverrides = {}): Promise<TFlatConfigItem[]> => {
     const { airbnb = false, overrides = {}, recommended = true, typescript = false } = options;
-
-    const tsParser = await interopDefault(import('@typescript-eslint/parser'));
 
     const recommendedRules = renameAndFilterRules(eslintImportPlugin.flatConfigs.recommended.rules, {
         import: '@import',
@@ -93,7 +91,7 @@ const imrt = async (options: IOptionsImport & IOptionsOverrides = {}): Promise<T
                 ...(airbnb ? airbnbBaseImports.settings : {}),
                 'import/extensions': ['.js', '.jsx', ...(typescript ? ['.ts', '.tsx'] : [])],
                 'import/parsers': {
-                    [tsParser.meta.name]: ['.ts', '.tsx', '.d.ts'],
+                    '@typescript-eslint/parser': ['.ts', '.tsx', '.d.ts'],
                 },
                 'import/resolver': {
                     node: {
