@@ -2377,7 +2377,6 @@
       "rules": {
         "@arca/curly": "error",
         "@arca/import-quotes": "error",
-        "@arca/jsx-import-react": "error",
         "@arca/jsx-longhand-props": "error",
         "@arca/jsx-no-string-styles": "error",
         "@arca/melted-constructs": "error",
@@ -2675,7 +2674,7 @@
           "\\.(coffee|scss|css|less|hbs|svg|json)$"
         ],
         "import/parsers": {
-          "typescript-eslint/parser": [
+          "@typescript-eslint/parser": [
             ".ts",
             ".tsx",
             ".d.ts"
@@ -4728,6 +4727,16 @@
         "@react/react-in-jsx-scope": "off"
       },
       "index": 35
+    },
+    {
+      "name": "@demonicattack/@disables/unicorn",
+      "files": [
+        "vite-env.d.ts"
+      ],
+      "rules": {
+        "@unicorn/prevent-abbreviations": "off"
+      },
+      "index": 36
     }
   ],
   "rules": {
@@ -25887,7 +25896,7 @@
     }
   ],
   "meta": {
-    "lastUpdate": 1735591654158,
+    "lastUpdate": 1735749410114,
     "basePath": "",
     "configPath": ""
   }
